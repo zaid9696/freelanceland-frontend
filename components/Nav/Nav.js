@@ -75,8 +75,8 @@ const Nav = (props) => {
                   <img src={searchIcon.src} alt='Search icon' />
                 </div>
             </div>
-            <LoggedIn />
-            {/* <LoginRegisterBtns /> */}
+           { /* <LoggedIn /> */}
+            {<LoginRegisterBtns /> }
         </div>
     </NavStyles>
   )

@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
 		--green: #219653;
 		--orange: #F79E1B;
 		--tranhover: all 0.6s cubic-bezier(0.42, 0, 0, 0.63);
+		--shadow: 0px 3px 5px 1px #02020238;
 	}
 
 	html {

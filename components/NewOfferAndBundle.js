@@ -1,15 +1,4 @@
 import styled from 'styled-components';
-// Hide input checkbox
-// position: absolute;
-    // z-index: -1;
-    // opacity: 0;
-// }
-
-
-
-
-
-
 
 
 import bg from '../assets/background.svg';

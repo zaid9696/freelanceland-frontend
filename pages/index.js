@@ -3,8 +3,13 @@ import Image from 'next/image';
 
 import Hero from '../components/Hero';
 import NewOfferAndBundle from '../components/NewOfferAndBundle';
+import BundleFilters from '../components/BundleFilters';
 import Info from '../components/Info/Info';
 import Bundles from '../components/Bundles/Bundles';
+import BundleCategory from '../components/BundleCategory';
+import Dashboard from '../components/Dashboard/Dashboard';
+import Profile from '../components/Profile';
+import Panel from '../components/Panel/Panel';
 
 import userAvatar from '../assets/userAvatar.jpg';
 import userAvatar2 from '../assets/userAvatar2.png';
@@ -40,11 +45,18 @@ const Dummy_Bundles = [
 
 ]
 
+
+
 export default function Home() {
   return (
       <>
-        {/*<Hero /> */}
-        <NewOfferAndBundle />
+        {<Hero />}
+        {/*<NewOfferAndBundle />*/}
+        {/*<BundleFilters /> */}
+        {/*<BundleCategory title={'Web Programming'} items={Dummy_Bundles} /> */}
+        {/* <Dashboard /> */}
+        {/* <Profile bundles={Dummy_Bundles} /> */}
+        {/*<Panel />*/}
         <Info />
         <Bundles title='Top Rated Bundles' desc='- Best Sellers' bundleItems={Dummy_Bundles} />
         <Bundles title='Latest Bundles' desc='- New Arrivals' bundleItems={Dummy_Bundles} />
