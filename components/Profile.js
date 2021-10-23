@@ -6,7 +6,7 @@ import DashboardUser from './Dashboard/DashboardUser';
 import BundleItems from './Bundles/BundleItems';
 import starIcon from '../assets/icons/star.svg';
 import userAvatar from '../assets/userAvatar.jpg';
-import RatingStar from '../utils/RatingStar';
+import RatingStar from './UI/RatingStar';
 
 const ProfileStyles = styled.div`
 

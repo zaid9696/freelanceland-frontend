@@ -7,7 +7,7 @@ const HeaderStyles = styled.header`
   
     grid-column: full-start / full-end;
     background: var(--main);
-    padding: 1.4rem 0px;
+    padding: 1.8rem 0px;
 
 `;
 

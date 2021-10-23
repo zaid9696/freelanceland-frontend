@@ -4,7 +4,7 @@ import Link from 'next/link';
 import userAvatar from '../../assets/userAvatar.jpg';
 import starIcon from '../../assets/icons/star.svg';
 import DashboardUserStyles from '../../styles/DashboardUserStyles';
-import RatingStar from '../../utils/RatingStar'
+import RatingStar from '../UI/RatingStar'
 
 const AdditionalInfo = ({}) => {
 

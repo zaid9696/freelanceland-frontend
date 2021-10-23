@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import starIcon from '../assets/icons/star.svg';
+import starIcon from '../../assets/icons/star.svg';
 
 const RatingStar = ({width, height, rating}) => {
   return (

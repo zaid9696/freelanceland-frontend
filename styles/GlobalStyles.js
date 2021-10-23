@@ -4,7 +4,7 @@ import {createGlobalStyle} from 'styled-components';
 const GlobalStyles = createGlobalStyle`
 
 	:root{
-		--red: red;
+		--red: #e30000;
 		--main: #634CC2;
 		--secondary: #F8F8F9
 		--third: #FEFEFE;
@@ -54,6 +54,16 @@ const GlobalStyles = createGlobalStyle`
 			border-radius: 50%;
 		}
 	}
+
+	
+    div.error {
+
+    	color: red;
+    	margin-top: 5px;
+    	margin-left: 2rem;
+    	position: relative;
+    	top: -14px;
+    }
 
 `;
 
