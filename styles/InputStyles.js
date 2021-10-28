@@ -1,5 +1,42 @@
 import styled from 'styled-components';
 
+export const SubmitButtonStyles = styled.button` 
+
+    align-self: center;
+    padding: 0.8rem 3rem;
+    background: var(--main);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: 2px solid transparent;
+    border-radius: 40px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    transition: var(--tranhover);
+    &:hover {
+
+      background: transparent;
+      color: var(--main);
+      border-color: var(--main);
+
+    }
+    &:disabled {
+      border-color: transparent;
+      color: #898989;
+      background: #c9c9c9;
+      box-shadow: 0px 0px 4px 1px #02020221;
+    }
+
+`
+
+export const InputPasswordIconsStyles = styled.div`
+  
+    position: absolute;
+    top: 13.6%;
+    right: 11%;
+
+`;
+
 export const InputRadioWrapStyles = styled.div`
 
     display: flex;
@@ -25,7 +62,7 @@ export const InputRadioWrapStyles = styled.div`
 
 `
 
-export const SignUpFormStyles = styled.div`
+export const FormStyles = styled.div`
 	
     width: 50%;
     margin: auto;
@@ -57,8 +94,11 @@ export const LabelStyles = styled.label`
 
 `;
 
-export const InputFieldStyles = styled.input`
+export const InputFieldStyles = styled.div`
     
+    margin-left: 1.8rem;
+    position: relative;
+      input {
 
       width: 86%;
       align-self: center;
@@ -70,7 +110,12 @@ export const InputFieldStyles = styled.input`
       &.input-invalid {
 
       outline-color: var(--red);
-      border: 1px solid var(--red);
+      border: 1px solid var(--red)
+
+      }
+
+      
+      // position: relative;
 
   }
 `

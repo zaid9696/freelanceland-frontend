@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import {useContext} from 'react';
 
 import logo from '../../assets/icons/nav/logo.png';
 import searchIcon from '../../assets/icons/nav/search.svg';
 import LoginRegisterBtns from './LoginRegisterBtns';
 import LoggedIn from './LoggedIn';
+import {AuthContext} from '../../context/AuthContext';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 const NavStyles = styled.nav`
 
@@ -61,7 +64,12 @@ const NavStyles = styled.nav`
 `;
 
 const Nav = (props) => {
+
+  const auth = useContext(AuthContext);
+
   return (
+    <>
+    {auth.isLoggedLoading && <LoadingSpinner />}
     <NavStyles className='sub_container'>
         <div className='nav'>
             <Link className='img' href='/'>
@@ -75,10 +83,11 @@ const Nav = (props) => {
                   <img src={searchIcon.src} alt='Search icon' />
                 </div>
             </div>
-           { /* <LoggedIn /> */}
-            {<LoginRegisterBtns /> }
+           { auth.isLogged && <LoggedIn /> }
+           { !auth.isLogged && <LoginRegisterBtns /> }
         </div>
     </NavStyles>
+    </>
   )
 }
 

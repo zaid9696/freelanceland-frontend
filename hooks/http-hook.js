@@ -17,6 +17,7 @@ const useHttpAxios = () => {
 				const res = await axios({
 				method,
 				url,
+				withCredentials: true,
 				data
 				});
 
