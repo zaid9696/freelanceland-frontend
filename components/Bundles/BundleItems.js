@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import starIcon from '../../assets/icons/star.svg';
+import bundleImage from '../../assets/bundleImage.png';
+import userAvatar from '../../assets/userAvatar.jpg';
 
 const BundlesItemsStyles = styled.div`
   
@@ -104,33 +106,33 @@ const BundlesItems = ({item}) => {
   return (
     <BundlesItemsStyles>
     	<div className='bundle-img'>
-    		<Image height={180} width={303}  src={item.image} alt='Bunlde Image' />
+    		<Image height={180} width={303}  src={bundleImage} alt='Bunlde Image' />
     	</div>
       <div className='line'>
-    	   <h3>{item.name}</h3>
+    	   <Link href={`/bundle/${item.id}/${item.slug}`}><a><h3>{item.title}</h3></a></Link>
       </div>
     	<div className='bundle-content'>
         <div className='line'>
          <div className='bundle-wrap'>
       		<div className='bundle-user'>
       			<div className='bundle-user-img'>
-      				<Image width={40} height={40} src={item.userAvatar} />
+      				<Image width={40} height={40} src={userAvatar} />
       			</div>
             <div className='bundle-user-name'> 
         			<Link href='/'>
-        				<a>{item.userName}</a>
+        				<a>{'Zaid96'}</a>
         			</Link>
             </div>
       		</div>
         
         		<div className='bundle-info'> 
         			<div className='bundle-reviews'>
-        				<div><Image width={17} height={17} src={starIcon} alt='Star Icon' /> <span className='rating'>{item.rating}</span> </div>
-        				<span className='reviews-num'>({item.reviews})</span>
+        				<div><Image width={17} height={17} src={starIcon} alt='Star Icon' /> <span className='rating'>{4.50}</span> </div>
+        				<span className='reviews-num'>({5})</span>
         			</div>
         			<span className='category'>
         				<Link href='/'>
-        					<a>{item.category}</a>
+        					<a>{'Web Programming'}</a>
         				</Link>
         			</span>
         		</div>

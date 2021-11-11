@@ -9,6 +9,13 @@ const HeaderStyles = styled.header`
     background: var(--main);
     padding: 1.8rem 0px;
 
+    @media (max-width: 1000px) {
+
+       display: none !important;
+
+        
+    }
+
 `;
 
 const Header = (props) => {

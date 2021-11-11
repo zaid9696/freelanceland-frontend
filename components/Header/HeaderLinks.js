@@ -9,12 +9,20 @@ const HeaderLinksStyles = styled.ul`
   text-align: center;
   gap: 1.4rem;
   align-items: center;
+  
+
+
 	li {
 		background: #fff;
 	    padding: 1.1rem;
 	    border-radius: 30px;
 	    font-weight: 600;
 	    font-size: 0.7rem;
+	     @media (max-width: 1115px) {
+
+	    		font-size: 0.5rem;
+        
+    		}
     	transition: var(--tranhover);
 	    &:hover{
 	    	box-shadow: 0px 0px 8px 3px #d7d7d74f;
@@ -29,9 +37,9 @@ const HeaderLinksStyles = styled.ul`
 `
 
 
-const HeaderLinks = (props) => {
+const HeaderLinks = ({className}) => {
   return (
-    <HeaderLinksStyles>
+    <HeaderLinksStyles className={className}>
     	<li>
     		<Link href='/'>
     			<a>

@@ -8,7 +8,7 @@ import Info from '../components/Info/Info';
 import Bundles from '../components/Bundles/Bundles';
 import BundleCategory from '../components/BundleCategory';
 import Dashboard from '../components/Dashboard/Dashboard';
-import Profile from '../components/Profile';
+import Profile from '../components/Profile/Profile';
 import Panel from '../components/Panel/Panel';
 
 import userAvatar from '../assets/userAvatar.jpg';
@@ -23,7 +23,7 @@ const Dummy_Bundles = [
     reviews: 3,
     rating: '5.0',
     id: 1,
-    name: 'I create a modern and responsive website using the best technology',
+    title: 'I create a modern and responsive website using the best technology',
     image: bundleImage,
     userAvatar,
     price: 100,
@@ -35,7 +35,7 @@ const Dummy_Bundles = [
     reviews: 5,
     rating: '4.5',
     id: 2,
-    name: 'I create a modern and I will edit your youtube video',
+    title: 'I create a modern and I will edit your youtube video',
     image: image2,
     userAvatar: userAvatar2,
     price: 400,
@@ -47,7 +47,10 @@ const Dummy_Bundles = [
 
 
 
-export default function Home() {
+export default function Home({data}) {
+ 
+  console.log(data.bundles);
+  // console.log(data.bundles[0]._id);
   return (
       <>
         {<Hero />}
@@ -55,11 +58,26 @@ export default function Home() {
         {/*<BundleFilters /> */}
         {/*<BundleCategory title={'Web Programming'} items={Dummy_Bundles} /> */}
         {/* <Dashboard /> */}
-        {/* <Profile bundles={Dummy_Bundles} /> */}
+        { <Profile bundles={data.bundles} /> }
         {/*<Panel />*/}
         <Info />
-        <Bundles title='Top Rated Bundles' desc='- Best Sellers' bundleItems={Dummy_Bundles} />
-        <Bundles title='Latest Bundles' desc='- New Arrivals' bundleItems={Dummy_Bundles} />
+        <Bundles  title='Top Rated Bundles' desc='- Best Sellers' bundleItems={data.bundles} />
+        <Bundles title='Latest Bundles' desc='- New Arrivals' bundleItems={data.bundles} />
       </>
   )
+}
+
+
+export async function getStaticProps(context) {
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles`);
+    const result = await res.json();
+
+    return {
+
+      props: {
+        data: result
+      }
+    }
+
 }

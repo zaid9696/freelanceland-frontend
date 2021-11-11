@@ -22,10 +22,10 @@ const useAuthHook = (props) => {
 
 			console.log(res);
 
-			setResult(null);
 			setIsLogged(false);
+			setResult(null);
 		}catch(e) {
-
+			setIsLogged(false);
 			console.log(e)
 		}
 
@@ -41,7 +41,7 @@ const useAuthHook = (props) => {
 			setIsLoggedLoading(true);
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/isloggedin`);
 
-
+			// console.log(res);
 			if(res.data.noToken){
 				setIsLogged(false);
 				setIsLoggedLoading(false);

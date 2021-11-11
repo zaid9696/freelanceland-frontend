@@ -32,18 +32,24 @@ const DashboardUserStyles = styled.div`
 
     }
 
+    .user-country {
+
+      margin-bottom: 5px;
+
+    }
+
     .user-data {
         display: flex;
-        .user-imgs{
-            margin-right: 0.5rem;
-            span.inactve {
-                filter: grayscale(1);
-            }
-        }
+       
     }
 
     .user-reviews {
       font-size:0.9rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      position: relative;
+      right: 5px;
+      top: 1.3px;
     }
 	 
    .user-numbers {
@@ -123,6 +129,15 @@ const DashboardUserStyles = styled.div`
       padding: 0.6rem 1.2rem;
       border: navajowhite;
       border-radius: 3px;
+
+      &.contact {
+
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 0.7rem 1.2rem;
+
+      }
+
       a {
          color: inherit;
       }
@@ -147,6 +162,7 @@ const DashboardUserStyles = styled.div`
           p {
               font-size: 0.9rem;
               margin: 0;
+              font-weight: 600;
           }
       }
 

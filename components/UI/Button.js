@@ -1,34 +1,39 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
+const ButtonStyles = styled.button`
 
-const HrefStyles = styled.a`
+		font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: var(--main);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
 
-	background: rebeccapurple
-
+    a{
+      color: inherit;
+    }
 `
 
-const Button = ({href, link, children, onClick, type}) => {
 
-	if(href && !link) {
+const Button = ({type, onClick, className, href ,children}) => {
 
-		return (
+  if(href){
 
-			<a>{children}</a>
-		)
-	}
+      return (
 
-	if(href && link) {
+            <ButtonStyles  type={type} className={className} onClick={onClick}>
+                    <Link href={href}><a>{children}</a></Link>
+            </ButtonStyles>
 
-		return (
+        )
 
-			<Link href={href}><HrefStyles>{children} wiw</HrefStyles></Link>
-		)
-	}
-
+  }
 
   return (
-    <button type={type} onClick={onClick}>{children}</button>
+    <ButtonStyles type={type} className={className} onClick={onClick}>{children}</ButtonStyles>
   )
 }
 

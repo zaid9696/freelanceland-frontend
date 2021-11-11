@@ -53,6 +53,14 @@ const GlobalStyles = createGlobalStyle`
 		img {
 			border-radius: 50%;
 		}
+
+		&.shadow:first-child {
+
+			box-shadow: 0px 1px 7px 2px #02020226;
+			border-radius: 50%;
+		}
+
+		
 	}
 
 	

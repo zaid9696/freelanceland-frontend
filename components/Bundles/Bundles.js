@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import Link from 'next/link';
+
 import BundlesItems from './BundleItems';
 
 const BundlesStyles = styled.div`
 
 	grid-column: center-start / center-end;	
 	position: relative;
-	.bundles-title {
+	.bundles-title, .bundles-title2 {
 
 		display: flex;
 		align-items: baseline;
@@ -18,6 +20,8 @@ const BundlesStyles = styled.div`
 		  letter-spacing: 1px;
 		  margin-top: 5rem;
 		}
+
+
 		span {
 			font-size: 1.5rem;
 		    margin-left: 5px;
@@ -26,6 +30,25 @@ const BundlesStyles = styled.div`
 		    position: relative;
 		    top: -2px;
 		}
+	}
+
+	.bundles-title2 {
+
+			h2 {
+				color: var(--black);
+				font-size: 2rem;
+			}
+
+			span {
+
+				a {
+					  font-size: 1.7rem;
+				    font-weight: 500;
+				    color: var(--main);
+
+				}
+
+			}
 	}
 
 	.bundle-items {
@@ -71,13 +94,19 @@ const BundlesStyles = styled.div`
 
 
 
-const Bundles = ({title, desc, bundleItems}) => {
+const Bundles = ({title, desc, bundleItems, hide}) => {
   return (
     <BundlesStyles>
-    	<div className='bundles-title'>
-    		<h2>{title}</h2>
-    		<span>{desc}</span>
-    	</div>
+    {
+    	hide && <div className='bundles-title2'>
+    						<h2>{title}</h2>
+    						<span><Link href={`/${desc}`}><a>{desc}</a></Link></span>
+    					</div>
+    }
+    	{ !hide && <div className='bundles-title'>
+    	    		<h2>{title}</h2>
+    	    		<span>{desc}</span>
+    	    	</div>}
     	<span className='title-line'></span>
     	<div className='bundle-items'>
     		{bundleItems.map(item => <BundlesItems key={item.id} item={item} />)}

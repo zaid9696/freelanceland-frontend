@@ -1,6 +1,7 @@
 import GlobalStyles from '../styles/GlobalStyles';
 import styled from 'styled-components';
 import Nav from './Nav/Nav';
+import NavMobile from './NavMobile';
 import Header from './Header/Header';
 import Footer from './Footer/Footer'
 import 'normalize.css';
@@ -20,6 +21,7 @@ const Layout = ({children}) => {
       <Wrapper>
         
       	<Nav />
+        <NavMobile />
         <Header />
       	{children}
       	<Footer />

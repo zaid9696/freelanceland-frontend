@@ -39,11 +39,10 @@ const LoginRegisterBtnsStyles = styled.div`
 
 const LoginRegisterBtns = (props) => {
 
-  const auth = useContext(AuthContext);
 
   return (
     <LoginRegisterBtnsStyles>
-    	<button type='button' onClick={auth.logout}>Login</button>
+    	<button type='button'>Login</button>
     	<button type='button'>Register</button>
     </LoginRegisterBtnsStyles>
   )

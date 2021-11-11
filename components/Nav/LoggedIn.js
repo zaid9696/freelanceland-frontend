@@ -41,6 +41,8 @@ const LoggedInStyles = styled.div`
         }
       }
 
+     
+
       .dropdown-content {
 
         position: absolute;
@@ -121,6 +123,8 @@ const LoggedInStyles = styled.div`
         }
     }
 
+    
+
 `;
 
 const LoggedIn = (props) => {
@@ -130,6 +134,7 @@ const LoggedIn = (props) => {
   const userAuth = auth.userAuth;
 
   const dropdownHandler = () => setShowDrop(prev => !prev);
+
 
   return (
     <LoggedInStyles>
@@ -144,6 +149,7 @@ const LoggedIn = (props) => {
     			<span>$900</span>
     		</div>
     	</div>
+    
       <div className='dropdown-wrap'>
       	<div className={`dropdown ${showDrop ? 'active' : ''}`} onClick={dropdownHandler}>
       		<Image src={arrowDownIcon} alt='Arrow Down Icon' />
@@ -158,12 +164,12 @@ const LoggedIn = (props) => {
 
             >
           
-                    <ul>
-                      <li><Link href='#'><a><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
-                      <li><Link href='#'><a><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
-          
-                    </ul>
-                    <button type='button'>Logout</button>
+              <ul>
+                <li><Link href='#'><a><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
+                <li><Link href='#'><a><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
+    
+              </ul>
+                    <button type='button' onClick={auth.logout}>Logout</button>
                       
                     </motion.div>}
         </AnimatePresence>

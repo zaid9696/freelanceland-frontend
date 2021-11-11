@@ -15,6 +15,12 @@ const NavStyles = styled.nav`
   display: grid;
   grid-column: full-start / full-end;
   
+  @media (max-width: 1000px) {
+
+        display: none !important;
+        
+  }
+
   & .nav {
     display: grid;
     grid-template-columns: 1fr 50% 1fr;

@@ -2,40 +2,19 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import DashboardUser from './Dashboard/DashboardUser';
-import BundleItems from './Bundles/BundleItems';
-import starIcon from '../assets/icons/star.svg';
-import userAvatar from '../assets/userAvatar.jpg';
-import RatingStar from './UI/RatingStar';
+import RatingStar from '../UI/RatingStar';
+import userAvatar from '../../assets/userAvatar.jpg';
 
-const ProfileStyles = styled.div`
 
-	grid-column: center-start / center-end;
-	display: grid;
-    grid-template-columns: 26% 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
+const ReviewProfile = styled.div`
 
-    	h2 {
+			h2 {
     		font-size: 1.7rem;
 		    border-bottom: 1px solid #634cc226;
 		    padding-bottom: 5px;
     	}
-    .user-profile-bundles {
 
-
-    	&-items {
-
-    		display: grid;
-		    grid-template-columns: 1fr 1fr 1fr;
-		    gap: 2rem;
-    	}
-
-    }
-
-    .user-profile-reviews {
-
-    	.user-profile-review{
+    .user-profile-review{
     		padding: 1rem;
 		    background: whitesmoke;
 		    box-shadow: 0px 1px 6px 1px #02020224;
@@ -50,6 +29,7 @@ const ProfileStyles = styled.div`
         	display: flex;
 		    justify-content: center;
 		    align-items: center;
+		    margin: 1rem 0;
 
         	&-num {
 
@@ -69,9 +49,9 @@ const ProfileStyles = styled.div`
         .review {
 
         	display: flex;
-        	  margin-bottom: 1.3rem;
-				    border-bottom: 1px solid #634cc252;
-				    padding-bottom: 5px;
+        	margin-bottom: 2.3000000000000007rem;
+		    border-bottom: 1px solid #634cc252;
+		    padding-bottom: 5px;
 
         	&-info {
         		display: flex;
@@ -94,7 +74,7 @@ const ProfileStyles = styled.div`
         		span.num {
         			font-size: 16px;
 				    font-weight: 100;
-				    margin-left: 4px;
+				    margin-left: -5px;
 				    margin-right: 14px;
         		}
 
@@ -104,28 +84,30 @@ const ProfileStyles = styled.div`
 					margin-left: 10px;
 					font-weight: 100;
 				}
+				span {
+
+				margin-left: 10px;
+			    font-weight: 100;
+			    font-size: 0.8rem;
+				}
 			}
 
-        }
+			.review-stars {
 
+				display: flex;
+
+			}
 
     }
 
+ 
+  
 `;
 
-const Profile = ({bundles}) => {
+const Reviews = (props) => {
   return (
-    <ProfileStyles>
-    	<DashboardUser />
-    	<div className='user-profile'>
-    		<div className='user-profile-bundles'>
-    			<h2>Bundles</h2>
-    			<div className='user-profile-bundles-items'>
-    				{bundles.map(item => <BundleItems key={item.id} item={item} />)}
-    			</div>
-    		</div>
-
-    		<div className='user-profile-reviews'>
+    	
+    	<ReviewProfile className='user-profile-reviews'>
     			<h2>Reviews</h2>
     			<div className='user-profile-review'>
     				<div className='rating'>
@@ -143,7 +125,7 @@ const Profile = ({bundles}) => {
     				<div className='review-info'>
     					<div className='review-info-rating'>
     						<Link href={`#`}><a>Zaid96</a></Link>
-    						<div>
+    						<div className='review-stars'>
     						<RatingStar width={15} height={15} rating={5} />
     							<span className='num'>5.0</span>
     						</div>
@@ -151,6 +133,7 @@ const Profile = ({bundles}) => {
 
     					<div className='review-info-message'>
     						<p>replies fast and fixed all issues, highly recommended</p>
+    						<span>Since 3 months</span>
     					</div>
     				</div>
     			</div>
@@ -195,10 +178,9 @@ const Profile = ({bundles}) => {
 
 
     			</div>
-    		</div>
-    	</div>
-    </ProfileStyles>
+    		</ReviewProfile>
+
   )
 }
 
-export default Profile;
+export default Reviews;
