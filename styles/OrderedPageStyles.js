@@ -233,6 +233,31 @@ const OrderedPageStyles = styled.div`
     }  
   }
 
+  .waitingAccept {
+
+    text-align: center;
+    background: var(--orange);
+    width: 40%;
+    margin: auto;
+    margin-top: 1.3rem;
+    font-size: 1.2rem;
+    padding: 1.3rem 0;
+    color: var(--black);
+    font-weight: 500;
+    letter-spacing: 1.1px;
+    border-radius: 5px;
+
+  }
+
+  .warning {
+
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 100;
+
+  }
+
 `;
 
 export default OrderedPageStyles;

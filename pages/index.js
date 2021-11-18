@@ -49,7 +49,7 @@ const Dummy_Bundles = [
 
 export default function Home({data}) {
  
-  console.log(data.bundles);
+  // console.log(data.bundles);
   // console.log(data.bundles[0]._id);
   return (
       <>

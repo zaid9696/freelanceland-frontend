@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
 
-const useCountDown = ({deliverDate}) => {
+const useCountDown = ({deliverDate, updateOrderState, accepted, delivered, cancelled, notAccepted}) => {
   
  const [daysCountDown, setDaysCountDown] = useState(``);
  const [hoursCountDown, setHoursCountDown] = useState(``);
  const [minutesCountDown, setMinutesCountDown] = useState(``);
  const [secondsCountDown, setSecondsCountDown] = useState(``);
+ const [remainingTimer, setRemainingTimer] = useState(null);
     
      useEffect(() => {
 
@@ -16,20 +17,33 @@ const useCountDown = ({deliverDate}) => {
       const end = new Date(deliverDate);
       const newDate = new Date();
       const timeRemaining = end.getTime() - newDate.getTime();
+        
 
 
         const secondDi = 1000;
         const minuteDi = secondDi * 60;
         const hourDi = minuteDi * 60;
         const dayDi = hourDi * 24;
+        // console.log({accepted, cancelled, delivered});
+        if(accepted || cancelled || notAccepted){
 
-        if(timeRemaining < 0){
-
+            console.log('The Order Ended');
             clearInterval(timer);
-
             return
         }
 
+        if(timeRemaining < 0){
+
+          console.log('Timer Ended'); 
+           !delivered ? updateOrderState({notAccepted: true,active: false}, {isNotAccepted: true}) : null;
+            
+                                      
+            clearInterval(timer);
+
+            return 
+        }
+
+        
         const days = (Math.floor(timeRemaining / dayDi)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
         const hours = (Math.floor((timeRemaining % dayDi) / hourDi)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
         const mintues = (Math.floor((timeRemaining % hourDi) / minuteDi)).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
@@ -39,7 +53,9 @@ const useCountDown = ({deliverDate}) => {
         setHoursCountDown(`${hours}`);
         setMinutesCountDown(`${mintues}`);
         setSecondsCountDown(`${seconds}`);
-      
+        setRemainingTimer(timeRemaining)
+        
+        
 
     }
 
@@ -49,7 +65,7 @@ const useCountDown = ({deliverDate}) => {
 
   }, [])
 
-  return {daysCountDown, hoursCountDown, minutesCountDown, secondsCountDown};
+  return {daysCountDown, hoursCountDown, minutesCountDown, secondsCountDown, remainingTimer};
 }
 
 export default useCountDown;

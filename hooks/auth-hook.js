@@ -1,7 +1,5 @@
 import {useEffect, useCallback ,useState, useMemo} from 'react';
-import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
 
 import useHttpAxios from '../hooks/http-hook';
 
@@ -15,7 +13,6 @@ const useAuthHook = (props) => {
 	const logout = useCallback(async () => {
 
 		try {
-
 
 			setIsLoggedLoading(false)
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
@@ -40,6 +37,7 @@ const useAuthHook = (props) => {
 
 			setIsLoggedLoading(true);
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/isloggedin`);
+		
 
 			// console.log(res);
 			if(res.data.noToken){

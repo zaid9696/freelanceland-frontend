@@ -64,11 +64,32 @@ const ModalStyles = styled.div`
 
 	    		margin: 0;
     			margin-bottom: -11px;
+    			text-transform: capitalize
 
 	    	}
 	    }
 
 	    .content {
+
+	    	form {
+
+	    		width: 96%;
+    			height: 117%;
+
+    			textarea {
+
+    				width: 90%;
+				    height: 74%;
+				    position: relative;
+				    top: 14px;
+				    border: 1px solid #634cc273;
+				    border-radius: 3px;
+				    box-shadow: 0px 0px 5px 1px #02020221;
+				    padding: 4px 15px;
+				    padding-top: 1rem;
+
+    			}
+	    	}
 
     		p {
     			margin: 0;
@@ -95,8 +116,10 @@ const ModalStyles = styled.div`
 		    text-transform: uppercase;
 		    letter-spacing: 1.1px;
 		    padding: 7px 14px;
-			  border-radius: 5px;
-
+			border-radius: 5px;
+				&:nth-child(2){
+					margin-left:1rem;
+				}
 	    	}
 
 	    	button.main {
@@ -106,6 +129,8 @@ const ModalStyles = styled.div`
 			    border: 2px solid;
 
 	    	}
+
+
 
 	    	button.inverse {
 
