@@ -1,61 +1,18 @@
+import {useRef, useEffect, useState, useCallback} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactTimeAgo from 'react-timeago';
+import ReactCountryFlag from "react-country-flag"
+
+
+import dateFormat from '../../utils/DateFormat';
+import timeZoneDate from '../../utils/timeZoneDate';
 import Button from '../../components/UI/Button';
-import TimeAgo from 'react-timeago';
-
-
+import tickMessage from '../../assets/icons/tickMessage.png';
 import userAvatar from '../../assets/userAvatar.jpg';
+import {ChatPanelStyles, TypeingIndicatorStyles} from '../../styles/ChatPanelStyles';
 
-const TypeingIndicatorStyles = styled.div`
-
-		
-	position: absolute;
-  top: 40px;
-  left: 58px;
-  width: 5em;
-  height: 2em;
-  padding: 10px;
-  margin-left: 5px;
-  border-radius: 20px;
-
-
-.typing__dot {
-  float: left;
-  width: 8px;
-  height: 8px;
-  margin: 0 4px;
-  background: var(--main);
-  border-radius: 50%;
-  opacity: 0;
-  animation: loadingFade 1s infinite;
-}
-
-.typing__dot:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.typing__dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing__dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes loadingFade {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-`;
 
 const Typing = () => (
   <TypeingIndicatorStyles className='typing'>
@@ -66,201 +23,11 @@ const Typing = () => (
 )
 
 
-const ChatPanelStyles = styled.div`  
 
-
-	
-	
-    box-shadow: 0px 1px 9px 1px #0202022b;
-    height: 60vh;
-    background: #FEFEFE;
-    border-radius: 2px;
-    padding-bottom: 3rem;
-    header {
-
-    	display: flex;
-	    justify-content: space-between;
-	    padding: 1rem;
-	    align-items: center;
-	    border-bottom: 1px solid #634cc26b;
-	    box-shadow:0px 5px 6px -3px #0202022b;
-	    .header-user {
-
-	    	display: flex;
-    		align-items: center;
-    		position: relative;
-    		&link {
-
-    			display: flex;
-			    margin-left: 0.6rem;
-			    align-items: center;
-			    justify-content: center;
-    		}
-    		a {
-
-    			margin-left: 4px;
-			    color: var(--main);
-			    font-size: 1.1rem;
-			    font-weight: 500;
-    		}
-	    }
-
-
-    .status-circle {
-
-        width: 13px;
-        height: 13px;
-        background: var(--green);
-        display: block;
-        border-radius: 50%;
-
-    }
-
-	    .header-meta {
-
-	    	font-size: 0.86rem;
-	    }
-
-
-
-    }
-
-   section {
-
-   	height: 60%;
-    overflow-y: auto;
-    padding: 1rem;
-
-    &::-webkit-scrollbar{
-    	width: 7px;
-		  background-color: #c5c5c5;
-    }
-
-    &::-webkit-scrollbar-thumb {
-
-    	background: #3c4858;
-    	border-radius: 6px;
-    }
-
-    .chat-content {
-
-    	display: flex;
-    	margin-bottom: 1.2rem;
-
-    	
-    	&.current {
-
-    		justify-content: end;
-
-    		.chat-avatar {
-    			order: 1;
-    		}
-
-    		.chat-info{
-
-    			margin-left: 0px;
-    			margin-right: 10px;
-    			text-align: end;
-    		}
-
-    		.message-wrap {
-
-    			display: flex;
-    			flex-direction: column;
-    			align-items: end;
-    		
-
-    		}
-
-    		.message {
-
-    			  text-align: end;
-    				margin-left: 0px;
-    				margin-right: 8px;
-    				background: #3c4858;
-    		}
-
-    	} 
-
-    	.chat-info {
-
-    		margin-left: 10px;
-
-    	}
-
-    	.chat-username {
-
-    		margin-right: 10px;
-		    font-weight: 500;
-		    color: #686868;
-
-    	}
-
-    	.chat-time {
-
-    		font-size: 0.88rem;
-    		font-weight: 100;
-
-    	}
-
-    	.message {
-
-    		margin-left: 8px;
-		    margin-top: 9px;
-		    background: var(--main);
-		    color: #fff;
-		    padding: 10px;
-		    border-radius: 3px;
-		    width: fit-content;
-    	}
-
-    }
-
-   }
-
-   footer {
-
-   	padding: 0rem 1rem;
-   	text-align: center;
-   	box-shadow:0px -5px 6px -3px #0202022b;
-   	form {
-
-   		position: relative;
-    	top: 17px;
-
-   	}
-
-   	button {
-   		color: #fff;
-   		box-shadow: var(--shadow);
-   	}
-   	input{
-
-   		  width: 80%;
-		    margin-right: 1rem;
-		    padding: 14px 15px;
-		    border: 3px solid #b3b3b3;
-		    border-radius: 43px;
-		    outline: transparent;
-		    transition: var(--tranhover);
-		    &:focus{
-
-		    	border: 3px solid transparent;
-		    	box-shadow: 0px 0px 6px 2px #634cc2b0;
-
-		    }
-
-   	}
-
-
-   }
-
-
- `;
 
 const ChatPanelMessages = ({item, user}) => {
 
-		// console.log({sender: item.sender.id});
+	
 
 		const {id} = item.sender;
 
@@ -274,11 +41,15 @@ const ChatPanelMessages = ({item, user}) => {
 				<div className='message-wrap'>
 						<div className='chat-info'>
 							<span className='chat-username'>{`${user.id !== item.sender.id ? 'Me' : item.sender.userName}`}</span>
-							<span className='chat-time'><TimeAgo date={item.timeStamp} /></span>
+							<span className='chat-time'><ReactTimeAgo date={item.timeStamp} /></span>
 						</div>
 						<div className='message'>
 							{item.message}
 						</div>
+						<span className={`read-status ${item.read ? 'read' : 'unread'}`}>
+								<Image src={tickMessage} alt='Tick icon' width={13} height={13} />
+								<Image src={tickMessage} alt='Tick icon' width={13} height={13} />
+						</span>
 				</div>
 			</div>
 
@@ -287,8 +58,55 @@ const ChatPanelMessages = ({item, user}) => {
 
 }
 
-const ChatPanel = ({messages, user, inputFieldHandler, field, messagesHandlder, isTyping}) => {
-	// console.log('from ChatPanel', {messages});
+
+
+
+const ChatPanel = ({messages, user,userTime,inputFieldHandler, field, messagesHandlder, isTyping, isOnline, lastSeen}) => {
+	
+		const chatContainer = useRef(null);
+		const [timezoneLocal, setTimeZoneLocal] = useState();
+	
+		let lastSeenDate = null;
+		// making sure that the one who disconnected is not the user
+	 	lastSeen && lastSeen.userId && lastSeen.userId == user.id ? lastSeenDate = lastSeen.date : null;
+		 // const lastSeenTime = dateFormat(lastSeenDate);
+
+		 const timeZoneFunc = () => {
+
+		 	setTimeZoneLocal(null);
+		 	const timezoneLocalDate = timeZoneDate(userTime);
+		 	console.log({timezoneLocalDate});
+			setTimeZoneLocal(timezoneLocalDate)
+
+
+		 }
+
+		 useEffect(() => {
+
+			let timer = setInterval( timeZoneFunc,40000);
+
+
+			return () => {
+
+					clearInterval(timer);
+
+			}
+
+		 }, [timezoneLocal] )
+
+			console.log({timezoneLocal: timezoneLocal, userTime});
+		
+		useEffect(() => {
+
+			
+			timeZoneFunc();
+			console.log('useEffect');
+			chatContainer.current?.scrollIntoView({ behavior: "smooth", block:'nearest', inline: "nearest"});
+
+			
+
+		}, [messages,userTime])
+
   return (
     <ChatPanelStyles>
     	<header>
@@ -297,13 +115,31 @@ const ChatPanel = ({messages, user, inputFieldHandler, field, messagesHandlder, 
     			<Image src={userAvatar} width={50} height={50} alt='User Image' />
     		</div>
     		<div className='header-userlink'>
-    			<span className='status-circle'></span>
+    			<span className={`status-circle ${isOnline ? 'online' : 'offline'}`}></span>
     			<Link href={`#`}><a>{user.userName}</a></Link>
     		</div>
 					{isTyping && <Typing />}
     	</div>
     	<div className='header-meta'>
-    		<span>Last Seen: 3 months ago</span>
+    		{ !isOnline ? 
+    						<span className='meta-info'>
+    		    				<span className='font-bold'>Last Seen:</span>	<ReactTimeAgo date={lastSeenDate || user.lastSeen} />
+    		    		</span>
+    		    		: <span className='text-online'>online</span>
+    		  } 
+    		  | 
+    		  <span className='meta-info'><span className='font-bold'>Local Time:</span> {timezoneLocal}</span>
+    		  |
+    		 <ReactCountryFlag   
+    		 			countryCode={user.countryCode}
+                svg
+                style={{
+                    width: '40px',
+                    height: '30px',
+                    marginLeft: '0.5rem',
+                    boxShadow: 'var(--shadow)'
+                }}
+                title={user.countryCode} /> 
     	</div>
     	</header>
     	<section>
@@ -311,6 +147,7 @@ const ChatPanel = ({messages, user, inputFieldHandler, field, messagesHandlder, 
     		{
     			messages.map(item => <ChatPanelMessages key={item.id} item={item} user={user} />)
     		}
+    		<div ref={chatContainer} />
     	</section>
     	<footer>
     			<form onSubmit={messagesHandlder}>

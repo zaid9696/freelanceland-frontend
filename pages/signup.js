@@ -36,9 +36,20 @@ const signup = (props) => {
 
 		try {
 
-			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/signup`, 'POST', values);
+			const ipResult = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=${process.env.NEXT_PUBLIC_IP_LOOK_UP_KEY}`)
+			const ipData = await ipResult.json();
+			const {timezone, geo} = ipData;
+		
+			const body = {
+				...values,
+				localTimeZone: timezone,
+				countryCode: geo.country_code2,
+				lastSeen: Date.now()
+			}
+		
+			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/signup`, 'POST', body);
 
-			// console.log(res);
+			console.log(res);
 		}catch(err){
 
 			console.log(err.message);

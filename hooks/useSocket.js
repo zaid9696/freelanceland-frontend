@@ -3,8 +3,7 @@ import io from 'socket.io-client'
 const socket = io(`http://localhost:5000`);
 
 
-
-const useSocket = (eventName, cb) => {
+const useSocket = (eventName,cb) => {
 
 
 	useEffect(() => {

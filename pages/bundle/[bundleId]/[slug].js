@@ -1,6 +1,8 @@
+import {useEffect} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import { PayPalButton } from "react-paypal-button-v2";
 
 import BundlePageStyles from '../../../styles/BundlePageStyles';
 import bundleCover from '../../../assets/image2.png';
@@ -26,6 +28,72 @@ const BundlePage = ({result, allBundles ,params}) => {
 
       return <LoadingSpinner />
   }
+
+
+const PaypalButton = () => {
+
+
+  return (
+
+
+      <PayPalButton
+        amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+        onSuccess={(details, data) => {
+          alert("Transaction completed by " + details.payer.name.given_name);
+
+          // OPTIONAL: Call your server to save the transaction
+          return fetch("", {
+            method: "post",
+            body: JSON.stringify({
+              orderId: data.orderID
+            })
+          });
+        }}
+        options={{
+          clientId: "AStWyarG84TtXbtG2cfj7j2EzPzOlaJUC2dIqPukkzPwoiiEbqcLCUs4D_wmyggIEZVaqxW8mMFl1Ro8"
+        }}
+      />
+
+    )
+
+}
+
+
+paypal
+  .Buttons({
+    createOrder: function () {
+      return fetch("/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              id: 1,
+              quantity: 2,
+            },
+            { id: 2, quantity: 3 },
+          ],
+        }),
+      })
+        .then(res => {
+          if (res.ok) return res.json()
+          return res.json().then(json => Promise.reject(json))
+        })
+        .then(({ id }) => {
+          return id
+        })
+        .catch(e => {
+          console.error(e.error)
+        })
+    },
+    onApprove: function (data, actions) {
+      return actions.order.capture()
+    },
+  })
+  .render("#paypal")
 
 
 
@@ -142,7 +210,7 @@ const BundlePage = ({result, allBundles ,params}) => {
 
             <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
             <button type='button'>Ask for custom offer</button>
-
+            <div id="paypal"></div>
             </div>
             <Reviews />
       </div>

@@ -11,7 +11,7 @@ import bundleImage from '../../assets/bundleImage.png';
 import OrderedPageStyles from '../../styles/OrderedPageStyles';
 import useHttpAxios from '../../hooks/http-hook';
 import Button from '../../components/UI/Button';
-import DateFormat from '../../utils/DateFormat';
+import dateFormat from '../../utils/DateFormat';
 import acceptIcon from '../../assets/icons/accept.svg';
 import cancelIcon from '../../assets/icons/cancel.svg';
 import refuseIcon from '../../assets/icons/refuse.svg';
@@ -89,7 +89,7 @@ const OrderStateElms = ({title, desc, clsName, icon, timeSt}) => {
                         <h3>{title}</h3>
                         <div className='content-info'>
                          { desc && <p>{desc}</p>}
-                          <span>{<DateFormat dateFormat={timeSt} />}</span>
+                          <span>{dateFormat(timeSt)}</span>
                         </div>
                   </div>
               </div>
@@ -199,7 +199,7 @@ const confirmOrderHandler = (type) => {
                   <div className='bundle-order'>
                       <ul>
                         <li>Order ID: #{result.order.orderId}</li>
-                        <li>{<DateFormat dateFormat={result.order.createdAt} />}</li>
+                        <li>{dateFormat(result.order.createdAt)}</li>
                       </ul>
                   </div>
               </div>

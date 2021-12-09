@@ -1,7 +1,8 @@
 import {useEffect, useCallback ,useState, useMemo} from 'react';
-
+import {useRouter} from 'next/router';
 
 import useHttpAxios from '../hooks/http-hook';
+import useSocket from '../hooks/useSocket';
 
 const useAuthHook = (props) => {
  
@@ -9,15 +10,22 @@ const useAuthHook = (props) => {
 	const [result, setResult] = useState('');
 	const [isLogged, setIsLogged] = useState(false);
 	const [isLoggedLoading, setIsLoggedLoading] = useState(false);
-
+	const router = useRouter();
 	const logout = useCallback(async () => {
+
+
 
 		try {
 
-			setIsLoggedLoading(false)
-			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
+			setIsLoggedLoading(false);
 
-			console.log(res);
+			if(isLogged){
+
+				window.location.href = '/';
+
+			}
+
+			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
 
 			setIsLogged(false);
 			setResult(null);
@@ -39,7 +47,7 @@ const useAuthHook = (props) => {
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/isloggedin`);
 		
 
-			// console.log(res);
+			console.log(res);
 			if(res.data.noToken){
 				setIsLogged(false);
 				setIsLoggedLoading(false);
