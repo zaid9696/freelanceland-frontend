@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext, useRef, useCallback} from 'react';
 import io from 'socket.io-client'
-const socketUser = io(`http://localhost:5000`);
+const socketUser = io(`${process.env.NEXT_PUBLIC_URL}`);
 import styled from 'styled-components';
 
 
@@ -97,7 +97,7 @@ useEffect(() => {
 
             const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages/${userAuth.id}`);
             const {usersMessages} = res.data;
-            console.log({res});
+            
             setUsersMessagesState(usersMessages)
             
             }
@@ -111,7 +111,7 @@ useEffect(() => {
 
 }, [newMessages])
 
-console.log({usersMessagesState});
+// console.log({usersMessagesState});
 
 
 const socket = useSocket('message', (newMessage) => {

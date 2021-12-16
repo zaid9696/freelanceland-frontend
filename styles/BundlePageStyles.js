@@ -158,6 +158,21 @@ const BundlePageStyles = styled.div`
 
     }
 
+
+    .my-bundle {
+
+      text-align: center;
+      background: #13181c;
+      color: #fff;
+      padding: 19px;
+      border-radius: 45px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: not-allowed;
+
+    }
+
 `
 
 export default BundlePageStyles

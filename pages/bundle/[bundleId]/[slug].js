@@ -1,8 +1,8 @@
-import {useEffect} from 'react';
+import {useEffect, useContext} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import { PayPalButton } from "react-paypal-button-v2";
+
 
 import BundlePageStyles from '../../../styles/BundlePageStyles';
 import bundleCover from '../../../assets/image2.png';
@@ -18,11 +18,13 @@ import LoadingSpinner from '../../../components/UI/LoadingSpinner';
 import ErrorModal from '../../../components/UI/ErrorModal';
 import Button from '../../../components/UI/Button';
 import Bundles from '../../../components/Bundles/Bundles';
+import {AuthContext} from '../../../context/AuthContext';
 
 
 const BundlePage = ({result, allBundles ,params}) => {
 
   const router = useRouter();
+  const {userAuth} = useContext(AuthContext);
   const {bundle} = result;
   if(router.isFallback){
 
@@ -30,74 +32,9 @@ const BundlePage = ({result, allBundles ,params}) => {
   }
 
 
-const PaypalButton = () => {
 
 
-  return (
-
-
-      <PayPalButton
-        amount="0.01"
-        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        onSuccess={(details, data) => {
-          alert("Transaction completed by " + details.payer.name.given_name);
-
-          // OPTIONAL: Call your server to save the transaction
-          return fetch("", {
-            method: "post",
-            body: JSON.stringify({
-              orderId: data.orderID
-            })
-          });
-        }}
-        options={{
-          clientId: "AStWyarG84TtXbtG2cfj7j2EzPzOlaJUC2dIqPukkzPwoiiEbqcLCUs4D_wmyggIEZVaqxW8mMFl1Ro8"
-        }}
-      />
-
-    )
-
-}
-
-
-paypal
-  .Buttons({
-    createOrder: function () {
-      return fetch("/create-order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          items: [
-            {
-              id: 1,
-              quantity: 2,
-            },
-            { id: 2, quantity: 3 },
-          ],
-        }),
-      })
-        .then(res => {
-          if (res.ok) return res.json()
-          return res.json().then(json => Promise.reject(json))
-        })
-        .then(({ id }) => {
-          return id
-        })
-        .catch(e => {
-          console.error(e.error)
-        })
-    },
-    onApprove: function (data, actions) {
-      return actions.order.capture()
-    },
-  })
-  .render("#paypal")
-
-
-
-  // console.log({bundle, allBundles});
+  console.log({bundle, allBundles});
   
   return (
     <>
@@ -206,12 +143,13 @@ paypal
                     Revisions {bundle.revisions}
                 </div>
             </div>  
-            <div className='bundle-btns'>
-
-            <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
-            <button type='button'>Ask for custom offer</button>
-            <div id="paypal"></div>
-            </div>
+            { bundle.user.id !== userAuth.id ? <div className='bundle-btns'>
+            
+                         <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
+                        <button type='button'>Ask for custom offer</button>
+                        </div> :
+                    <div className='my-bundle'>This is your bundle</div>
+              }
             <Reviews />
       </div>
     </BundlePageStyles>

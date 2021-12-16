@@ -20,14 +20,15 @@ import Modal from '../../components/UI/Modal';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ErrorModal from '../../components/UI/ErrorModal';
 import {AuthContext} from '../../context/AuthContext';
+import useSocket from '../../hooks/useSocket';
 
 
 const OrderedPage = ({result}) => {
 
   const {isLogged, userAuth, logout} = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
-  const [bo, setBo] = useState(false);
   const [modalType, setModalType] = useState({});
+  const [orders, setOrders] = useState(result.order || []);
   const [timeStampOrderBuy, setTimeStampOrderBuy] = useState();
   const [timeStampOrderSell, setTimeStampOrderSell] = useState();
   const [deliverDesc, setDeliverDesc] = useState('');
@@ -45,11 +46,27 @@ const OrderedPage = ({result}) => {
   const bundle = result.order.bundle;
   const {accepted, notAccepted, delivered, cancelled, deliveredDesc ,user} = result.order;
 
-
+  // console.log({order:orders});
   
   const {isUser} = result;
 
   
+  const socket = useSocket('orders', (updatedOrder) => {
+
+      console.log({updatedOrder});
+    const isTrueSellerMe = updatedOrder.seller.includes(userAuth.id)
+    const isTrueBuyerMe = updatedOrder.user.id.includes(userAuth.id)
+    const isTrueSellerUser = updatedOrder.seller.includes(orders.user.id)
+    const isTrueBuyerUser = updatedOrder.user.id.includes(orders.user.id)
+
+    if((isTrueBuyerUser || isTrueSellerUser) && (isTrueSellerMe || isTrueBuyerMe)){
+
+        setOrders(updatedOrder)
+
+      }
+  })
+
+
 
   const updateOrderState = async (values, orderState) => {
 
@@ -58,12 +75,36 @@ const OrderedPage = ({result}) => {
 
             const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/${result.order.id}`, 'PATCH', values);
 
-            setBo(true);
             console.log(res);
          
-            setTimeStampOrderSell(res.data.order.timeStampSeller);
-            setTimeStampOrderBuy(res.data.order.timeStampBuyer);
-            setOrderState(orderState);
+            socket.emit('orders', res.data.order);
+            // setOrders(res.data.order);
+        }catch(err) {
+          console.log(err);
+        }
+
+  }
+
+   const updateNotificationState = async (notiState) => {
+
+        try{
+
+            const values = {
+              orderId: orders.orderId,
+              status: notiState,
+              buyer: orders.user.userName,
+              title: bundle.title,
+              sender: orders.user,
+              receiver: orders.seller,
+              creator: userAuth.id
+            }
+            
+            const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications`, 'POST', values);
+
+            console.log({res: res.data.newNotification});
+         
+            socket.emit('notifications', res.data.newNotification);
+            
         }catch(err) {
           console.log(err);
         }
@@ -74,8 +115,6 @@ const OrderedPage = ({result}) => {
    = useCountDown({deliverDate, updateOrderState, accepted, delivered, cancelled, notAccepted}); 
 
   // When timer ends the order will automaticlly considred REFUSED;
-  
-
 
 const OrderStateElms = ({title, desc, clsName, icon, timeSt}) => {
 
@@ -119,10 +158,26 @@ const confirmOrderHandler = (type) => {
 
     // Update only the order state of the clicked button;
     closeModalHanlder();
-    if(modalType.type === 'accept') updateOrderState({accepted: true, active: false}, {isAccepted: true});
-    if(modalType.type === 'refuse') updateOrderState({notAccepted: true,active: false}, {isNotAccepted: true});
-    if(modalType.type === 'deliver') updateOrderState({delivered: true,deliveredDesc: deliverDesc}, {isDelivered: true});
-    if(modalType.type === 'cancel') updateOrderState({cancelled: true, active: false}, {isCancelled: true});
+    if(modalType.type === 'accept')
+      { 
+        updateOrderState({accepted: true, active: false});
+        updateNotificationState('Accepted');
+
+      };
+    if(modalType.type === 'refuse') {
+        updateOrderState({notAccepted: true,active: false});
+        updateNotificationState('Refused');
+
+      };
+    if(modalType.type === 'deliver') {
+       updateOrderState({delivered: true,deliveredDesc: deliverDesc});
+       updateNotificationState('Delivered');
+    };
+    if(modalType.type === 'cancel') {
+      updateOrderState({cancelled: true, active: false});
+       updateNotificationState('Cancelled');
+
+    };
 }
 
 
@@ -157,7 +212,7 @@ const confirmOrderHandler = (type) => {
     </Modal>
       <OrderedPageStyles>
 
-         { (((!accepted && !orderState.isAccepted) && (!notAccepted && !orderState.isNotAccepted)) && (!cancelled && !orderState.isCancelled)) && <> <div className='count-down'>
+         { ((!orders.accepted && !orders.notAccepted) && !orders.cancelled) && <> <div className='count-down'>
                        <div className='count days'>
                          <span>{daysCountDown}</span>
                          Days
@@ -180,7 +235,7 @@ const confirmOrderHandler = (type) => {
                          Seconds
                        </div>
                    </div> 
-                   <div className='warning'>When the timer ends, the order will automatically be considered  REFUSED if not delivered.</div>
+                   <div  className='warning'>When the timer ends, the order will automatically be considered  REFUSED if not delivered.</div>
                    </>
                  }
 
@@ -194,7 +249,7 @@ const confirmOrderHandler = (type) => {
                   <h2><Link href={`/bundle/${bundle.id}/${bundle.slug}`}><a>{bundle.title}</a></Link></h2>
                   <div className='bundle-buyer'>
                       <div className='img-circle'><Image src={userAvatar} width={40} height={40} alt="Buyer's  avatar " /></div>
-                      <Link href={`#`}><a>Buyer: Zaid96</a></Link>
+                      <Link href={`/${orders.user.userName}`}><a>Buyer: {orders.user.userName}</a></Link>
                   </div>
                   <div className='bundle-order'>
                       <ul>
@@ -214,23 +269,23 @@ const confirmOrderHandler = (type) => {
               </div>
           </div>
          
-         {(delivered || orderState.isDelivered) && <OrderStateElms title={`${isUser ? 'The Seller' : 'You'} have marked this order as delivered.`} desc={deliveredDesc || deliverDesc} clsName='deliver' timeSt={result.order.timeStampSeller || timeStampOrderSell} icon={deliverIcon} />}
+         {(orders.delivered) && <OrderStateElms title={`${isUser ? 'The Seller' : 'You'} have marked this order as delivered.`} desc={deliveredDesc || deliverDesc} clsName='deliver' timeSt={orders.timeStampSeller} icon={deliverIcon} />}
 
-        { (cancelled || orderState.isCancelled) && <OrderStateElms title={`${isUser ? 'The Seller' : 'You'} cancelled this order.`}  clsName='cancelled' timeSt={result.order.timeStampSeller || timeStampOrderSell} icon={cancelIcon} />}
+        { (orders.cancelled) && <OrderStateElms title={`${isUser ? 'The Seller' : 'You'} cancelled this order.`}  clsName='cancelled' timeSt={orders.timeStampSeller} icon={cancelIcon} />}
 
-        {(orderState.isAccepted || accepted) && <OrderStateElms title={`The order accepted by ${isUser ? 'you' : 'the buyer'}.`}  clsName='accepted' timeSt={result.order.timeStampBuyer || timeStampOrderBuy} icon={acceptIcon} />}
+        {(orders.accepted) && <OrderStateElms title={`The order accepted by ${isUser ? 'you' : 'the buyer'}.`}  clsName='accepted' timeSt={orders.timeStampBuyer} icon={acceptIcon} />}
 
-         {(notAccepted || orderState.isNotAccepted) && <OrderStateElms title={`${isUser ? 'You' : 'The buyer'}  refused to accept the order`}  clsName='refused' timeSt={result.order.timeStampBuyer || timeStampOrderBuy} icon={refuseIcon} />}
+         {(orders.notAccepted) && <OrderStateElms title={`${isUser ? 'You' : 'The buyer'}  refused to accept the order`}  clsName='refused' timeSt={orders.timeStampBuyer} icon={refuseIcon} />}
 
                
-          { ((!delivered && !orderState.isDelivered) && (!cancelled && !orderState.isCancelled)) && ((!accepted && !orderState.isAccepted) && (!notAccepted && !orderState.isNotAccepted)) && !isUser && <div className='order-btns'>
+          { (!orders.delivered && !orders.cancelled) && (!orders.accepted && !orders.notAccepted) && !isUser && <div className='order-btns'>
                       <Button type='button' onClick={() => modalHandler({type: 'deliver'})}>Deliver The Order</Button>
                       <Button type='button'  onClick={() => modalHandler({type: 'cancel'})} >Cancel The Order</Button>
                     </div>
           }
 
           {
-            ((delivered || orderState.isDelivered) && (!accepted && !notAccepted)) && !isUser &&  <div className='waitingAccept'>
+            (orders.delivered && !orders.accepted && !orders.notAccepted) && !isUser &&  <div className='waitingAccept'>
               
                 Waiting the Buyer to accept the order.
 
@@ -238,14 +293,14 @@ const confirmOrderHandler = (type) => {
           }
 
           {
-            ( (!accepted && !notAccepted) && (!delivered && !cancelled) ) && isUser &&  <div className='waitingAccept'>
+          ( (!orders.accepted && !orders.notAccepted) && (!orders.delivered && !orders.cancelled) ) && isUser &&  <div className='waitingAccept'>
               
                 Waiting The Seller To Deliver The Order.
 
             </div>
           }
 
-          {((!accepted && !orderState.isAccepted) && (!notAccepted && !orderState.isNotAccepted)) && delivered && isUser && <div className='order-btns'>
+          {(!orders.accepted && !orders.notAccepted) && orders.delivered && isUser && <div className='order-btns'>
                       <Button type='button' onClick={() => modalHandler({type: 'accept'})}>Accept The Order</Button>
                       <Button type='button' onClick={() => modalHandler({type: 'refuse'})}>Refuse The Order</Button>
                     </div>

@@ -1,8 +1,12 @@
-import {useState , useEffect, useContext} from 'react';
+import {useState , useEffect, useCallback ,useContext} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import uniqid from 'uniqid';
+import {
+    PayPalScriptProvider,
+    PayPalButtons
+} from "@paypal/react-paypal-js";
 
 import CheckoutPageStyles from '../../../styles/CheckoutPageStyles';
 import bundleImage from '../../../assets/bundleImage.png';
@@ -12,13 +16,63 @@ import useHttpAxios from '../../../hooks/http-hook';
 import {AuthContext} from '../../../context/AuthContext';
 import ErrorModal from '../../../components/UI/ErrorModal';
 import LoadingSpinner from '../../../components/UI/LoadingSpinner';
+import Modal from '../../../components/UI/Modal';
+import useSocket from '../../../hooks/useSocket';
 
+const PaypalButton = ({orderBundleHandler, bundleId}) => {
+
+
+  return (
+
+      <PayPalScriptProvider options={{"client-id":  "AStWyarG84TtXbtG2cfj7j2EzPzOlaJUC2dIqPukkzPwoiiEbqcLCUs4D_wmyggIEZVaqxW8mMFl1Ro8"}}>
+            <PayPalButtons 
+                style={{ color: "blue", shape: "pill", label: "pay", height: 55 }}
+                createOrder={function () {
+                  return fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/create-order`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      items: {id: bundleId},
+                    }),
+                  })
+                    .then(res => {
+                      if (res.ok) return res.json()
+                      return res.json().then(json => Promise.reject(json))
+                    })
+                    .then(({ id }) => {
+                      console.log({id});
+                      return id
+                    })
+                    .catch(e => {
+                      console.error(e.error)
+                    })
+                }}
+                onApprove={function (data, actions) {
+                      // console.log({actions, data});
+                      orderBundleHandler();
+                  return actions.order.capture()
+                  }
+                }
+                // onCancel={function (data, actions) {
+                    
+                // }}
+                // onError={this.onError}
+            />
+        </PayPalScriptProvider>
+
+    )
+
+}
 
 const CheckoutPage = ({result}) => {
   
   const router = useRouter();
   const {bundle} = result;
-  console.log()
+  const [showModal, setShowModal] = useState(false);
+  // const [newOrder, setNewOrder] = useState([])
+  console.log({bundle})
   const [randomId, setRandomId] = useState('');
   const auth = useContext(AuthContext);
 
@@ -32,6 +86,31 @@ const CheckoutPage = ({result}) => {
 
   const {isLoading, sendRequest, error ,clearError} = useHttpAxios();
 
+
+  const socket = useSocket('connect', () => {console.log('socket Connect');})
+
+const createNotification = useCallback(async (newOrder) => {
+
+        console.log({newOrder});
+         const values = {
+              orderId: newOrder.orderId,
+              status: 'Purchased',
+              buyer: newOrder.user.userName,
+              title: bundle.title,
+              sender: newOrder.user,
+              receiver: newOrder.seller,
+              creator: auth.userAuth.id
+            }
+
+        try{
+
+          const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications`, 'POST', values);
+            socket.emit('notifications', res.data.newNotification);
+          // console.log({res});
+
+        }catch(err) {console.log(err);}
+
+})
 
       // console.log(auth.userAuth.id);
   const orderBundleHandler =  async () => {
@@ -54,8 +133,19 @@ const CheckoutPage = ({result}) => {
 
           
               const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/`, 'POST', values);
-              console.log(res);
-              router.push(`/ordered/${randomId}`, null, {shallow: true});
+              // console.log(randomId);
+
+              console.log({res});
+              // setNewOrder(res.data.newOrder);
+              createNotification(res.data.newOrder)
+              if(res.status === 201){
+
+                setShowModal(true)
+                setTimeout(() => {
+
+                  router.push(`/ordered/${randomId}`);
+                }, 4000)
+              }
 
           }catch(err) {
 
@@ -69,6 +159,9 @@ const CheckoutPage = ({result}) => {
     <>
       <ErrorModal error={error} onCancel={clearError} />
       {isLoading && <LoadingSpinner />}
+      <Modal isVisible={showModal} header='Success'>
+        <p>You have purchased successfully the bundle</p>
+      </Modal>
       <CheckoutPageStyles>
         <div className='content'>
             <header>
@@ -105,7 +198,9 @@ const CheckoutPage = ({result}) => {
                 </li> 
             </ul>
         </div>
-        <Button type='button' className='checkout-btn' onClick={orderBundleHandler}>Buy This Shit</Button>
+
+        {auth.userAuth.id && <div className='paypal-btn'><PaypalButton bundleId={bundle.id} orderBundleHandler={orderBundleHandler} /></div>}
+        
       </CheckoutPageStyles>
       </>
   )

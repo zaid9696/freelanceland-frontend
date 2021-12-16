@@ -4,6 +4,7 @@ const HeroStyles = styled.div`
 	
 	grid-column: full-start / full-end;
 	position: relative;
+	z-index: -1;
 	.hero-vid {
 		width: 100%;
 		height: 500px;

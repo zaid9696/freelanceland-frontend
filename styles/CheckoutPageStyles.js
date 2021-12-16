@@ -88,6 +88,8 @@ const CheckoutPageStyles = styled.div`
 
   }
 
+.paypal-btn {width: 50%}
+
 button.checkout-btn {
 
   color: #fff;
