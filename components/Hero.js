@@ -1,30 +1,17 @@
 import styled from 'styled-components';
 
-const HeroStyles = styled.div`
-	
-	grid-column: full-start / full-end;
-	position: relative;
-	z-index: -1;
-	.hero-vid {
-		width: 100%;
-		height: 500px;
-    	object-fit: cover;
-	}
+const HeroContentStyles = styled.div` 
 
-	.hero-cover {
-		  position: absolute;
-	    top: 0;
-	    width: 100%;
-	    height: 99.1%;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    text-align: center;
-	    background: #211943d9;
-	    	
-	    h1 {
-	    	color: #fff;
-    		font-size: 2.4rem;
+	  position: absolute;
+    top: 67%;
+    width: 100%;
+    height: 99.1%;
+    text-align: center;
+    z-index: 20;
+
+	h1 {
+    	color: #fff;
+  		font-size: 2.4rem;
 	    }
 	    p {
 
@@ -51,26 +38,55 @@ const HeroStyles = styled.div`
 		    }
 	    }
 
+
+  `
+
+const HeroStyles = styled.div`
+	
+	grid-column: full-start / full-end;
+	position: relative;
+	z-index: -1;
+	.hero-vid {
+		width: 100%;
+		height: 500px;
+    	object-fit: cover;
+	}
+
+	.hero-cover {
+		  position: absolute;
+	    top: 0;
+	    width: 100%;
+	    height: 99.1%;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    text-align: center;
+	    background: #211943d9;
+	    	
+	    
+
 	}
 
 `
 
 const Hero = (props) => {
   return (
+  	<>
     <HeroStyles>
     	<video className='hero-vid' autoPlay loop muted>
     		<source src={'./bg-vid.mp4'} type='video/mp4' />
     	</video>
     	<div className='hero-cover'>
-    			<div className='content'>
-    					<div className='text'>
-    						<h1>Hire the World’s Best & Most Affordable Freelancers!</h1>
-    						<p>Communicate, Collaborate, and Create with the Freelancer of Your Choice…</p>
-    					</div>
-    					<button type='button'>Join Now</button>
-    			</div>
     	</div>
     </HeroStyles>
+			<HeroContentStyles className='content'>
+					<div className='text'>
+						<h1>Hire the World’s Best & Most Affordable Freelancers!</h1>
+						<p>Communicate, Collaborate, and Create with the Freelancer of Your Choice…</p>
+					</div>
+					<button type='button'>Join Now</button>
+			</HeroContentStyles>
+			</>
   )
 }
 

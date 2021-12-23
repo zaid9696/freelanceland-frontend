@@ -118,7 +118,7 @@ const ChatListStyles = styled.div`
 const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
 
       const data = usersMessages[item].item;
-      const userLoaded = item === user.userName;
+      // const userLoaded = item === user.userName;
       const unreadCount = usersMessages[item].countUnread;
       const isOnline = Object.values(onlineUsers).map(elem =>  {
       // console.log({item});
@@ -149,7 +149,7 @@ const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
                             <div className='message'>
                                 {data.message}
                             </div>
-                            <span className={`${unreadCount && !userLoaded ? '' : 'hide'}`}>{unreadCount && !userLoaded ? unreadCount : ''}</span>
+                            <span className={`${unreadCount ? '' : 'hide'}`}>{unreadCount ? unreadCount : ''}</span>
                           </div>
                         </div>
                       </div>

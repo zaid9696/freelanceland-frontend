@@ -16,11 +16,14 @@ import acceptIcon from '../../assets/icons/accept.svg';
 import cancelIcon from '../../assets/icons/cancel.svg';
 import refuseIcon from '../../assets/icons/refuse.svg';
 import deliverIcon from '../../assets/icons/deliver.svg';
+import starIcon from '../../assets/icons/starReview.svg';
 import Modal from '../../components/UI/Modal';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ErrorModal from '../../components/UI/ErrorModal';
 import {AuthContext} from '../../context/AuthContext';
 import useSocket from '../../hooks/useSocket';
+import ReviewFields from './ReviewFields';
+import RatingStar from '../../components/UI/RatingStar';
 
 
 const OrderedPage = ({result}) => {
@@ -46,7 +49,7 @@ const OrderedPage = ({result}) => {
   const bundle = result.order.bundle;
   const {accepted, notAccepted, delivered, cancelled, deliveredDesc ,user} = result.order;
 
-  // console.log({order:orders});
+  console.log({order:orders});
   
   const {isUser} = result;
 
@@ -100,7 +103,7 @@ const OrderedPage = ({result}) => {
             }
             
             const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications`, 'POST', values);
-
+            console.log('notifications test');
             console.log({res: res.data.newNotification});
          
             socket.emit('notifications', res.data.newNotification);
@@ -116,7 +119,7 @@ const OrderedPage = ({result}) => {
 
   // When timer ends the order will automaticlly considred REFUSED;
 
-const OrderStateElms = ({title, desc, clsName, icon, timeSt}) => {
+const OrderStateElms = ({title, desc, clsName, icon, timeSt, rate}) => {
 
     return (
 
@@ -125,9 +128,15 @@ const OrderStateElms = ({title, desc, clsName, icon, timeSt}) => {
                       <Image src={icon} width={65} height={65} alt='Deliver Icon' />
                   </div>
                   <div className='content'>
+                      <div className='header'>
                         <h3>{title}</h3>
+                        <span className='order-rate'>
+                        {rate}  {rate && <div className='stars'><RatingStar width={20} height={20} rating={rate} /></div>}
+                          
+                        </span>
+                      </div>
                         <div className='content-info'>
-                         { desc && <p>{desc}</p>}
+                         { desc && <p>{desc}</p> }
                           <span>{dateFormat(timeSt)}</span>
                         </div>
                   </div>
@@ -183,7 +192,6 @@ const confirmOrderHandler = (type) => {
 
 
 
-// This is a test to see if the description of the delivery sent to the database
   return (
     <>
     <ErrorModal error={error} onCancel={clearError} />
@@ -300,11 +308,24 @@ const confirmOrderHandler = (type) => {
             </div>
           }
 
+          {
+
+           orders.buyerReview && <OrderStateElms title={`${orders.buyerReview.buyer === userAuth.id ? 'You' : 'The buyer'} rated this order.`} desc={orders.buyerReview.review} clsName='review' rate={orders.buyerReview.rating} timeSt={orders.buyerReview.createdAt} icon={starIcon} />
+          }
+
+           {
+
+           orders.sellerReview && <OrderStateElms updateNotificationState={updateNotificationState} title={`${orders.sellerReview.seller === userAuth.id ? 'You' : 'The Seller'} have replied to buyer feedback.`} desc={orders.sellerReview.review} clsName='review' rate={orders.sellerReview.rating} timeSt={orders.sellerReview.createdAt} icon={starIcon} />
+          }
+
+
           {(!orders.accepted && !orders.notAccepted) && orders.delivered && isUser && <div className='order-btns'>
                       <Button type='button' onClick={() => modalHandler({type: 'accept'})}>Accept The Order</Button>
                       <Button type='button' onClick={() => modalHandler({type: 'refuse'})}>Refuse The Order</Button>
                     </div>
           }
+          {orders.accepted && orders.user.id == userAuth.id && !orders.buyerReview && <ReviewFields updateNotificationState={updateNotificationState} orders={orders} updateOrderState={updateOrderState} />}
+          {orders.accepted && orders.buyerReview && orders.seller == userAuth.id && !orders.sellerReview && <ReviewFields updateNotificationState={updateNotificationState} orders={orders} updateOrderState={updateOrderState} text='The is the Seller' sellerRev={orders.buyerReview.id} />}
       </OrderedPageStyles>
     </>
   )

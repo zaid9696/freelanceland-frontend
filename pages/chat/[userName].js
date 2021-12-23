@@ -56,7 +56,7 @@ const chatPage = ({result}) => {
   const [userTime, setUserTime] = useState(user.localTimeZone || []);
   const [lastSeen, setLastSeen] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
-  const {userAuth} = useContext(AuthContext);
+  const {userAuth, fetchUsersMessages} = useContext(AuthContext);
   const  {isLoading, sendRequest, error, clearError} = useHttpAxios();
   
 
@@ -68,7 +68,7 @@ const chatPage = ({result}) => {
     setMessage(messages);
     setUserTime(user.localTimeZone);
     let lastSeenCon;
-     socketUser.on('isOnline', ({users, lastSeen}) => {
+    socketUser.on('isOnline', ({users, lastSeen}) => {
 
 
         setOnlineUsers(users);
@@ -86,27 +86,28 @@ const chatPage = ({result}) => {
 
   }, [result])
 
+const fetchUsersMessagesChat = async (isRead) => {
+
+    try{
+
+
+        if(newMessages || isRead){
+
+        const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages`);
+        const {usersMessages} = res.data;
+        
+        setUsersMessagesState(usersMessages)
+        
+        }
+
+    }catch(err) {console.log(err);}
+
+}
+
 useEffect(() => {
 
-    const fetchUsersMessages = async () => {
 
-        try{
-
-
-            if(newMessages){
-
-            const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages/${userAuth.id}`);
-            const {usersMessages} = res.data;
-            
-            setUsersMessagesState(usersMessages)
-            
-            }
-
-        }catch(err) {console.log(err);}
-
-    }
-
-    fetchUsersMessages()
+    fetchUsersMessagesChat()
 
 
 }, [newMessages])
@@ -193,6 +194,8 @@ useEffect(() => {
         let messIds = [];
 
         results.map( item => messIds.push(item.id));
+        fetchUsersMessages();
+        fetchUsersMessagesChat(true);
        console.log(messIds);
         socket.emit('updatedMessage', messIds);
 

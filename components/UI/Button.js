@@ -11,6 +11,21 @@ const ButtonStyles = styled.button`
     border: none;
     border-radius: 40px;
     cursor: pointer;
+    &:disabled {
+      &:hover {
+
+        border-color: transparent;
+        color: #898989;
+        background: #c9c9c9;
+        box-shadow: 0px 0px 4px 1px #02020221;
+        cursor: not-allowed;
+      }
+      border-color: transparent;
+      color: #898989;
+      background: #c9c9c9;
+      box-shadow: 0px 0px 4px 1px #02020221;
+
+    }
 
     a{
       color: inherit;
@@ -18,13 +33,13 @@ const ButtonStyles = styled.button`
 `
 
 
-const Button = ({type, onClick, className, href ,children}) => {
+const Button = ({type, onClick, className, href,disabled ,children}) => {
 
   if(href){
 
       return (
 
-            <ButtonStyles  type={type} className={className} onClick={onClick}>
+            <ButtonStyles disabled={disabled} type={type} className={className} onClick={onClick}>
                     <Link href={href}><a>{children}</a></Link>
             </ButtonStyles>
 
@@ -33,7 +48,7 @@ const Button = ({type, onClick, className, href ,children}) => {
   }
 
   return (
-    <ButtonStyles type={type} className={className} onClick={onClick}>{children}</ButtonStyles>
+    <ButtonStyles disabled={disabled} type={type} className={className} onClick={onClick}>{children}</ButtonStyles>
   )
 }
 

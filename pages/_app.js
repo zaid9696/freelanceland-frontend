@@ -6,24 +6,35 @@ import useHttpAxios from '../hooks/http-hook';
 import {AuthContext} from '../context/AuthContext';
 
 
-
 function MyApp({ Component, pageProps }) {
 
   const {result, logout, login ,isLogged, isLoggedLoading} = useAuthHook();
   const {sendRequest} = useHttpAxios();
   const [notification, setNotification] = useState([]);
+  const [userMessages, setUserMessages] = useState({});
+  const [onlineUsers, setOnlineUsers] = useState({});
+
+
+const socket = useSocket('connect', () => {});
+
+
+useSocket('isOnline', ({users, lastSeen}) => {
+
+        console.log({users, lastSeen});
+        setOnlineUsers(users);
+
+});
 
 
 
 
-const socket = useSocket('connect', () => {})
 
 const fetchUsersMessages = async () => {
 
     if(result){
-        const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages/${result.id}/?limit=2`);
+        const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages/?limit=5`);
         const {usersMessages} = res.data;
-    
+        setUserMessages(usersMessages)
         console.log({usersMessages});
     }
 
@@ -48,7 +59,11 @@ const fetchUsersMessages = async () => {
 
 useEffect(() => {
 
- result && socket.emit('isOnline', {userId: result.id, isOnline: true});
+    if(result){
+
+        socket.emit('isOnline', {userId: result.id, isOnline: true});
+        fetchUsersMessages();
+    }
 
 }, [result])
 
@@ -89,7 +104,7 @@ useSocket('notifications', (newNotification) => {
 
 
   return (
-      <AuthContext.Provider value={{notification, fetchNotifications ,userAuth: result, logout,login ,isLogged, isLoggedLoading}}><Layout><Component {...pageProps} /></Layout></AuthContext.Provider>
+      <AuthContext.Provider value={{notification,fetchUsersMessages ,userMessages,fetchNotifications, onlineUsers ,userAuth: result, logout,login ,isLogged, isLoggedLoading}}><Layout><Component {...pageProps} /></Layout></AuthContext.Provider>
     )
 }
 

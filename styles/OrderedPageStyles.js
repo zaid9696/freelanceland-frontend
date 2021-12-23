@@ -188,10 +188,25 @@ const OrderedPageStyles = styled.div`
       margin-left: 1rem;
       padding-bottom: 1.4rem;
       padding-top: 0.6rem;
-
-      h3 {
-        margin-bottom: 1rem;
+      width: 100%;
+      .header {
+         display: flex;
+         justify-content:space-between;
+         align-items: center;
+         span {
+          display: flex;
+          align-items: center;
+            div.stars {
+              margin-left: 0.3rem;
+              margin-right: 0.6rem;
+              margin-bottom: 3px;
+            }
+         } 
+          h3 {
+            margin-bottom: 1rem;
+          }
       }
+
 
       &-info {
 
@@ -213,6 +228,11 @@ const OrderedPageStyles = styled.div`
   .order-deliver {
     .icon {
       background: var(--main);
+    }  
+  }
+  .order-review {
+    .icon {
+      background: #FFC107;
     }  
   }
   .order-cancelled {

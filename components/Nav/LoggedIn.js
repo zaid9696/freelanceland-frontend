@@ -1,7 +1,6 @@
 import {useContext, useState, useEffect} from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import Link from 'next/link';
-import styled from 'styled-components';
 import Image from 'next/image';
 import ReactTimeAgo from 'react-timeago';
 
@@ -13,72 +12,24 @@ import profileIcon from '../../assets/icons/dashboard/editProfileDrop.svg';
 import dashboardIcon from '../../assets/icons/dashboard/dashboard.svg';
 import arrowDownIcon from '../../assets/icons/nav/arrow_down.svg';
 import userAvatar from '../../assets/userAvatar.jpg';
-import acceptIcon from '../../assets/icons/accept.svg';
-import cancelIcon from '../../assets/icons/cancel.svg';
-import refuseIcon from '../../assets/icons/refuse.svg';
-import deliverIcon from '../../assets/icons/deliver.svg';
-import purchaseIcon from '../../assets/icons/purchase.svg';
 import AnimateTogggle from '../../components/UI/AnimateTogggle';
-import truncateLetters from '../../utils/truncateLetters';
 import useHttpAxios from '../../hooks/http-hook';
+import ChatItems from './ChatItems';
+import NotificationItems from './NotificationItems';
 
-
-const notificationIcons = (iconName) => {
-
-   switch(iconName){
-
-    case 'Delivered': return deliverIcon;
-    case 'Accepted':  return acceptIcon;
-    case 'Refused':   return refuseIcon;
-    case 'Cancelled': return cancelIcon;
-    case 'Purchased': return purchaseIcon;
-
-
-  }
-
-}
-
-
-
-const NotificationItems = ({item, myId, userName, markingReadNotification, dropdownNotiCloseHandler}) => {
-
-      let readStatus = item.read;
-  
-    return (
-
-        <Link href={`/ordered/${item.orderId}`}>
-            <a onClick={() => {
-              markingReadNotification(item.id);
-              dropdownNotiCloseHandler();
-            }}>
-              <li>
-                <div className={`notification-icons ${item.status}`}>
-                  <Image src={notificationIcons(item.status)} width={30} height={30} alt={`${item.status} Icon`} />
-                </div>
-                <div className='notification-content'>
-                  <p>{item.creator == myId ? 'You' : item.buyer == userName  ? 'Seller' : item.status == 'Purchased' ? item.buyer : 'Buyer'} {item.status} the Order {item.orderId} {truncateLetters(item.title, 25)}
-                  </p>
-                  <span className='notification-date'><ReactTimeAgo date={item.createdAt} /></span>
-                  <span className={`notification-unread ${readStatus && 'read'}`}></span>
-
-                </div>
-              </li>
-            </a>
-        </Link>
-
-      )
-
-}
 
 const LoggedIn = (props) => {
 
   const [showDrop, setShowDrop] = useState(false);
-  const [showDropNonti, setShowDropNoti] = useState(false);
+  const [showDropNoti, setShowDropNoti] = useState(false);
+  const [showDropChat, setShowDropChat] = useState(false);
   const [isRead, setIsRead] = useState(false);
   const [isReadNoti, setIsReadNoti] = useState(false);
+  const [isUnreadMessage, setIsUnreadMessage] = useState(false);
   const {sendRequest} = useHttpAxios()
   const auth = useContext(AuthContext);
   const userAuth = auth.userAuth;
+  console.log({usersMessages: auth.userMessages});
   const [allNotifications, setAllNotifications] = useState(auth.notification || []);
 
   useEffect(() => {
@@ -90,9 +41,30 @@ const LoggedIn = (props) => {
 
   }, [auth.notification, allNotifications]);
 
+  useEffect(() => {
+
+    const isAllMessagesRead = Object.keys(auth.userMessages).map(item => {
+
+        const data = auth.userMessages[item].countUnread;
+
+        return Number.isInteger(data);
+
+    }).includes(true);
+
+    setIsUnreadMessage(isAllMessagesRead);
+
+  }, [auth.userMessages])
   const dropdownHandler = () => setShowDrop(prev => !prev);
-  const dropdownNotiHandler = () => setShowDropNoti(prev => !prev);
+  const dropdownNotiHandler = () => {
+      setShowDropNoti(prev => !prev);
+      setShowDropChat(false)
+  };
   const dropdownNotiCloseHandler = () => setShowDropNoti(false);
+  const dropdownChatHandler = () => {
+      setShowDropChat(prev => !prev);
+      setShowDropNoti(false)
+  };
+  const dropdownChatCloseHandler = () => setShowDropChat(false);
 
   const markingReadNotification = async (notificationId) => {
 
@@ -123,13 +95,16 @@ const LoggedIn = (props) => {
 
 }
 
+let userOnlineIds = [];
+
+
   return (
     <LoggedInStyles>
     	<div className='icons'>
     		<div className='notification'>
         <Image onClick={dropdownNotiHandler} width={40} height={40} src={notiIcon} alt='Notification Icon' />
         <div className={`notification-unread ${isReadNoti && 'read'}`}></div>
-       <AnimateTogggle show={showDropNonti}>
+       <AnimateTogggle show={showDropNoti} >
         <DropdownStyles>
           <ul className='notifications'>
              { allNotifications.map(item => <NotificationItems key={item.id} item={item} myId={userAuth.id} dropdownNotiCloseHandler={dropdownNotiCloseHandler} markingReadNotification={markingReadNotification} userName={userAuth.userName} />)}
@@ -139,7 +114,20 @@ const LoggedIn = (props) => {
          
        </AnimateTogggle>
         </div>
-    		<Image width={35} height={35} src={chatIcon} alt='Chat Icon' />
+        <div className='chat'>
+    		  <Image onClick={dropdownChatHandler} width={35} height={35} src={chatIcon} alt='Chat Icon' />
+          <div className={`notification-unread ${isUnreadMessage && 'read'}`}></div>
+          <AnimateTogggle show={showDropChat}>
+            <DropdownStyles className='drop-chat'>
+              <ul className='chat-list'>
+                {
+                 Object.keys(auth.userMessages).map(item => <ChatItems item={item} userId={userAuth.id} dropdownChatCloseHandler={dropdownChatCloseHandler} onlineUsers={auth.onlineUsers} key={auth.userMessages[item].item.id} userMessages={auth.userMessages} />)
+                }
+            </ul>
+            <Link href={`/chat`}><a onClick={dropdownChatCloseHandler} className='see-all'>See All Chats</a></Link>
+             </DropdownStyles>
+          </AnimateTogggle>
+        </div>
     	</div>
     	<div className='user-info'>
     		<div className='img-circle'><Image width={40} height={40} src={userAvatar} alt='User Avatar' /></div>
