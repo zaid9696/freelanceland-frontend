@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 
 import Button from '../../components/UI/Button';
 import starIcon from '../../assets/icons/star.svg';
 import useHttpAxios from '../../hooks/http-hook';
+import {AuthContext} from '../../context/AuthContext';
 
 const ReviewFieldsStyles = styled.div`
 
@@ -69,6 +70,7 @@ const ReviewFields = ({orders,updateOrderState, updateNotificationState,text, se
   const [rating, setRating] = useState(0);
   const [isRated, setIsRated] = useState(false);
   const [isFormTrue, setIsFormTrue] = useState(true);
+  const {userAuth} = useContext(AuthContext);
 
   const submitReviewHandler = async (e) => {
 
@@ -81,6 +83,7 @@ const ReviewFields = ({orders,updateOrderState, updateNotificationState,text, se
       seller: orders.seller,
       rating,
       bundle: orders.bundle.id,
+      creator: userAuth.id,
       createdAt: Date.now()
 
     }

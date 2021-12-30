@@ -31,6 +31,15 @@ const CheckoutPageStyles = styled.div`
       border-bottom: 1px solid var(--color-grey80);
       padding-bottom: 8px;
       margin-bottom: 1rem;
+
+      .header-content {
+
+          margin-right: 1.2rem;
+          margin-left: 1.2rem;
+          text-align: center;
+          line-height: 1.4;
+
+      }
       
       .header-img {
 

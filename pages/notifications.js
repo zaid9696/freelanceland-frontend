@@ -11,6 +11,7 @@ import cancelIcon from '../assets/icons/cancel.svg';
 import refuseIcon from '../assets/icons/refuse.svg';
 import deliverIcon from '../assets/icons/deliver.svg';
 import purchaseIcon from '../assets/icons/purchase.svg';
+import startReviewIcon from '../assets/icons/starReview.svg';
 
 
 const NotificationsPageStyles = styled.div`
@@ -57,6 +58,7 @@ const NotificationsPageStyles = styled.div`
       &.Accepted {background: var(--green);}
       &.Refused {background: #e93232;}
       &.Purchased {background: #8acfff;}
+      &.Reviewed {background: #FFC107;}
 
 
 	}
@@ -105,6 +107,8 @@ const notificationIcons = (iconName) => {
     case 'Refused': return refuseIcon;
     case 'Cancelled': return cancelIcon;
     case 'Purchased': return purchaseIcon;
+    case 'Reviewed': return startReviewIcon;
+
 
 
   }

@@ -58,7 +58,6 @@ export default function Home({data}) {
         {/*<BundleFilters /> */}
         {/*<BundleCategory title={'Web Programming'} items={Dummy_Bundles} /> */}
         {/* <Dashboard /> */}
-        { <Profile bundles={data.bundles} /> }
         {/*<Panel />*/}
         <Info />
         <Bundles  title='Top Rated Bundles' desc='- Best Sellers' bundleItems={data.bundles} />

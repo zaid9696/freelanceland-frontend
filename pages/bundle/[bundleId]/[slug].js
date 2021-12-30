@@ -118,8 +118,8 @@ const BundlePage = ({result, allBundles ,params}) => {
               <div className='rate'> 
 
                 <div className='rate-reviews'>
-                  <div className='rate-stars'><RatingStar width={15} height={15} rating={4}  /> <span className='num'>5.0</span>  </div>
-                  <span>(4)</span>
+                  <div className='rate-stars'><RatingStar width={15} height={15} rating={bundle.ratingsAverage}  /> <span className='num'>{bundle.ratingsAverage && bundle.ratingsAverage.toFixed(1)}</span>  </div>
+                  <span>({bundle.ratingsQuantity})</span>
                 </div>
 
                 <div className='rate-icons'>

@@ -40,6 +40,7 @@ const DashboardUserStyles = styled.div`
 
     .user-data {
         display: flex;
+        
        
     }
 

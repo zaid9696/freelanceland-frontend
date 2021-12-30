@@ -1,3 +1,4 @@
+import {useState, useEffect}  from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -31,13 +32,22 @@ const ProfileStyles = styled.div`
     }
 
     
-
 `;
 
-const Profile = ({bundles}) => {
+const Profile = ({bundles, reviews,user , userName}) => {
+
+    const [profileReviews, setProfileReviews] =  useState(reviews || []);
+
+    useEffect(() => {
+
+        setProfileReviews(reviews);
+
+    }, [userName])
+
+    console.log({userName, reviews});
   return (
     <ProfileStyles>
-    	<DashboardUser />
+    	<DashboardUser user={user} />
     	<div className='user-profile'>
     		<div className='user-profile-bundles'>
     			<h2>Bundles</h2>
@@ -46,7 +56,7 @@ const Profile = ({bundles}) => {
     			</div>
     		</div>
 
-    		<Reviews />
+    		<Reviews reviews={profileReviews} userName={userName} />
     	</div>
     </ProfileStyles>
   )

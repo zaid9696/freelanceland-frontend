@@ -1,10 +1,13 @@
+import {useState, useContext, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactTimeAgo from 'react-timeago';
 
 import RatingStar from '../UI/RatingStar';
 import userAvatar from '../../assets/userAvatar.jpg';
-
+import {AuthContext} from  '../../context/AuthContext';
+import calculateAverage from '../../utils/calculateAverage';
 
 const ReviewProfile = styled.div`
 
@@ -27,10 +30,16 @@ const ReviewProfile = styled.div`
         .rating {
 
         	display: flex;
-		    justify-content: center;
+		    justify-content: start;
 		    align-items: center;
 		    margin: 1rem 0;
+            .rating-info {
 
+                display: flex;
+                align-items: center;
+                margin-left: 2rem;
+
+            }
         	&-num {
 
         		display: flex;
@@ -98,83 +107,100 @@ const ReviewProfile = styled.div`
 
 			}
 
-    }
 
+    }
  
   
 `;
 
-const Reviews = (props) => {
+const ReviewItems = ({item}) => {
+
+    return (
+
+            <div className='review'>
+                    <div className='review-avatar img-circle'>
+                        <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${item.creator.photo}`} width={70} height={70} alt='review image' />
+                    </div>
+                    <div className='review-info'>
+                        <div className='review-info-rating'>
+                            <Link href={`/${item.creator.userName}`}><a>{item.creator.userName}</a></Link>
+                            <div className='review-stars'>
+                            <RatingStar width={15} height={15} rating={item.rating} />
+                                <span className='num'>{item.rating}.0</span>
+                            </div>
+                        </div>
+
+                        <div className='review-info-message'>
+                            <p>{item.review}</p>
+                            <span><ReactTimeAgo date={item.createdAt} /></span>
+                        </div>
+                    </div>
+                </div>
+
+        )
+}
+
+const Reviews = ({reviews, userName}) => {
+
+    const [reviewType, setReviewType] = useState('seller');
+    const [totalAve, setTotalAve] = useState(0);
+    const [count, setCount] = useState(0);
+    const {userAuth} =  useContext(AuthContext);
+    const [totalRatings, setTotalRatings] = useState();
+    let aveRating = [];
+    
+    useEffect(() => {
+
+        const {total, counts} = calculateAverage(aveRating);
+        setCount(counts);
+        setTotalAve(total);
+
+    }, [aveRating])
+
+
+    if(!reviews) return null;
+
   return (
     	
     	<ReviewProfile className='user-profile-reviews'>
     			<h2>Reviews</h2>
     			<div className='user-profile-review'>
     				<div className='rating'>
-    				<div className='rating-num'>
-	    				<RatingStar width={20} height={20} rating={4} />
-    					{`4.0`}
-    				</div>
-    				<span className='reviews-num'>5 Reviews</span>
+                        <div className='rating-select'>
+                            <select id='select' onChange={(e) => {setReviewType(e.target.value)}}>
+                                <option value='seller'>As Seller</option>
+                                <option value='buyer'>As Buyer</option>
+                            </select>
+                        </div>
+                        <div className='rating-info'>
+            				<div className='rating-num'>
+        	    				<RatingStar width={20} height={20} rating={totalAve} />
+            					{totalAve >= 1 ? totalAve.toFixed(1) : 0}
+            				</div>
+            				<span className='reviews-num'>{count} Reviews</span>
+                            
+                        </div>
     			</div>
 
-    			<div className='review'>
-    				<div className='review-avatar img-circle'>
-    					<Image src={userAvatar} width={70} height={70} alt='review image' />
-    				</div>
-    				<div className='review-info'>
-    					<div className='review-info-rating'>
-    						<Link href={`#`}><a>Zaid96</a></Link>
-    						<div className='review-stars'>
-    						<RatingStar width={15} height={15} rating={5} />
-    							<span className='num'>5.0</span>
-    						</div>
-    					</div>
+    		  {
+                
+              userAuth && reviews.map(item => {
+                if(item.buyer.userName !== userName && item.creator.userName !== userName && reviewType == 'seller'){
+                    aveRating.push(item.rating);
+                    // calculateRates(aveRating);
+            
+                    return <ReviewItems key={item.id} item={item} />
+                }
 
-    					<div className='review-info-message'>
-    						<p>replies fast and fixed all issues, highly recommended</p>
-    						<span>Since 3 months</span>
-    					</div>
-    				</div>
-    			</div>
+                if(item.buyer.userName == userName && item.reply && reviewType == 'buyer'){
+                    aveRating.push(item.reply.rating);
+                return <ReviewItems key={item.id} item={item.reply} />
+                }
+               
+                
+                })
 
-    			<div className='review'>
-    				<div className='review-avatar img-circle'>
-    					<Image src={userAvatar} width={70} height={70} alt='review image' />
-    				</div>
-    				<div className='review-info'>
-    					<div className='review-info-rating'>
-    						<Link href={`#`}><a>Zaid96</a></Link>
-    						<div>
-    						<RatingStar width={15} height={15} rating={5} />
-    							<span className='num'>5.0</span>
-    						</div>
-    					</div>
-
-    					<div className='review-info-message'>
-    						<p>replies fast and fixed all issues, highly recommended</p>
-    					</div>
-    				</div>
-    			</div>
-
-    			<div className='review'>
-    				<div className='review-avatar img-circle'>
-    					<Image src={userAvatar} width={70} height={70} alt='review image' />
-    				</div>
-    				<div className='review-info'>
-    					<div className='review-info-rating'>
-    						<Link href={`#`}><a>Zaid96</a></Link>
-    						<div>
-    						<RatingStar width={15} height={15} rating={5} />
-    							<span className='num'>5.0</span>
-    						</div>
-    					</div>
-
-    					<div className='review-info-message'>
-    						<p>replies fast and fixed all issues, highly recommended</p>
-    					</div>
-    				</div>
-    			</div>
+              }
 
 
     			</div>

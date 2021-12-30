@@ -55,7 +55,10 @@ const PaypalButton = ({orderBundleHandler, bundleId}) => {
                   return actions.order.capture()
                   }
                 }
-                // onCancel={function (data, actions) {
+                onCancel={function (data, actions) {
+                      orderBundleHandler();
+      
+                }}
                     
                 // }}
                 // onError={this.onError}
@@ -171,8 +174,8 @@ const createNotification = useCallback(async (newOrder) => {
                 <div className='header-content'>
                     <h2>{bundle.title}</h2>
                     <div className='header-user'>
-                        <div className='img-circle shadow'><Image src={userAvatar} width={60} height={60} alt="User's Image" /></div>
-                        <span><Link href='#'><a>Zaid96</a></Link></span>
+                        <div className='img-circle'><Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${bundle.user.photo}`} width={60} height={60} alt="User's Image" /></div>
+                        <span><Link href={`/${bundle.user.userName}`}><a>{bundle.user.userName}</a></Link></span>
                     </div>
                 </div>
             </header>

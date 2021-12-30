@@ -5,6 +5,7 @@ import Link from 'next/link';
 import starIcon from '../../assets/icons/star.svg';
 import bundleImage from '../../assets/bundleImage.png';
 import userAvatar from '../../assets/userAvatar.jpg';
+import RatingStar from '../UI/RatingStar';
 
 const BundlesItemsStyles = styled.div`
   
@@ -62,11 +63,16 @@ const BundlesItemsStyles = styled.div`
 .bundle-reviews {
     display: flex;
     justify-content: flex-end;
+    .bundle-reviews-wrap{
+
+        display: flex;
+        align-items: center;
+    }
     .rating{
         color: var(--orange);
         position: relative;
-        top: -2.3px;
-        left: -2px;
+        top: -2.4px;
+        left: -5px;
         font-size: 0.93rem;
 
     }
@@ -127,8 +133,8 @@ const BundlesItems = ({item}) => {
         
         		<div className='bundle-info'> 
         			<div className='bundle-reviews'>
-        				<div><Image width={17} height={17} src={starIcon} alt='Star Icon' /> <span className='rating'>{4.50}</span> </div>
-        				<span className='reviews-num'>({5})</span>
+        				<div className='bundle-reviews-wrap'><RatingStar width={17} height={17} rating={item.ratingsAverage} /> <span className='rating'>{item.ratingsAverage && item.ratingsAverage.toFixed(1)}</span> </div>
+        				<span className='reviews-num'>({item.ratingsQuantity})</span>
         			</div>
         			<span className='category'>
         				<Link href='/'>

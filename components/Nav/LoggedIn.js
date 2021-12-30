@@ -130,7 +130,7 @@ let userOnlineIds = [];
         </div>
     	</div>
     	<div className='user-info'>
-    		<div className='img-circle'><Image width={40} height={40} src={userAvatar} alt='User Avatar' /></div>
+    		<div className='img-circle'><Image width={40} height={40} src={`${process.env.NEXT_PUBLIC_URL}/images/users/${userAuth.photo}`} alt='User Avatar' /></div>
     		<div className='user-data'>
     			<p>{userAuth.userName}</p>
     			<span>$900</span>
@@ -144,8 +144,8 @@ let userOnlineIds = [];
         <AnimateTogggle toggleClass='dropdown-content' show={showDrop}>
           
               <ul>
-                <li><Link href='#'><a><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
-                <li><Link href='#'><a><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
+                <li><Link href={`/${userAuth.userName}`}><a onClick={dropdownHandler}><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
+                <li><Link href='#'><a onClick={dropdownHandler}><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
     
               </ul>
               <button type='button' onClick={auth.logout}>Logout</button>

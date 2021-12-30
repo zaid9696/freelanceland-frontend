@@ -64,6 +64,12 @@ const UploadImage = ({setImageFile, user}) => {
 
     }, [fileValue]);
 
+useEffect(() => {
+
+    setImageFile(fileValue);
+
+}, [fileValue])
+
     const pickImage = (e) => {
 
         if(e.target.files && e.target.files.length === 1 && e.target.files[0].type.startsWith('image')){
@@ -71,7 +77,6 @@ const UploadImage = ({setImageFile, user}) => {
             console.log({previewUrl});
             setfileValue(pickedFile);
             setIsValid(true);
-        	setImageFile(fileValue);
         }else {
         	
         	setPreviewUrl('');

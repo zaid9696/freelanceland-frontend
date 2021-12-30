@@ -60,25 +60,31 @@ const AdditionalInfo = ({}) => {
 }
 
 
-const DashboardUser = (props) => {
+const DashboardUser = ({user}) => {
+
+
+  if(!user) return null;
+
+  console.log({user});
+
   return (
     <DashboardUserStyles>
         <div className='user-info'>
         <div className='user-avatar img-circle'>
-            <Image src={userAvatar} alt='user avatar' width={80} height={80} />
+            <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${user.photo}`} alt='user avatar' width={80} height={80} />
         </div>
         <div className='user-profile'>
-            <Link href='#'>Zaid96</Link>
+            {user.userName}
         </div>
         
         <div className='user-data'>
               <div className='user-imgs'>
               
-              <RatingStar width={15} height={15} rating={3} />
+              <RatingStar width={15} height={15} rating={user.userRatingAverage} />
           
               </div>
               <div className='user-reviews'>
-                  3.0 <span>4 Reviews</span>
+                  {user.userRatingAverage.toFixed(1)} <span>({user.userTotalReviews}) Reviews</span>
               </div>
           </div>
 
