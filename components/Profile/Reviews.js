@@ -9,7 +9,7 @@ import userAvatar from '../../assets/userAvatar.jpg';
 import {AuthContext} from  '../../context/AuthContext';
 import calculateAverage from '../../utils/calculateAverage';
 
-const ReviewProfile = styled.div`
+export const ReviewProfile = styled.div`
 
 			h2 {
     		font-size: 1.7rem;
@@ -61,7 +61,7 @@ const ReviewProfile = styled.div`
         	margin-bottom: 2.3000000000000007rem;
 		    border-bottom: 1px solid #634cc252;
 		    padding-bottom: 5px;
-
+            &.sub-review {margin-top: 1.5rem;}
         	&-info {
         		display: flex;
         		flex-direction: column;
@@ -89,6 +89,10 @@ const ReviewProfile = styled.div`
 
         	}
 			&-message {
+                p.review-bundle {
+                    position: relative;
+                    // top: -11px;
+                }
 				p {
 					margin-left: 10px;
 					font-weight: 100;
@@ -144,9 +148,9 @@ const Reviews = ({reviews, userName}) => {
 
     const [reviewType, setReviewType] = useState('seller');
     const [totalAve, setTotalAve] = useState(0);
+    const [totalRatings, setTotalRatings] = useState();
     const [count, setCount] = useState(0);
     const {userAuth} =  useContext(AuthContext);
-    const [totalRatings, setTotalRatings] = useState();
     let aveRating = [];
     
     useEffect(() => {

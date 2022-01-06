@@ -70,7 +70,7 @@ const BundlePageStyles = styled.div`
           padding-top: 9px;
           border-radius: 3px;
           span {margin-left: 7px;}
-
+          cursor: pointer;
         }
 
       }
@@ -172,6 +172,8 @@ const BundlePageStyles = styled.div`
       cursor: not-allowed;
 
     }
+
+    
 
 `
 

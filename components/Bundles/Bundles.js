@@ -112,7 +112,7 @@ const Bundles = ({title, desc, bundleItems, hide}) => {
     		{bundleItems.map(item => <BundlesItems key={item.id} item={item} />)}
     	</div>
     	<div className='bundle-btn'>
-    	<button type='button'>View More</button>
+    	{!hide && <button type='button'>View More</button>}
     	</div>
     </BundlesStyles>
   )

@@ -2,6 +2,7 @@ import {useState, useContext, useRef, useEffect} from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import SocialButton from '../components/SocialLogin';
 import UploadImage from '../components/UI/UploadImage';
 import useHttpAxios from '../hooks/http-hook';
 import { AuthContext } from '../context/AuthContext';
@@ -36,10 +37,26 @@ const test = (props) => {
 
     }
 
-    console.log({imagePath:`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${userAuth.photo}`});
+    const handleSocialLogin = (user) => {
+  console.log(user);
+};
+
+const handleSocialLoginFailure = (err) => {
+  console.error(err);
+}; 
  
   return (
     <TestStyles> 
+       <div>
+          <SocialButton
+            provider="facebook"
+            appId="1644993705852068"
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+          >
+            Login with Facebook
+          </SocialButton>
+        </div>
        <UploadImage setImageFile={setImageFile} user={true}/>
        <button onClick={updateUserData}> Save Image</button>
        {userAuth && <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${userAuth.photo}`} width={50} height={50} />}

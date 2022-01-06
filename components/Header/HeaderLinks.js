@@ -18,12 +18,16 @@ const HeaderLinksStyles = styled.ul`
 	    border-radius: 30px;
 	    font-weight: 600;
 	    font-size: 0.7rem;
+        cursor: pointer;
 	     @media (max-width: 1115px) {
 
 	    		font-size: 0.5rem;
         
     		}
     	transition: var(--tranhover);
+        a{
+            color: var(--main);
+        }
 	    &:hover{
 	    	box-shadow: 0px 0px 8px 3px #d7d7d74f;
 	    	background: transparent;
@@ -37,58 +41,20 @@ const HeaderLinksStyles = styled.ul`
 `
 
 
-const HeaderLinks = ({className}) => {
+const HeaderLinks = ({className, categories}) => {
   return (
     <HeaderLinksStyles className={className}>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Programming & IT
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Graphics & Design
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Digital Marketing
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Writing & Translation
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Video & Animation
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Music & Audio
-    			</a>
-    		</Link>
-    	</li>
-    	<li>
-    		<Link href='/'>
-    			<a>
-    				Business
-    			</a>
-    		</Link>
-    	</li>
+    	{
+           categories && categories.map((item) => (
+                    <li key={item._id} >
+                         <Link  href={`/categories/${item.categorySlug}`}>
+                         <a>
+                            {item.category}
+                        </a>
+                        </Link>
+                    </li>
+                ))
+        }
 
     </HeaderLinksStyles>
   )

@@ -109,6 +109,9 @@ const BundlesItemsStyles = styled.div`
 
 
 const BundlesItems = ({item}) => {
+
+  console.log({item});
+
   return (
     <BundlesItemsStyles>
     	<div className='bundle-img'>
@@ -122,11 +125,11 @@ const BundlesItems = ({item}) => {
          <div className='bundle-wrap'>
       		<div className='bundle-user'>
       			<div className='bundle-user-img'>
-      				<Image width={40} height={40} src={userAvatar} />
+      				<Image width={40} height={40} src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${item.user.photo}`} />
       			</div>
             <div className='bundle-user-name'> 
-        			<Link href='/'>
-        				<a>{'Zaid96'}</a>
+        			<Link href={`/${item.user.userName}`}>
+        				<a>{item.user.userName}</a>
         			</Link>
             </div>
       		</div>

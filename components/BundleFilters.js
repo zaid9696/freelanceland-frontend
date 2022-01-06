@@ -1,6 +1,8 @@
 import React, {useState , useEffect} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
 
 import tick from '../assets/icons/filter/tick.svg';
 import badReview from '../assets/icons/filter/badReview.svg';
@@ -75,13 +77,15 @@ const BundleFiltersStyles = styled.div`
 
 `
 
-// Hide input checkbox
-// position: absolute;
-    // z-index: -1;
-    // opacity: 0;
-// }
-const BundleFilters = (props) => {
 
+const BundleFilters = ({pageNum, categoryName}) => {
+
+
+  const router = useRouter();	
+  const [clickedHTLR, setClickedHTLR] = useState(false);
+  const [clickedLTHR, setClickedLTHR] = useState(false);
+  const [clickedHTLP, setClickedHTLP] = useState(false);
+  const [clickedLTHP, setClickedLTHP] = useState(false);
   const [tickState, setTickState] = useState({
 			  	lthpTick: false,
 			  	htlpTick: false,
@@ -90,11 +94,96 @@ const BundleFilters = (props) => {
   }	
   	);
 
+ useEffect(() => {
+
+ 	
+ 	console.log({router});
+ 	let filterName;
+
+ 	if(router.query.price){
+ 	
+
+ 	   if(router.query.price == 'low-high' && !clickedLTHP){
+ 			 filterName = 'lthpTick';
+ 			 setClickedLTHP(true);
+ 			 
+ 		}
+
+ 		if(router.query.price == 'high-low' && !clickedHTLP)	{
+ 		  	 filterName = 'htlpTick';
+ 		  	 setClickedHTLP(true);
+ 		}
+ 		loagPageFilter(filterName);
+
+ 	}
+
+ 	if(router.query.review){
+
+ 	   if(router.query.review == 'low-high' && !clickedLTHR){
+ 		  	 filterName = 'lthrTick';
+ 		  	 setClickedLTHR(true);
+ 	   }
+
+
+ 	   if(router.query.review == 'high-low' && !clickedHTLR){
+ 	   		filterName = 'htlrTick';
+ 		  	 setClickedHTLR(true);
+ 	   }
+
+ 		loagPageFilter(filterName);
+
+ 	}
+
+ }, [])
+
+
+useEffect(() => {
+
+	if(router.query.price){
+
+ 	router.query.price == 'high-low' ? setClickedHTLP(true) : setClickedHTLP(false)
+ 		
+ 	router.query.price == 'low-high' ? setClickedLTHP(true) : setClickedLTHP(false)
+
+	}else{
+ 		clickedHTLP && setClickedHTLP(false)
+		clickedLTHP && setClickedLTHP(false)
+	}
+
+	if(router.query.review){
+
+ 	router.query.review == 'high-low' ? setClickedHTLR(true) : setClickedHTLR(false)
+ 		
+ 	router.query.review == 'low-high' ? setClickedLTHR(true) : setClickedLTHR(false)
+
+	}else{
+
+ 		clickedHTLR && setClickedHTLR(false)
+		clickedLTHR && setClickedLTHR(false)
+	}
+
+
+}, [router])
+
+ 	 const loagPageFilter = (id) => {
+
+ 		 const newObj = {};
+
+		 // To reset all the filter buttons;
+		 for(const nameObj in tickState) newObj[nameObj] = false;
+
+		setTickState(prev => ({
+		  		...newObj,
+		  		[id]: !prev[id]
+		  }));
+ 	 }
 
 	  const changeTickState = (e) => {
-
+	  		
 	  		const {id} = e.target;
-
+	  		console.log({checkRouter: router.query.price});
+	
+	  		
 	  		 const newObj = {};
 	  		 // To reset all the filter buttons;
 	  		 for(const nameObj in tickState) newObj[nameObj] = false;
@@ -113,8 +202,14 @@ const BundleFilters = (props) => {
     	<div className='filters'>
     		<div className='filter'>
     			<div className='input-checkbox'>
+    				<Link href={`/categories/${categoryName}?page=${pageNum}${clickedLTHR ? '' : '&review=low-high'}`}>
+    				<a>
     				<input type='checkbox' id='reviewlth' />
-    				<label id='htlrTick' className={tickState.htlrTick ? 'active' : ''} onClick={changeTickState}  htmlFor='reviewlth'></label>
+    				<label id='lthrTick' className={tickState.lthrTick ? 'active' : ''} onClick={changeTickState}  htmlFor='reviewlth'></label>
+    					
+    				</a>
+    					
+    				</Link>
     			</div>
     			<div className='filter-txt'>
     				<h4>Reviews - Low to High</h4>
@@ -126,8 +221,13 @@ const BundleFilters = (props) => {
 
     		<div className='filter'>
     			<div className='input-checkbox'>
+    			<Link href={`/categories/${categoryName}?page=${pageNum}${clickedHTLR ? '' : '&review=high-low'}`}>
+    				<a>
+    					
     				<input type='checkbox' id='reviewhtl' />
-    				<label id='lthrTick' className={tickState.lthrTick ? 'active' : ''} onClick={changeTickState}  htmlFor='reviewhtl'></label>
+    				<label id='htlrTick' className={tickState.htlrTick ? 'active' : ''} onClick={changeTickState}  htmlFor='reviewhtl'></label>
+    				</a>
+    			</Link>
     			</div>
     			<div className='filter-txt'>
     				<h4>Reviews - High to Low</h4>
@@ -139,8 +239,13 @@ const BundleFilters = (props) => {
 
     		<div className='filter'>
     			<div className='input-checkbox'>
-    				<input type='checkbox' id='pricehtl' />
-    				<label id='htlpTick' className={tickState.htlpTick  ? 'active' : ''} onClick={changeTickState}  htmlFor='pricehtl'></label>
+    				<Link href={`/categories/${categoryName}?page=${pageNum}${clickedHTLP  ? '' : '&price=high-low'}`}>
+    					<a>
+	    				<input type='checkbox' id='pricehtl' />
+	    				<label id='htlpTick' className={tickState.htlpTick  ? 'active' : ''} onClick={changeTickState}  htmlFor='pricehtl'></label>
+    						
+    					</a>
+    				</Link>
     			</div>
     			<div className='filter-txt'>
     				<h4>Price - High to Low</h4>
@@ -152,8 +257,15 @@ const BundleFilters = (props) => {
 
     		<div className='filter'>
     			<div className='input-checkbox'>
+    			<Link href={`/categories/${categoryName}?page=${pageNum}${clickedLTHP ? '' : '&price=low-high'}`}>
+    				
+    				<a>
+    					
     				<input type='checkbox' id='pricelth' />
     				<label id='lthpTick' className={tickState.lthpTick  ? 'active' : ''} onClick={changeTickState}  htmlFor='pricelth'></label>
+    				</a>
+
+    			</Link>
     			</div>
     			<div className='filter-txt'>
     				<h4>Price - Low to High</h4>

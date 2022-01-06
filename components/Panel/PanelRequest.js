@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactTimeAgo from 'react-timeago';
 
+import DateFormat from '../../utils/DateFormat';
 import userAvatar from '../../assets/userAvatar.jpg';
 
 const PanelRequestStyles = styled.div`
@@ -40,6 +42,8 @@ const PanelRequestStyles = styled.div`
     	a {
     		display: block;
     		margin-bottom: 5px;
+            color: var(--main);
+            font-weight: 500;
     	}
     }
 
@@ -52,26 +56,15 @@ const PanelRequestStyles = styled.div`
     .budget-col {
 
     	button:nth-child(1) {
-    	font-size: 0.7rem;
-	    background: var(--green);
-	    color: #fff;
-	    border: none;
-	    padding: 5px;
-	    margin-bottom: 8px;
-	    margin-top: 9px;
-	    border-radius: 2px;
-
-    	}
-
-    	button:nth-child(2) {
   			font-size: 0.7rem;
 		    background: var(--main);
 		    color: #fff;
 		    border: none;
 		    padding: 5px 12px;
-		    margin-bottom: 8px;
-		    margin-top: 0;
+		    margin-top: 8px;
 		    border-radius: 2px;
+            cursor: pointer;
+            text-transform: Uppercase;
 
     	}
 
@@ -79,7 +72,52 @@ const PanelRequestStyles = styled.div`
 
 `
 
-const PanelRequest = (props) => {
+const PanelRequestItems = ({item}) => {
+
+    return (
+
+            <div className='panel-columns-content col-6'>
+
+            <div className='panel-col-content'>
+                <div className='panel-user-img img-circle'><Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${item.buyer.photo}`} alt='user Image' height={40} width={40} /></div>
+                <span className='panel-user-link'><Link href={`/${item.buyer.userName}`}>{item.buyer.userName}</Link></span>
+            </div>
+
+            <div className='panel-col-content'>
+                <Link href={`/categories/${item.category.categorySlug}`}>{item.category.category}</Link>
+                <span>{item.request}</span>
+            </div>
+
+            <div className='panel-col-content'>
+                <span>{item.delivery} Days</span>
+            </div>
+
+            <div className='panel-col-content'>
+                <span>{DateFormat(item.createdAt)}</span>
+            </div>
+
+            <div className='panel-col-content'>
+                <span><ReactTimeAgo date={item.expiry} /></span>
+            </div>
+
+            <div className='panel-col-content'>
+                <span> {item.firstBudget}$ - {item.secondBudget}$</span>
+                <div className='budget-col'>
+                    <Link href={`/chat/${item.buyer.userName}`}>
+                        <a>
+                        <button type='button'>Contact</button>    
+                        </a>
+                    </Link>
+                </div>
+            </div>
+        </div>
+
+        )
+
+}
+
+
+const PanelRequest = ({offers}) => {
   return (
     <PanelRequestStyles>
     	<div className='panel-columns col-6'>
@@ -90,71 +128,11 @@ const PanelRequest = (props) => {
     		<div className='panel-col'>Expiry</div>
     		<div className='panel-col'>Budget</div>
     	</div>
-    	<div className='panel-columns-content col-6'>
-
-    		<div className='panel-col-content'>
-    			<div className='panel-user-img img-circle'><Image src={userAvatar} alt='user Image' height={40} width={40} /></div>
-    			<span className='panel-user-link'><Link href='#'>Zaid96</Link></span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<Link href='#'>Web Programming</Link>
-    			<span>Hello I have some problems I want change product list or grid view in category </span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>2 Day</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>Mar 02 - 8:48 PM</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>29 Days 20 Hours 23 Minutes</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span> 10$ - 100$</span>
-    			<div className='budget-col'>
-    				<button type='button'>Send Offer</button>
-    				<button type='button'>Contact</button>
-    			</div>
-    		</div>
-    	</div>
-
-    	<div className='panel-columns-content col-6'>
-
-    		<div className='panel-col-content'>
-    			<div className='panel-user-img img-circle'><Image src={userAvatar} alt='user Image' height={40} width={40} /></div>
-    			<span className='panel-user-link'><Link href='#'>Zaid96</Link></span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<Link href='#'>Web Programming</Link>
-    			<span>Hello I have some problems I want change product list or grid view in category </span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>2 Day</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>Mar 02 - 8:48 PM</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span>29 Days 20 Hours 23 Minutes</span>
-    		</div>
-
-    		<div className='panel-col-content'>
-    			<span> 10$ - 100$</span>
-    			<div className='budget-col'>
-    				<button type='button'>Send Offer</button>
-    				<button type='button'>Contact</button>
-    			</div>
-    		</div>
-    	</div>
+    
+        {
+            offers.map(item =>  <PanelRequestItems item={item} />)
+        }
+    	
     </PanelRequestStyles>
   )
 }

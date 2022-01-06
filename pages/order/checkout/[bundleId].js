@@ -56,7 +56,7 @@ const PaypalButton = ({orderBundleHandler, bundleId}) => {
                   }
                 }
                 onCancel={function (data, actions) {
-                      orderBundleHandler();
+                      console.log('The order cancelled');
       
                 }}
                     
@@ -209,52 +209,48 @@ const createNotification = useCallback(async (newOrder) => {
   )
 }
 
-export async function getStaticProps({preview, params }){
 
-   try {
+export async function getServerSideProps(context){
 
-       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/${params.bundleId}`);
-       const result = await res.json();    
+      const {bundleId} = context.query;
+      const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
 
-    if(!result){
+      const myHeaders = new Headers();
+
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', `Bearer ${token}`);
+       
+       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/${bundleId}`,{
+          method: 'GET',
+          headers: myHeaders
+        });
+ 
+ 
+        const data = await res.json();
+        
+        let error = data.error ? data.error.statusCode : null;
+    
+        if(error || !data){
+
+          return {
+            redirect: {
+              destination: '/',
+              permanent: false
+            }
+          }
+       }
 
         return {
-          notFound: true
+            props: {
+                result: data,
+            }
         }
-    }
-
-    return {
-      props: {
-        result,
-        params
-      }
-    }
-   }catch(err){
-
-      return {
-          props: {
-            err
-          }
-      }
-
-   }
-
-
+  
+  
 
 }
 
-export async function getStaticPaths() {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles`);
-    const result = await res.json();
 
-    const paths = result.bundles.map(item => ({params: {bundleId: item.id}}));
-
-    return {
-      paths,
-      fallback: true
-    }
-
-}
 
 export default CheckoutPage;

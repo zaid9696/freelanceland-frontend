@@ -49,7 +49,7 @@ const OrderedPage = ({result}) => {
   const bundle = result.order.bundle;
   const {accepted, notAccepted, delivered, cancelled, deliveredDesc ,user} = result.order;
 
-  console.log({order:orders});
+  // console.log({order:orders});
   
   const {isUser} = result;
 

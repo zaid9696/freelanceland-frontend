@@ -10,6 +10,7 @@ import chatIcon from '../../assets/icons/nav/chat.svg';
 import notiIcon from '../../assets/icons/nav/notification.svg';
 import profileIcon from '../../assets/icons/dashboard/editProfileDrop.svg';
 import dashboardIcon from '../../assets/icons/dashboard/dashboard.svg';
+import requestIcon from '../../assets/icons/dashboard/myRequest.svg';
 import arrowDownIcon from '../../assets/icons/nav/arrow_down.svg';
 import userAvatar from '../../assets/userAvatar.jpg';
 import AnimateTogggle from '../../components/UI/AnimateTogggle';
@@ -133,7 +134,7 @@ let userOnlineIds = [];
     		<div className='img-circle'><Image width={40} height={40} src={`${process.env.NEXT_PUBLIC_URL}/images/users/${userAuth.photo}`} alt='User Avatar' /></div>
     		<div className='user-data'>
     			<p>{userAuth.userName}</p>
-    			<span>$900</span>
+    			<span>${userAuth.totalEarned}</span>
     		</div>
     	</div>
     
@@ -146,7 +147,7 @@ let userOnlineIds = [];
               <ul>
                 <li><Link href={`/${userAuth.userName}`}><a onClick={dropdownHandler}><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
                 <li><Link href='#'><a onClick={dropdownHandler}><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
-    
+                <li><Link href={'/requests'}><a onClick={dropdownHandler}><Image width={35} height={35} src={requestIcon} alt='Dashboard Icon' /><span>Requests</span></a></Link></li>
               </ul>
               <button type='button' onClick={auth.logout}>Logout</button>
                     

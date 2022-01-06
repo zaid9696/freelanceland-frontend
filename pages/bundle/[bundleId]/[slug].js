@@ -1,8 +1,35 @@
-import {useEffect, useContext} from 'react';
+import {useEffect, useContext, useState} from 'react';
+import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactTimeAgo from 'react-timeago';
+import ReactCountryFlag from 'react-country-flag';
 import {useRouter} from 'next/router';
 
+const SocialShare = styled.div` 
+
+
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      text-align: center;
+      width: 100%;
+    span {
+      &.twitter {color: #00acee};
+      &.facebook {color:  #3b5998};
+      &.email {color: #c71610};
+      button {
+
+        text-transform: uppercase;
+        font-weight: 600 !important;
+        font-size: 1.5rem !important;
+        letter-spacing: 1.2px;
+
+      }
+
+    }
+
+
+ `
 
 import BundlePageStyles from '../../../styles/BundlePageStyles';
 import bundleCover from '../../../assets/image2.png';
@@ -12,56 +39,152 @@ import share from '../../../assets/icons/share.svg';
 import RatingStar from '../../../components/UI/RatingStar';
 import userAvatar from '../../../assets/userAvatar.jpg';
 import Reviews from '../../../components/Profile/Reviews';
+import BundleReviews from './BundleReviews';
 import DashboardUserStyles from '../../../styles/DashboardUserStyles';
 import useHttpAxios from '../../../hooks/http-hook';
 import LoadingSpinner from '../../../components/UI/LoadingSpinner';
+import Modal from '../../../components/UI/Modal.js';
 import ErrorModal from '../../../components/UI/ErrorModal';
 import Button from '../../../components/UI/Button';
 import Bundles from '../../../components/Bundles/Bundles';
 import {AuthContext} from '../../../context/AuthContext';
+import dateFormat from '../../../utils/DateFormat';
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TwitterShareButton
+} from "react-share";
 
 
-const BundlePage = ({result, allBundles ,params}) => {
+
+const BundlePage = ({result, allBundles}) => {
 
   const router = useRouter();
   const {userAuth} = useContext(AuthContext);
-  const {bundle} = result;
-  if(router.isFallback){
+  const {isLoading, sendRequest} = useHttpAxios();
+  const [hideModel, setHideModal] = useState(false);
+  const [favouriteArr, setFavouriteArr] = useState(userAuth.favourites || []);
+  const [isFavourite, setIsFavourite] = useState(false);
+  const {bundle, reviews} = result;
+  console.log({reviews});
+  console.log({userAuth: userAuth.favourites});
+  let isFavouriteTrue
+ 
+ useEffect(() => {
 
-      return <LoadingSpinner />
-  }
+  userAuth && setFavouriteArr(userAuth.favourites);
 
 
+ }, [userAuth])
 
+  useEffect(() => {
+
+    console.log({favourites:userAuth.favourites});
+    
+    if(userAuth){
+      
+      console.log({favouriteArr});
+    isFavouriteTrue = favouriteArr.map(item => item.includes(bundle.id)).includes(true);
+
+    }
+
+    console.log({favouriteArr});
+    console.log({isFavouriteTrue});
+
+ setIsFavourite(isFavouriteTrue);
+
+  }, [userAuth,bundle, favouriteArr])
+
+    const addFavouriteHandler = async () => {
+
+        try {
+
+            const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/addFavourite/${userAuth.id}`, 'PATCH', {
+              bundleId: bundle.id
+            });
+              setFavouriteArr([...favouriteArr, bundle.id]);
+            if(res.status === 200){
+              setIsFavourite(true)
+            }
+            console.log({res});
+
+        }catch(err) {console.log(err);}
+
+    }
+
+    const removeFavourites = async () => {
+
+        try {
+
+            const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/addFavourite/${userAuth.id}`, 'DELETE', {
+              bundleId: bundle.id
+            });
+            const newArr = favouriteArr.filter(item => item !== bundle.id);
+            setFavouriteArr(newArr);
+            if(res.status === 200){
+              setIsFavourite(false)
+            }
+            console.log({res});
+
+        }catch(err) {console.log(err);}
+
+    }
+
+    const hideModelHandler = () =>  setHideModal(prev => !prev);
+    const openModelHandler = () =>  setHideModal(true);
 
   console.log({bundle, allBundles});
-  
+  console.log({pathname: router});
   return (
     <>
 
+    {isLoading && <LoadingSpinner />}
+    <Modal hideModel={hideModelHandler} isVisible={hideModel} header='Share This Bundle'>
+      <SocialShare className='social-share'>
+        <span className='facebook'>
+            <FacebookShareButton url={`${process.env.NEXT_PUBLIC_PATH}${router.asPath}`}>Facebook</FacebookShareButton>
+        </span>
+         <span className='twitter'>
+            <TwitterShareButton url={`${process.env.NEXT_PUBLIC_PATH}${router.asPath}`}>Twitter</TwitterShareButton>
+        </span>
+         <span className='email'>
+            <EmailShareButton url={`${process.env.NEXT_PUBLIC_PATH}${router.asPath}`}>Email</EmailShareButton>
+        </span>
+      </SocialShare>
+    </Modal>
     <BundlePageStyles>
 
       <DashboardUserStyles>
       <div className='user-info'>
         <div className='user-avatar img-circle'>
-            <Image src={userAvatar} alt='user avatar' width={80} height={80} />
+            <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${bundle.user.photo}`} alt='user avatar' width={80} height={80} />
         </div>
         <div className='user-profile'>
-            <Link href='#'>Zaid96</Link>
+            <Link href={`/${bundle.user.userName}`}>{bundle.user.userName}</Link>
         </div>
         
         <div className='user-country'>
-            <span>Saudi Arabia</span>
+            <span>
+            <ReactCountryFlag countryCode={bundle.user.countryCode} 
+                svg
+                style={{
+                    width: '40px',
+                    height: '30px',
+                    marginLeft: '0.5rem',
+                    boxShadow: 'var(--shadow)'
+                }}
+                title={bundle.user.countryCode}
+            />
+            </span>
         </div>
         <div className='user-data'>
               <div className='user-imgs'>
               
-              <RatingStar width={15} height={15} rating={3} />
+              <RatingStar width={15} height={15} rating={bundle.user.userRatingAverage} />
               
-          
               </div>
               <div className='user-reviews'>
-                  3.0 <span>4 Reviews</span>
+                  {bundle.user.userRatingAverage.toFixed(1)} <span> {bundle.user.userTotalReviews} Reviews</span>
               </div>
           </div>
 
@@ -74,17 +197,17 @@ const BundlePage = ({result, allBundles ,params}) => {
 
         <div className='user-about'>
             <h5>About Me</h5>
-            <p>I have more than 3 years experience in web development. I develop and design a website on WordPress. I develop a special template according to the client's desire</p>
+            <p>{bundle.user.aboutMe}</p>
         </div>
 
         <div className='user-add-info'>
             <h5>Info</h5>
             <div className='user-add-info-wrap'>
-              <span>Member Since</span> <p>June 15, 2020</p>
+              <span>Member Since</span> <p>{dateFormat(bundle.user.createdAt, true)}</p>
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Recent Delivery</span> <p>5 Days Ago</p>
+              <span>Recent Delivery</span> <p><ReactTimeAgo date={bundle.user.recentDelivery} /></p>
             </div>
 
             <div className='user-add-info-wrap'>
@@ -95,12 +218,12 @@ const BundlePage = ({result, allBundles ,params}) => {
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Languages</span> <p>Arabic, English</p>
+              <span>Languages</span> <p>{bundle.user.languages.join(',')}</p>
             </div>
         </div>
 
         <button className='user-edit-profile contact'>
-                <Link href='#'>
+                <Link href={`/chat/${bundle.user.userName}`}>
                     <a>Contact</a>
                 </Link>
             </button> 
@@ -123,8 +246,8 @@ const BundlePage = ({result, allBundles ,params}) => {
                 </div>
 
                 <div className='rate-icons'>
-                    <button type='button' className='icon'><Image src={heart} width={20} height={20} alt='heart icon' /> <span>Save</span> </button>
-                    <button type='button' className='icon'><Image src={share} width={20} height={20} alt='Share icon' /> <span>Share</span> </button>
+                    <button onClick={isFavourite ? removeFavourites : addFavouriteHandler} type='button' className='icon'><Image src={isFavourite ? fullHeart : heart} width={20} height={20} alt='heart icon' /> <span>Save</span> </button>
+                    <button type='button' onClick={openModelHandler} className='icon'><Image src={share} width={20} height={20} alt='Share icon' /> <span>Share</span> </button>
                 </div>
 
               </div>
@@ -146,70 +269,67 @@ const BundlePage = ({result, allBundles ,params}) => {
             { bundle.user.id !== userAuth.id ? <div className='bundle-btns'>
             
                          <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
-                        <button type='button'>Ask for custom offer</button>
+                         <Button type='button' href={`/chat/${bundle.user.userName}`}>Ask for custom offer</Button>
                         </div> :
                     <div className='my-bundle'>This is your bundle</div>
               }
-            <Reviews />
+            <BundleReviews reviews={reviews} totalCount={bundle.ratingsQuantity} avgRating={bundle.ratingsAverage} />
       </div>
     </BundlePageStyles>
-    <Bundles title='Other Bundles' desc='Zaid96' hide bundleItems={allBundles.bundles}/>
+    <Bundles title='Other Bundles By' desc={bundle.user.userName} hide bundleItems={allBundles.bundles}/> 
     </>
   )
 }
 
 
-export async function getStaticProps({preview, params }){
+export async function getServerSideProps(context){
 
-   try {
+      const {bundleId} = context.query;
+      const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
 
-       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/${params.bundleId}`);
-       const allBundlsRes = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles`);
-       const result = await res.json();    
-       const allBundles = await allBundlsRes.json();    
+      const myHeaders = new Headers();
 
-    if(!result){
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', `Bearer ${token}`);
+       
+       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/${bundleId}`,{
+          method: 'GET',
+          headers: myHeaders
+        });
+ 
+ 
+
+        const data = await res.json();
+        console.log({data});
+        const resAll = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/all/${data.bundle.user.id}/${data.bundle.id}`,{
+          method: 'GET',
+          headers: myHeaders
+        });
+        const allBundles = await resAll.json();
+        
+        let error = data.error ? data.error.statusCode : null;
+    
+        if(error || !data){
+
+          return {
+            redirect: {
+              destination: '/',
+              permanent: false
+            }
+          }
+       }
 
         return {
-          notFound: true
+            props: {
+                result: data,
+                allBundles
+            }
         }
-    }
-
-    return {
-      props: {
-        result,
-        allBundles,
-        params
-      }
-    }
-   }catch(err){
-
-      return {
-          props: {
-
-            err
-          }
-      }
-
-   }
-
-
+  
+  
 
 }
 
-export async function getStaticPaths() {
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles`);
-    const result = await res.json();
-    console.log(result.bundles[0].slug);
-    const paths = result.bundles.map(item => ({params: {slug: `${item.slug}`, bundleId: item.id}}));
-
-    return {
-      paths,
-      fallback: true
-    }
-
-}
 
 
 export default BundlePage;

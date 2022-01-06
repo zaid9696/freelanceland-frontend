@@ -4,9 +4,11 @@ import Link from 'next/link';
 import userAvatar from '../../assets/userAvatar.jpg';
 import starIcon from '../../assets/icons/star.svg';
 import DashboardUserStyles from '../../styles/DashboardUserStyles';
-import RatingStar from '../UI/RatingStar'
+import RatingStar from '../UI/RatingStar';
+import dateFormat from '../../utils/DateFormat';
+import ReactTimeAgo from 'react-timeago';
 
-const AdditionalInfo = ({}) => {
+const AdditionalInfo = ({user}) => {
 
 
     return (
@@ -14,17 +16,17 @@ const AdditionalInfo = ({}) => {
         <>
         <div className='user-about'>
             <h5>About Me</h5>
-            <p>I have more than 3 years experience in web development. I develop and design a website on WordPress. I develop a special template according to the client's desire</p>
+            <p>{user.aboutMe}</p>
         </div>
 
         <div className='user-add-info'>
             <h5>Info</h5>
             <div className='user-add-info-wrap'>
-              <span>Member Since</span> <p>June 15, 2020</p>
+              <span>Member Since</span> <p>{dateFormat(user.createdAt, true)}</p>
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Recent Delivery</span> <p>5 Days Ago</p>
+              <span>Recent Delivery</span> <p><ReactTimeAgo date={user.recentDelivery} /></p>
             </div>
 
             <div className='user-add-info-wrap'>
@@ -35,7 +37,7 @@ const AdditionalInfo = ({}) => {
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Languages</span> <p>Arabic, English</p>
+              <span>Languages</span> <p>{user.languages.join(',')}</p>
             </div>
         </div>
 
@@ -84,7 +86,7 @@ const DashboardUser = ({user}) => {
           
               </div>
               <div className='user-reviews'>
-                  {user.userRatingAverage.toFixed(1)} <span>({user.userTotalReviews}) Reviews</span>
+                  {user.userRatingAverage && user.userRatingAverage.toFixed(1)} <span>({user.userTotalReviews}) Reviews</span>
               </div>
           </div>
 
@@ -99,41 +101,36 @@ const DashboardUser = ({user}) => {
             </button>        
           </div>
         </div>
-        <div className='user-numbers'>
-            <p>Delivered on Time</p>
-            <div className='user-progress-wrap'>
-
-              <div className='user-progress'>
-                  <div role='progressbar' aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: '100%'}}></div>
-              </div>
-              <span>100%</span>
-
-            </div>
-        </div>
+     {/*  <div className='user-numbers'>
+                 <p>Delivered on Time</p>
+                 <div className='user-progress-wrap'>
+     
+                   <div className='user-progress'>
+                       <div role='progressbar' aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: '100%'}}></div>
+                   </div>
+                   <span>100%</span>
+     
+                 </div>
+             </div>  */}
 
           <div className='user-numbers'>
           <p>Completed Orders</p>
           <div className='user-progress-wrap'>
 
             <div className='user-progress'>
-                <div role='progressbar' aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: '70%'}}></div>
+                <div role='progressbar' aria-valuenow={`${user.completedOrders}`} aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: `${user.completedOrders}%`}}></div>
             </div>
-            <span>70%</span>
+            <span>{user.completedOrders ? user.completedOrders : '0'}%</span>
 
           </div>
       </div>
      { /* Do not show this profile */}
       <div className='user-profit'>
           <p>Total Earned</p>
-          <span>$300</span>
+          <span>${user.totalEarned ? user.totalEarned : '0'}</span>
       </div>
 
-      <div className='user-profit'>
-          <p>Earned in {new Date().toLocaleString('en-us', {month: 'long'})}</p>
-          <span>$0</span>
-      </div>
-
-      {<AdditionalInfo />}
+      {<AdditionalInfo user={user} />}
 
     </DashboardUserStyles>
   )

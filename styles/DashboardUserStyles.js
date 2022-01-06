@@ -34,7 +34,7 @@ const DashboardUserStyles = styled.div`
 
     .user-country {
 
-      margin-bottom: 5px;
+      margin-bottom: 13px;
 
     }
 
@@ -136,6 +136,11 @@ const DashboardUserStyles = styled.div`
         width: 100%;
         font-size: 1.4rem;
         padding: 0.7rem 1.2rem;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+
 
       }
 
