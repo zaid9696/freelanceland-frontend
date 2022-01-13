@@ -49,7 +49,7 @@ const signup = (props) => {
 		
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/signup`, 'POST', body);
 
-			console.log(res);
+			// console.log(body);
 		}catch(err){
 
 			console.log(err.message);
@@ -57,14 +57,17 @@ const signup = (props) => {
 
 	} 
 
+	
+
 
 	// console.log(`${process.env.NEXT_PUBLIC_URL_PATH}/users/signup`)
  return (
  	<>
  		<ErrorModal error={error} onCancel={clearError} />
  		{isLoading && <LoadingSpinner />}
-    <SignUpStyles>
+        <SignUpStyles>
     	<SignUpForm signupHandler={signupHandler} />
+
     </SignUpStyles>
    </>
   )

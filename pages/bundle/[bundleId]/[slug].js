@@ -63,6 +63,7 @@ const BundlePage = ({result, allBundles}) => {
   const {userAuth} = useContext(AuthContext);
   const {isLoading, sendRequest} = useHttpAxios();
   const [hideModel, setHideModal] = useState(false);
+  const [hideBundles, setHideBundles] = useState(false);
   const [favouriteArr, setFavouriteArr] = useState(userAuth.favourites || []);
   const [isFavourite, setIsFavourite] = useState(false);
   const {bundle, reviews} = result;
@@ -73,6 +74,7 @@ const BundlePage = ({result, allBundles}) => {
  useEffect(() => {
 
   userAuth && setFavouriteArr(userAuth.favourites);
+  allBundles.bundles.length > 0 ? setHideBundles(false) : setHideBundles(true);
 
 
  }, [userAuth])
@@ -134,7 +136,7 @@ const BundlePage = ({result, allBundles}) => {
     const openModelHandler = () =>  setHideModal(true);
 
   console.log({bundle, allBundles});
-  console.log({pathname: router});
+  console.log({pathname: allBundles.bundles.length});
   return (
     <>
 
@@ -184,7 +186,7 @@ const BundlePage = ({result, allBundles}) => {
               
               </div>
               <div className='user-reviews'>
-                  {bundle.user.userRatingAverage.toFixed(1)} <span> {bundle.user.userTotalReviews} Reviews</span>
+                  {bundle.user.userRatingAverage && bundle.user.userRatingAverage.toFixed(1)} <span> {bundle.user.userTotalReviews} Reviews</span>
               </div>
           </div>
 
@@ -276,7 +278,7 @@ const BundlePage = ({result, allBundles}) => {
             <BundleReviews reviews={reviews} totalCount={bundle.ratingsQuantity} avgRating={bundle.ratingsAverage} />
       </div>
     </BundlePageStyles>
-    <Bundles title='Other Bundles By' desc={bundle.user.userName} hide bundleItems={allBundles.bundles}/> 
+    {!hideBundles && <Bundles title='Other Bundles By' desc={bundle.user.userName} hide bundleItems={allBundles.bundles}/> }
     </>
   )
 }

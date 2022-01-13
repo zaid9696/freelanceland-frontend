@@ -1,7 +1,7 @@
 import {Formik, Form, Field} from 'formik';
 import * as yup from 'yup';
 
-
+import SocialButton from './SocialLogin';
 import InputField from '../components/UI/InputField';
 import InputRadio from '../components/UI/InputRadio';
 import {FormStyles, InputRadioWrapStyles, SubmitButtonStyles} from '../styles/InputStyles';
@@ -17,6 +17,13 @@ const SignUpForm = ({signupHandler,...props}) => {
       password: yup.string().required('Password is required').min(4, 'Password must be at least 4 characters')
 	});
 
+   const handleSocialLogin = (user) => {
+        console.log(user);
+    };
+
+  const handleSocialLoginFailure = (err) => {
+        console.error(err);
+    }; 
 
 
   return (

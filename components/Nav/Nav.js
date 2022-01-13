@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,10 +6,13 @@ import {useContext} from 'react';
 
 import logo from '../../assets/icons/nav/logo.png';
 import searchIcon from '../../assets/icons/nav/search.svg';
+import loadingIcon from '../../assets/icons/loading.svg';
 import LoginRegisterBtns from './LoginRegisterBtns';
 import LoggedIn from './LoggedIn';
+import SearchItems from './SearchItems';
 import {AuthContext} from '../../context/AuthContext';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import useHttpAxios from '../../hooks/http-hook';
 
 const NavStyles = styled.nav`
 
@@ -35,6 +39,8 @@ const NavStyles = styled.nav`
     align-items: center; 
     input {
         width: 85%;
+        position: relative;
+        z-index:3;
         height: 40px;
         border-radius: 6px;
         border: 2px solid #634CC2;
@@ -55,6 +61,7 @@ const NavStyles = styled.nav`
         height: 36px;
         display: flex;
         justify-content: center;
+        z-index: 4
     }
     img {
       width: 29px;
@@ -65,6 +72,14 @@ const NavStyles = styled.nav`
     cursor: pointer
   }
 
+  .loading-search {
+
+    position: absolute;
+    top: 59px;
+    left: 64%;
+    z-index: 8;
+
+  }
 
 
 `;
@@ -72,6 +87,32 @@ const NavStyles = styled.nav`
 const Nav = (props) => {
 
   const auth = useContext(AuthContext);
+  const {sendRequest, isLoading} = useHttpAxios();
+  const [searchResult, setSearchResult] = useState([])
+
+  const hideBarHandler = () => {
+
+    setSearchResult([]);
+
+  };
+
+  const searchBundlesHandler = async (e) => {
+
+      const {value} = e.target;
+      console.log({value});
+        try {
+
+            if(value !== ''){
+            const  res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/search/${value}`);
+            setSearchResult(res.data.searchedBundles);
+            console.log({res});
+
+          }else {
+            setSearchResult([]);
+          }
+        }catch(err) {console.log(err)}
+
+  }
 
   return (
     <>
@@ -84,11 +125,15 @@ const Nav = (props) => {
               </a>
             </Link>
             <div className='nav_search'>
-                <input type='search' placeholder='Search here, what you are looking for?' id='search' name='search' />
+                <input type='search' onChange={searchBundlesHandler} placeholder='Search here, what you are looking for?' id='search' name='search' />
                 <div className='search-icon'>
                   <img src={searchIcon.src} alt='Search icon' />
                 </div>
+                {searchResult.length > 0 && <SearchItems hideBar={hideBarHandler} items={searchResult} />}
             </div>
+            {isLoading && <div className='loading-search'>
+                            <Image src={loadingIcon} alt='loading icon' width={33} height={33} />
+                        </div>}
            { auth.isLogged && <LoggedIn /> }
            { !auth.isLogged && <LoginRegisterBtns /> }
         </div>

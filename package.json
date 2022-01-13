@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "ngrok": "ngrok http 3000",
     "lint": "next lint"
   },
   "dependencies": {
@@ -24,8 +25,10 @@
     "react-country-flag": "^3.0.2",
     "react-date-countdown-timer": "^1.1.0",
     "react-dom": "17.0.2",
+    "react-easy-facebook": "^0.1.7",
     "react-facebook-login": "^4.1.1",
     "react-paypal-button-v2": "^2.6.3",
+    "react-select": "^5.2.1",
     "react-share": "^4.4.0",
     "react-social-login": "^3.4.15",
     "react-timeago": "^6.2.1",
@@ -42,6 +45,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "8.0.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "ngrok": "^4.2.2"
   }
 }
