@@ -43,7 +43,7 @@ const UploadImageStyles = styled.div`
 
   `
 
-const UploadImage = ({setImageFile, user}) => {
+const UploadImage = ({setImageFile, user, userPhoto}) => {
 
 	const [fileValue, setfileValue] = useState();
     const [previewUrl, setPreviewUrl] = useState();
@@ -93,7 +93,7 @@ useEffect(() => {
     <UploadImageStyles> 
         <div className='upload-content'> 
             <input ref={filePickInput} type='file' accept='jpg, png, jpeg' onChange={pickImage}  style={{display: 'none'}}/>
-            {previewUrl && <div className={`preview ${user && 'img-circle'}`}><Image width={800} height={600} alt='preview image of the user' src={previewUrl}/> </div>}
+            {(previewUrl || userPhoto) && <div className={`preview ${user && 'img-circle'}`}><Image width={800} height={600} alt='preview image of the user' src={`${previewUrl ? previewUrl : `${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${userPhoto}`}`}/> </div>}
             <button type='button' onClick={pickImageHandler} >
             	 <Image src={uploadImageIcon} width={30} height={30} alt='Image Icon' />
             	 Pick Image

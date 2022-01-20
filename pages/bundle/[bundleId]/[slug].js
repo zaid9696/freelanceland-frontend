@@ -6,6 +6,8 @@ import ReactTimeAgo from 'react-timeago';
 import ReactCountryFlag from 'react-country-flag';
 import {useRouter} from 'next/router';
 
+import Carousel from 'nuka-carousel';
+
 const SocialShare = styled.div` 
 
 
@@ -67,7 +69,7 @@ const BundlePage = ({result, allBundles}) => {
   const [favouriteArr, setFavouriteArr] = useState(userAuth.favourites || []);
   const [isFavourite, setIsFavourite] = useState(false);
   const {bundle, reviews} = result;
-  console.log({reviews});
+  console.log({bundle});
   console.log({userAuth: userAuth.favourites});
   let isFavouriteTrue
  
@@ -80,8 +82,6 @@ const BundlePage = ({result, allBundles}) => {
  }, [userAuth])
 
   useEffect(() => {
-
-    console.log({favourites:userAuth.favourites});
     
     if(userAuth){
       
@@ -135,8 +135,7 @@ const BundlePage = ({result, allBundles}) => {
     const hideModelHandler = () =>  setHideModal(prev => !prev);
     const openModelHandler = () =>  setHideModal(true);
 
-  console.log({bundle, allBundles});
-  console.log({pathname: allBundles.bundles.length});
+
   return (
     <>
 
@@ -236,7 +235,7 @@ const BundlePage = ({result, allBundles}) => {
               <div className='title'>
             
                 <h1>{bundle.title}</h1>
-                <span><Link href='#'>Web Programming</Link></span>
+                <span><Link href={`/categories/${bundle.category.categorySlug}`}><a>{bundle.category.category}</a></Link></span>
 
               </div>
 
@@ -255,7 +254,13 @@ const BundlePage = ({result, allBundles}) => {
               </div>
           </div>
 
-          <div className='bundle-cover' style={{backgroundImage: `url(${bundleCover.src})`}}></div>
+          <div className='bundle-images'>
+          <Carousel transitionMode="fade"  renderBottomCenterControls={null} wrapAround={true}>
+              {
+                bundle.images.map((item, i) => <Image key={i} tabIndex={null}  key={i} src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${item}`} layout='responsive' width={1200} height={670} alt='Bundle Image' />)
+              }
+          </Carousel>
+          </div>
             <div className='bundle-description'>
                 <ul>
                   <li> Description </li>

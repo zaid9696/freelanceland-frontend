@@ -140,8 +140,8 @@ const BundlesItems = ({item}) => {
         				<span className='reviews-num'>({item.ratingsQuantity})</span>
         			</div>
         			<span className='category'>
-        				<Link href='/'>
-        					<a>{'Web Programming'}</a>
+        				<Link href={`/categories/${item.category.categorySlug}`}>
+        					<a>{item.category.category && item.category.category}</a>
         				</Link>
         			</span>
         		</div>

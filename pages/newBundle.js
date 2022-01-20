@@ -1,19 +1,21 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
+import {useRouter} from 'next/router';
 import {Formik, Form, Field} from 'formik';
 import Select from 'react-select';
-
 
 import * as yup from 'yup';
 
 import InputField from '../components/UI/InputField';
 import TextAreaField from '../components/UI/TextAreaField';
-import {FormStyles, InputRadioWrapStyles, SubmitButtonStyles} from '../styles/InputStyles';
+import {AuthContext} from '../context/AuthContext';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import ErrorModal from '../components/UI/ErrorModal';
 import UploadImage from '../components/UI/UploadImage';
 import useHttpAxios from '../hooks/http-hook';
 import Button from '../components/UI/Button';
+
+
 
 const NewBundlePageStyles = styled.div` 
 
@@ -84,7 +86,9 @@ const NewBundlePage = ({allCategories}) => {
 	const [imageFileOne, setImageFileOne] = useState()
 	const [imageFileTwo, setImageFileTwo] = useState();
 	const [isImagesTrue, setIsImagesTrue] = useState(false);
-
+	const {sendRequest, error, isLoading, clearError} = useHttpAxios();
+	const {userAuth} = useContext(AuthContext);
+	const router =  useRouter();
 	useEffect(() => {
 
 		if(imageFileOne && imageFileTwo) {
@@ -104,7 +108,7 @@ const NewBundlePage = ({allCategories}) => {
 	const validate = yup.object({
 		title: yup.string().max(80, ' Bundle title must not exceed more than 80 characters')
 		.required("Bundle's title is Required"),
-		description: yup.string().max(200, ' Bundle description must not exceed more than 80 characters')
+		description: yup.string().max(200, ' Bundle description must not exceed more than 200 characters')
 		.required("Bundle's Description is Required"),
 		price: yup.number().max(100000, 'One Hundred Thousand For a Bundle, I hope you not serious!')
 			.required('The Price Field is Required'),
@@ -125,9 +129,42 @@ const NewBundlePage = ({allCategories}) => {
 		return options ? options.find(item => item.value === value) : ''
 	}
 
-	console.log({imageFileOne, imageFileTwo});
+
+	const submitNewBundleHandler = async (values) => {
+
+		console.log({values});
+
+		const form = new FormData();
+
+		form.append('user', userAuth.id);
+		form.append('images', values.imageFileOne);
+		form.append('images', values.imageFileTwo);
+		form.append('title', values.title);
+		form.append('description', values.description);
+		form.append('price', values.price);
+		form.append('deliverDays', values.deliverDays);
+		form.append('revisions', values.revisions);
+		form.append('category', values.category);
+
+		// console.log({test:values.imageFileOne});
+
+		try{
+
+			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/add`, 'POST', form);
+
+			const {bundle} = res.data;
+			router.push(`/bundle/${bundle.id}/${bundle.slug}`);
+			console.log({res});
+
+		}catch(err) {console.log(err);}
+
+
+	}
 
   return (
+  	<>
+  	<ErrorModal error={error} onCancel={clearError} />
+  	{isLoading && <LoadingSpinner />}
     <NewBundlePageStyles>
    		 <h1>Create A New Bundle</h1>
    		 <div className='uploading-images'>
@@ -148,7 +185,13 @@ const NewBundlePage = ({allCategories}) => {
 			validationSchema={validate}
 			validateOnMount={true}
 			onSubmit={values => {
-			     console.log({values});
+				 const value = {
+				 	...values,
+				 	imageFileOne,
+				 	imageFileTwo
+				 }
+				 submitNewBundleHandler(value);
+			     console.log({values, imageFileOne, imageFileTwo});
 			 }}
 		  >
 		   {
@@ -182,6 +225,7 @@ const NewBundlePage = ({allCategories}) => {
 		   </Formik>
    		 </div>
     </NewBundlePageStyles>
+    </>
   )
 }
 

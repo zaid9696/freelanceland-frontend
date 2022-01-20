@@ -173,7 +173,11 @@ const BundlePageStyles = styled.div`
 
     }
 
-    
+    .bundle-images {
+
+      margin-top: 40px;
+      img {border-radius: 3px;}
+    }
 
 `
 
