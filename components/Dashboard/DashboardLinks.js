@@ -41,7 +41,7 @@ const DashboardLinks = (props) => {
   return (
     	
     	<DashboardLinksStyles>
-    		  <Link className='dashboard-options' href={`#`}>
+    		  <Link className='dashboard-options' href={`/dashboard`}>
               <a> <div className='icons'>
                     <Image src={dashboard} alt='Dashboard Icon' width={35} height={35} />
                     <p>Dashboard</p>
@@ -49,7 +49,7 @@ const DashboardLinks = (props) => {
               </a>  
           </Link>
 
-           <Link className='dashboard-options' href={`#`}>
+           <Link className='dashboard-options' href={`/dashboard/myBundles`}>
               <a> <div className='icons'>
                     <Image alt='My Bundles Icon' src={myBundle} width={35} height={35} />
                     <p>My Bundles</p>
@@ -57,23 +57,7 @@ const DashboardLinks = (props) => {
               </a>  
           </Link>
 
-           <Link className='dashboard-options' href={`#`}>
-              <a> <div className='icons'>
-                    <Image alt='My Sales Icon' src={mySale} width={35} height={35} />
-                    <p>My Sales</p>
-                  </div> 
-              </a>  
-          </Link>
-
-           <Link className='dashboard-options' href={`#`}>
-              <a> <div className='icons'>
-                    <Image alt='My Shopping Icon' src={myShopping} width={35} height={35} />
-                    <p>My Shopping</p>
-                  </div> 
-              </a>  
-          </Link>
-
-           <Link className='dashboard-options' href={`#`}>
+           <Link className='dashboard-options' href={`/dashboard/myRequests`}>
               <a> <div className='icons'>
                     <Image alt='My Requests Icon' src={myRequest} width={35} height={35} />
                     <p>My Requests</p>
@@ -81,7 +65,7 @@ const DashboardLinks = (props) => {
               </a>  
           </Link>
 
-           <Link className='dashboard-options' href={`#`}>
+           <Link className='dashboard-options' href={`/dashboard/myReviews`}>
               <a> <div className='icons'>
                     <Image alt='My Reviews Icon' src={myReview} width={35} height={35} />
                     <p>My Reviews</p>
@@ -89,7 +73,7 @@ const DashboardLinks = (props) => {
               </a>  
           </Link>
 
-           <Link className='dashboard-options' href={`#`}>
+           <Link className='dashboard-options' href={`/dashboard/buyersRequests`}>
               <a> <div className='icons'>
                     <Image alt='Buyers Requests Icon' src={buyersReq} width={35} height={35} />
                     <p>Buyers Requests</p>
@@ -97,7 +81,7 @@ const DashboardLinks = (props) => {
               </a>  
           </Link>
 
-           <Link className='dashboard-options' href={`#`}>
+           <Link className='dashboard-options' href={`/dashboard/myFavourites`}>
               <a> <div className='icons'>
                     <Image alt='Favorites Icon' src={favorites} width={35} height={35} />
                     <p>Favorites</p>

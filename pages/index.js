@@ -1,3 +1,4 @@
+import {useContext} from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -10,46 +11,17 @@ import BundleCategory from '../components/BundleCategory';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Profile from '../components/Profile/Profile';
 import Panel from '../components/Panel/Panel';
+import {AuthContext} from '../context/AuthContext';
 
 import userAvatar from '../assets/userAvatar.jpg';
 import userAvatar2 from '../assets/userAvatar2.png';
 import bundleImage from '../assets/bundleImage.png';
 import image2 from '../assets/image2.png';
 
-const Dummy_Bundles = [
-
-  {
-    userName: 'Zaid96',
-    reviews: 3,
-    rating: '5.0',
-    id: 1,
-    title: 'I create a modern and responsive website using the best technology',
-    image: bundleImage,
-    userAvatar,
-    price: 100,
-    category: 'Web Development'
-  },
-
-  {
-    userName: 'Ricky_Visuals',
-    reviews: 5,
-    rating: '4.5',
-    id: 2,
-    title: 'I create a modern and I will edit your youtube video',
-    image: image2,
-    userAvatar: userAvatar2,
-    price: 400,
-    category: 'Web Development'
-  }
-  
-
-]
-
-
 
 export default function Home({topRated, bunldesLatest}) {
  
-  console.log({topRated, bunldesLatest});
+  const {isLogged} = useContext(AuthContext);
   const {latestBundles}  = bunldesLatest;
   const {topRatedBundles} = topRated;
 //   const handleSocialLogin = (user) => {
@@ -62,12 +34,11 @@ export default function Home({topRated, bunldesLatest}) {
   // console.log(data.bundles[0]._id);
   return (
       <>
-        {<Hero />}
-       
-        {/*<NewOfferAndBundle />*/}
+        {!isLogged && <Hero />} 
+        {isLogged && <NewOfferAndBundle />}
         {/*<BundleFilters /> */}
         {/*<BundleCategory title={'Web Programming'} items={Dummy_Bundles} /> */}
-        {/* <Dashboard /> */}
+        {/* <Dashboard /> }
         {/*<Panel />*/}
         <Info />
         <Bundles hide title='Top Rated Bundles' desc='- Best Sellers' bundleItems={topRatedBundles} /> 

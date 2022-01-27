@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import Link from 'next/link';
 
 import bg from '../assets/background.svg';
 
@@ -17,6 +17,7 @@ const NewOfferAndBundleStyles = styled.div`
     	height:100%;
     	align-items: center;
     	button {
+            cursor: pointer;
     		padding: 1rem 3rem;
 		    border-radius: 4px;
 		    font-size: 1.5rem;
@@ -34,7 +35,7 @@ const NewOfferAndBundleStyles = styled.div`
     			box-shadow: 0px 0px 15px 6px #634cc29e
     		}
     	}
-    	button:nth-child(2){
+    	button.btn-bundle{
     		background: var(--green);
 		    border: 1px solid var(--green);
 		    margin-left: 3rem;
@@ -51,8 +52,8 @@ const NewOfferAndBundle = (props) => {
   return (
     <NewOfferAndBundleStyles>
    	 	<div className='btns'>
-   	 		<button type='button'>New Offer</button>
-   	 		<button type='button'>New Bundle</button>
+   	 		<Link href='/newRequest'><a><button type='button'>New Request</button></a></Link>
+   	 		<Link href='newBundle'><a><button type='button' className='btn-bundle'>New Bundle</button></a></Link>
    	 	</div>
     </NewOfferAndBundleStyles>
   )

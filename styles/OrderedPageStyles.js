@@ -67,7 +67,15 @@ const OrderedPageStyles = styled.div`
     &-wrap {
 
         display: flex;
+        width: 100%;
     }
+
+    &-content {
+      width: 100%;
+      margin-left: 15px;
+    }
+
+    &
 
     &-img {
 

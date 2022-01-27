@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/progress": "^1.2.1",
     "@paypal/react-paypal-js": "^7.5.0",
     "axios": "^0.23.0",
     "countries-and-timezones": "^3.3.0",
@@ -24,6 +25,7 @@
     "next-images": "^1.8.1",
     "next-videos": "^1.4.0",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
     "nuka-carousel": "^4.8.4",
     "react": "17.0.2",
     "react-country-flag": "^3.0.2",

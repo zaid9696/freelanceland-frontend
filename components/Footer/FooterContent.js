@@ -82,25 +82,25 @@ const FooterContent = (props) => {
     			<h4>Categories</h4>
     			<ul>
     				<li>
-    					<Link href='#'><a>Programming & IT</a></Link>
+    					<Link href='/categories/programming-and-it'><a>Programming & IT</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Graphics & Design</a></Link>
+    					<Link href='/categories/graphics-and-design'><a>Graphics & Design</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Digital Marketing</a></Link>
+    					<Link href='/categories/digital-marketing'><a>Digital Marketing</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Writing & Translation</a></Link>
+    					<Link href='/categories/writing-and-translation'><a>Writing & Translation</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Video & Animation</a></Link>
+    					<Link href='/categories/video-and-animation'><a>Video & Animation</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Music & Audio</a></Link>
+    					<Link href='/categories/music-and-audio'><a>Music & Audio</a></Link>
     				</li>
     				<li>
-    					<Link href='#'><a>Business</a></Link>
+    					<Link href='/categories/business'><a>Business</a></Link>
     				</li>
     			</ul>
     		</div>

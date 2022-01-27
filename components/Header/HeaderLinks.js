@@ -43,7 +43,7 @@ const HeaderLinksStyles = styled.ul`
 
 const HeaderLinks = ({className, categories}) => {
   return (
-    <HeaderLinksStyles className={className}>
+    <HeaderLinksStyles className={`${className} right`}>
     	{
            categories && categories.map((item) => (
                     <li key={item._id} >

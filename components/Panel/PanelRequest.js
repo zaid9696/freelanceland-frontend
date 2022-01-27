@@ -80,11 +80,11 @@ const PanelRequestItems = ({item}) => {
 
             <div className='panel-col-content'>
                 <div className='panel-user-img img-circle'><Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${item.buyer.photo}`} alt='user Image' height={40} width={40} /></div>
-                <span className='panel-user-link'><Link href={`/${item.buyer.userName}`}>{item.buyer.userName}</Link></span>
+                <span className='panel-user-link'><Link href={`/${item.buyer.userName}`}><a>{item.buyer.userName}</a></Link></span>
             </div>
 
             <div className='panel-col-content'>
-                <Link href={`/categories/${item.category.categorySlug}`}>{item.category.category}</Link>
+                <Link href={`/categories/${item.category.categorySlug}`}><a>{item.category.category}</a></Link>
                 <span>{item.request}</span>
             </div>
 
@@ -130,7 +130,7 @@ const PanelRequest = ({offers}) => {
     	</div>
     
         {
-            offers.map(item =>  <PanelRequestItems item={item} />)
+            offers.map(item =>  <PanelRequestItems key={item.id} item={item} />)
         }
     	
     </PanelRequestStyles>

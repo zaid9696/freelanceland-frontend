@@ -112,6 +112,15 @@ button.checkout-btn {
   }
 }
 
+.dummy-info {
+
+  h4 {
+
+    margin-top: 0px;
+
+  }
+}
+
 `
 
 export default CheckoutPageStyles;

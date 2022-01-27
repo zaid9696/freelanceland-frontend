@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import DashboardLinks from './DashboardLinks';
-import DashboardSettings from './DashboardSettings/DashboardSettings';
 import DashboardUser from './DashboardUser';
+import DashboardSettings from './DashboardSettings/DashboardSettings';
 
 
 const DashboardStyles = styled.div`
@@ -16,12 +16,12 @@ const DashboardStyles = styled.div`
 
 `
 
-const Dashboard = (props) => {
+const Dashboard = ({user,cancelNum, completedNum, activeNum}) => {
   return (
     <DashboardStyles>
         <DashboardLinks />
-        <DashboardSettings />
-        <DashboardUser />
+        <DashboardSettings cancelNum={cancelNum} completedNum={completedNum} activeNum={activeNum} />
+        <DashboardUser  user={user}/>
     </DashboardStyles>
   )
 }

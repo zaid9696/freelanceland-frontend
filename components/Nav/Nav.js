@@ -19,7 +19,7 @@ const NavStyles = styled.nav`
   display: grid;
   grid-column: full-start / full-end;
   
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
 
         display: none !important;
         
@@ -38,7 +38,10 @@ const NavStyles = styled.nav`
     justify-content: center;
     align-items: center; 
     input {
-        width: 85%;
+        width: 547px;
+        @media (max-width: 1200px) { 
+          width: 480px;
+        }
         position: relative;
         z-index:3;
         height: 40px;
@@ -55,7 +58,10 @@ const NavStyles = styled.nav`
     .search-icon{
 
         position: absolute;
-        left: 67.5%;
+        left: 66.8vw;
+         @media (max-width: 1100px) { 
+          left: 62.4vw;
+        }
         background-color: #634CC2;
         width: 36px;
         height: 36px;

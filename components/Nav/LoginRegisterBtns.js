@@ -1,5 +1,6 @@
 import {useContext} from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 import {AuthContext} from '../../context/AuthContext';
 
@@ -15,7 +16,8 @@ const LoginRegisterBtnsStyles = styled.div`
     margin-left: 1rem;
     border-radius: 5px;
     transition: var(--tranhover);
-    &:nth-child(1){
+    cursor: pointer;
+    &.login{
       color: var(--main);
       background: transparent;
       border: 2px solid;
@@ -24,7 +26,7 @@ const LoginRegisterBtnsStyles = styled.div`
           color: #fff;
       }
     }
-    &:nth-child(2){
+    &.signup{
         color: #fff;
         background: var(--main);
         border: 2px solid;
@@ -42,8 +44,16 @@ const LoginRegisterBtns = (props) => {
 
   return (
     <LoginRegisterBtnsStyles>
-    	<button type='button'>Login</button>
-    	<button type='button'>Register</button>
+    <Link href='/login'>
+      <a>
+    	<button type='button' className='login'>Login</button>
+      </a>
+    </Link>
+    <Link href='/signup'>
+      <a>
+    	<button type='button' className='signup'>Register</button>
+      </a>
+    </Link>
     </LoginRegisterBtnsStyles>
   )
 }

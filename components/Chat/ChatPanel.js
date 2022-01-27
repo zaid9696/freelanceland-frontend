@@ -31,12 +31,14 @@ const ChatPanelMessages = ({item, user}) => {
 
 		const {id} = item.sender;
 
+        console.log({item});
+
 	return (
 
 			<div className={`chat-content ${user.id !== id ? 'current' : ''}`}>
 
 				<div className='chat-avatar img-circle'>
-						<Image src={userAvatar} width={40} height={40} alt='chat avatar' />
+						<Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${item.sender.userName !== id ? item.sender.photo : item.receiver.photo}`} width={40} height={40} alt='chat avatar' />
 				</div>
 				<div className='message-wrap'>
 						<div className='chat-info'>
@@ -112,11 +114,11 @@ const ChatPanel = ({messages, user,userTime,inputFieldHandler, field, messagesHa
     	<header>
     	<div className='header-user'>
     		<div className='img-circle'>
-    			<Image src={userAvatar} width={50} height={50} alt='User Image' />
+    			<Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${user.photo}`} width={50} height={50} alt='User Image' />
     		</div>
     		<div className='header-userlink'>
     			<span className={`status-circle ${isOnline ? 'online' : 'offline'}`}></span>
-    			<Link href={`#`}><a>{user.userName}</a></Link>
+    			<Link href={`/${user.userName}`}><a>{user.userName}</a></Link>
     		</div>
 					{isTyping && <Typing />}
     	</div>

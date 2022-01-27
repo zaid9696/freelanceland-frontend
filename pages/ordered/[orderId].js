@@ -251,7 +251,7 @@ const confirmOrderHandler = (type) => {
             <div className='bundle-wrap'>
                 
               <div className='bundle-img'>
-                  <Image src={bundleImage} width={300} height={200} alt='Bundle Image' />
+                  <Image src={bundle.images[0] ? `${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${bundle.images[0]}` : bundleImage} width={300} height={200} alt='Bundle Image' />
               </div>
               <div className='bundle-content'>
                   <h2><Link href={`/bundle/${bundle.id}/${bundle.slug}`}><a>{bundle.title}</a></Link></h2>

@@ -63,7 +63,7 @@ const BundlesStyles = styled.div`
     height: 2px;
     display: block;
     position: absolute;
-    top: 19.8%;
+    top: 8.8vw;
     left: 6%;
 	}
 

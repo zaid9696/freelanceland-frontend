@@ -137,7 +137,7 @@ const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
                   <a>
                     <div className='wrap'>
                         <div className='img-circle user-avatar'>
-                          <Image src={userAvatar} width={65} height={65} alt="User's Image" />
+                          <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${data.sender.userName == item ? data.sender.photo : data.receiver.photo}`} width={65} height={65} alt="User's Image" />
                           <div className={`online-status ${isOnline ? 'online' : 'offline'}`}></div>
                         </div>
                         <div className='info'>

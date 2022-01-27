@@ -13,13 +13,12 @@ const DashboardSettingsStyles = styled.div`
 
 `
 
-const DashboardSettings = (props) => {
+const DashboardSettings = ({cancelNum, completedNum, activeNum}) => {
   return (
     <DashboardSettingsStyles>
 
-      <DashboardSettingsInfo />
-      <DashboardSettingsInbox />
-
+      <DashboardSettingsInfo cancelNum={cancelNum} completedNum={completedNum} activeNum={activeNum} />
+      
     </DashboardSettingsStyles>
   )
 }

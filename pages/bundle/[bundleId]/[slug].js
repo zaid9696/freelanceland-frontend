@@ -219,7 +219,7 @@ const BundlePage = ({result, allBundles}) => {
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Languages</span> <p>{bundle.user.languages.join(',')}</p>
+              <span>Languages</span> <p>{bundle.user.preferredLang && bundle.user.preferredLang}{bundle.user.additionalLang &&  ` ,${bundle.user.additionalLang}`}</p>
             </div>
         </div>
 

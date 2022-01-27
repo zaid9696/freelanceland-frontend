@@ -10,7 +10,7 @@ const ChatItems = ({item, userMessages, onlineUsers, userId,dropdownChatCloseHan
   	  const data = userMessages[item].item;
       const unreadCount = userMessages[item].countUnread;
       let userOnlineIdsMatched = [];
-
+      console.log({data, item});
       Object.values(onlineUsers).map(elem => {
 
           if(elem !== userId){
@@ -31,7 +31,7 @@ const ChatItems = ({item, userMessages, onlineUsers, userId,dropdownChatCloseHan
                   dropdownChatCloseHandler();
               }}>
                   <div className='message-avatar img-circle'>
-                    <Image src={userAvatar} width={75} height={75} alt='user avatar' />
+                    <Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${data.sender.userName == item ? data.sender.photo : data.receiver.photo}`} width={75} height={75} alt='user avatar' />
                     <span className={`online-status ${isOnlineReceive || isOnlineSender ? 'online' : 'offline'}`}></span>
                   </div>
                   <div className='user-message-content'>

@@ -113,9 +113,9 @@ const BundlesItems = ({item}) => {
   console.log({item});
 
   return (
-    <BundlesItemsStyles>
+    <BundlesItemsStyles key={item.id}>
     	<div className='bundle-img'>
-    		<Image height={180} width={303}  src={bundleImage} alt='Bunlde Image' />
+    		<Image height={280} width={503}  src={item.images[0] ? `${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${item.images[0]}` : bundleImage} alt='Bunlde Image' />
     	</div>
       <div className='line'>
     	   <Link href={`/bundle/${item.id}/${item.slug}`}><a><h3>{item.title}</h3></a></Link>

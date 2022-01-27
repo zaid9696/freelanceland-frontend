@@ -1,5 +1,6 @@
 import {useState, useContext} from 'react';
 import styled from 'styled-components';
+import {useRouter} from 'next/router';
 
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import ErrorModal from '../components/UI/ErrorModal';
@@ -16,7 +17,7 @@ const login = (props) => {
 
   const {isLoading, error, sendRequest, clearError} = useHttpAxios();
 
-
+  const router =  useRouter();
 
   const auth = useContext(AuthContext);
 
@@ -26,6 +27,7 @@ const login = (props) => {
 
           const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/login`, 'POST', values);
           auth.login();
+         router.push(`/`)
       }catch(e){
 
           console.log(e);

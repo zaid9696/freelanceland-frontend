@@ -1,18 +1,43 @@
 import {useEffect, useState} from 'react';
+
+import Router from 'next/router';
+
 import Layout from '../components/Layout';
 import useAuthHook from '../hooks/auth-hook';
 import useSocket from '../hooks/useSocket';
 import useHttpAxios from '../hooks/http-hook';
 import {AuthContext} from '../context/AuthContext';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
+
+
 
 
 function MyApp({ Component, pageProps }) {
 
   const {result, logout, login ,isLogged, isLoggedLoading} = useAuthHook();
   const {sendRequest} = useHttpAxios();
+  const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState([]);
   const [userMessages, setUserMessages] = useState({});
   const [onlineUsers, setOnlineUsers] = useState({});
+
+  Router.onRouteChangeStart = () => {
+  console.log('onRouteChangeStart triggered');
+  setIsLoading(true);
+
+};
+
+Router.onRouteChangeComplete = () => {
+  console.log('onRouteChangeComplete triggered');
+  setIsLoading(false);
+  
+};
+
+Router.onRouteChangeError = () => {
+  console.log('onRouteChangeError triggered');
+  setIsLoading(false);
+  
+};
 
 
 const socket = useSocket('connect', () => {});
@@ -104,7 +129,10 @@ useSocket('notifications', (newNotification) => {
 
 
   return (
+      <>
+      {isLoading && <LoadingSpinner />}
       <AuthContext.Provider value={{notification,fetchUsersMessages ,userMessages,fetchNotifications, onlineUsers ,userAuth: result, logout,login ,isLogged, isLoggedLoading}}><Layout><Component {...pageProps} /></Layout></AuthContext.Provider>
+      </>
     )
 }
 

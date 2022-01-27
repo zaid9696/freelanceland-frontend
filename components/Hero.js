@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const HeroContentStyles = styled.div` 
 
-	  position: absolute;
+	position: absolute;
     top: 67%;
     width: 100%;
     height: 99.1%;
@@ -74,7 +75,9 @@ const Hero = (props) => {
   	<>
     <HeroStyles>
     	<video className='hero-vid' autoPlay loop muted>
+    		<source src={'./bg-vid.webm'} type='video/webm' />
     		<source src={'./bg-vid.mp4'} type='video/mp4' />
+    		 Sorry, your browser doesn't support embedded videos.
     	</video>
     	<div className='hero-cover'>
     	</div>
@@ -84,7 +87,11 @@ const Hero = (props) => {
 						<h1>Hire the World’s Best & Most Affordable Freelancers!</h1>
 						<p>Communicate, Collaborate, and Create with the Freelancer of Your Choice…</p>
 					</div>
+					<Link href='/signup'>
+						<a>
 					<button type='button'>Join Now</button>
+						</a>
+					</Link>
 			</HeroContentStyles>
 			</>
   )

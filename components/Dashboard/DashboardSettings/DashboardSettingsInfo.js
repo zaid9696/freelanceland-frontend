@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import activeOrder from '../../../assets/icons/dashboard/activeOrder.svg';
 import submitIcon from '../../../assets/icons/dashboard/submit.svg';
@@ -88,24 +89,48 @@ const DashboardSettingsInfoStyles = styled.div`
       }
   }
 
+  .dashboard-upper-icon {
+
+    a {
+
+      display: flex;
+      flex-direction: column;
+
+    }
+
+  }
+
 		
 `
 
-const DashboardSettingsInfo = (props) => {
+const DashboardSettingsInfo = ({cancelNum, completedNum, activeNum}) => {
   return (
     <DashboardSettingsInfoStyles>
     	 <div className='dashboard-upper'>
           <div className='dashboard-upper-icon'>
+          <Link href='newBundle'>
+            <a>
               <Image src={newBundle} width={40} height={40} alt='New Bundle Icon' />
               <p>New Bundle</p>
+            </a>
+          </Link>
           </div>
           <div className='dashboard-upper-icon submit'>
+            <Link href='newRequest'>
+              <a>
               <Image width={40} height={40} src={submitIcon} alt='submit Icon' />
-              <p>Submit Offer</p>
+              <p>Submit Request</p>
+              </a>
+            </Link>
           </div>
            <div className='dashboard-upper-icon'>
+           <Link href='/editProfile'>
+            <a>
+
               <Image width={40} height={40} src={editProfile} alt='Edit Profile Icon' />
               <p>Edit Profile</p>
+            </a>
+           </Link>
           </div>
        </div>
 
@@ -116,7 +141,7 @@ const DashboardSettingsInfo = (props) => {
             </div>
             <div className='dashboard-below-txt'>
                 <span>
-                  5
+                  {completedNum}
                 </span>
                 <p>Completed Orders</p>
             </div>
@@ -128,7 +153,7 @@ const DashboardSettingsInfo = (props) => {
             </div>
              <div className='dashboard-below-txt'>
                   <span>
-                    2
+                    {activeNum}
                   </span>
                   <p>Active Orders</p>
               </div>
@@ -141,7 +166,7 @@ const DashboardSettingsInfo = (props) => {
             
             <div className='dashboard-below-txt'>
                 <span>
-                  0
+                  {cancelNum}
                 </span>
                 <p>Cancelled Order</p>
             </div>

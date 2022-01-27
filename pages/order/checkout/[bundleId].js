@@ -169,7 +169,7 @@ const createNotification = useCallback(async (newOrder) => {
         <div className='content'>
             <header>
                 <div className='header-img'>
-                    <Image src={bundleImage} width={350} height={250} alt="Bundle's Image" />
+                    <Image src={bundle.images[0] ? `${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${bundle.images[0]}` : bundleImage} width={350} height={250} alt="Bundle's Image" />
                 </div>
                 <div className='header-content'>
                     <h2>{bundle.title}</h2>
@@ -201,7 +201,11 @@ const createNotification = useCallback(async (newOrder) => {
                 </li> 
             </ul>
         </div>
-
+        <div className='dummy-info'>
+            <h4>You Can Login into PayPal with this sandbox account </h4>
+            <p>Email: sb-p3oom4749275@personal.example.com</p>
+            <p>Password: LSQ6)7%b</p>
+        </div>
         {auth.userAuth.id && <div className='paypal-btn'><PaypalButton bundleId={bundle.id} orderBundleHandler={orderBundleHandler} /></div>}
         
       </CheckoutPageStyles>

@@ -37,22 +37,19 @@ const AdditionalInfo = ({user}) => {
             </div>
 
             <div className='user-add-info-wrap'>
-              <span>Languages</span> <p>{user.languages.join(',')}</p>
+              <span>Languages</span> <p> {user.preferredLang && user.preferredLang}{user.additionalLang &&  ` ,${user.additionalLang}`}</p>
             </div>
         </div>
 
         <div className='user-skills'>
             <h5>Skills</h5>
-            <ul className='skills'>
-                <li>HTML</li>
-                <li>Css</li>
-                <li>Javascript</li>
-                <li>SASS</li>
-                <li>WordPress</li>
-                <li>Bootstrap</li>
-                <li>Figam</li>
-                <li>SEO</li>
-            </ul>
+            {user.skills && <ul className='skills'>
+            
+                            {
+                              user.skills.map((item,i) => <li key={i}>{item}</li>)
+                            }
+                            
+                        </ul>}
         </div>
 
         </>
@@ -95,7 +92,7 @@ const DashboardUser = ({user}) => {
                         <a> View My Profile </a>
                     </Link> */}
             <button className='user-edit-profile'>
-                <Link href='#'>
+                <Link href='/editProfile'>
                     <a>Edit Profile</a>
                 </Link>
             </button>        
@@ -118,9 +115,9 @@ const DashboardUser = ({user}) => {
           <div className='user-progress-wrap'>
 
             <div className='user-progress'>
-                <div role='progressbar' aria-valuenow={`${user.completedOrders}`} aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: `${user.completedOrders}%`}}></div>
+                <div role='progressbar' aria-valuenow={`${user.completedOrders.toFixed(2)}`} aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: `${user.completedOrders.toFixed(2)}%`}}></div>
             </div>
-            <span>{user.completedOrders ? user.completedOrders : '0'}%</span>
+            <span>{user.completedOrders ? user.completedOrders.toFixed(2) : '0'}%</span>
 
           </div>
       </div>

@@ -117,7 +117,7 @@ export const ReviewProfile = styled.div`
   
 `;
 
-const ReviewItems = ({item}) => {
+export const ReviewItems = ({item}) => {
 
     return (
 

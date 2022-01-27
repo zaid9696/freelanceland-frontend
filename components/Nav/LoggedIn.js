@@ -146,7 +146,7 @@ let userOnlineIds = [];
           
               <ul>
                 <li><Link href={`/${userAuth.userName}`}><a onClick={dropdownHandler}><Image width={35} height={35} src={profileIcon} alt='Profile Icon' /><span>My Profile</span></a></Link></li>
-                <li><Link href='#'><a onClick={dropdownHandler}><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
+                <li><Link href='/dashboard'><a onClick={dropdownHandler}><Image width={35} height={35} src={dashboardIcon} alt='Dashboard Icon' /><span>Dashboard</span></a></Link></li>
                 <li><Link href={'/requests'}><a onClick={dropdownHandler}><Image width={35} height={35} src={requestIcon} alt='Dashboard Icon' /><span>Requests</span></a></Link></li>
               </ul>
               <button type='button' onClick={auth.logout}>Logout</button>

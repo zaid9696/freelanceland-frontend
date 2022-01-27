@@ -80,6 +80,7 @@ const NewRequestPageStyles = styled.div`
 const NewRequestPage = ({allCategories}) => {
 
 	const {userAuth} = useContext(AuthContext);
+  const router = useRouter();
 	const {sendRequest,  error,  isLoading, clearError} = useHttpAxios();
 	const validate = yup.object({
 		
@@ -123,8 +124,8 @@ const NewRequestPage = ({allCategories}) => {
 		try{
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/offers`, 'POST', value);
-
 			console.log({res});
+      router.push(`/requests`);
 
 		}catch(err) {console.log(err)}
 
