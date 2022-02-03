@@ -24,25 +24,19 @@ export default function Home({topRated, bunldesLatest}) {
   const {isLogged} = useContext(AuthContext);
   const {latestBundles}  = bunldesLatest;
   const {topRatedBundles} = topRated;
-//   const handleSocialLogin = (user) => {
-//   console.log(user);
-// };
 
-// const handleSocialLoginFailure = (err) => {
-//   console.error(err);
-// };
-  // console.log(data.bundles[0]._id);
+
   return (
       <>
+        <Head>
+          <title>FreelanceLand | Bring Your Ideas to Life with Perfect Freelancers from FreelanceLand</title>
+        </Head>
         {!isLogged && <Hero />} 
         {isLogged && <NewOfferAndBundle />}
-        {/*<BundleFilters /> */}
-        {/*<BundleCategory title={'Web Programming'} items={Dummy_Bundles} /> */}
-        {/* <Dashboard /> }
-        {/*<Panel />*/}
+       
         <Info />
-        <Bundles hide title='Top Rated Bundles' desc='- Best Sellers' bundleItems={topRatedBundles} /> 
-        <Bundles hide title='Latest Bundles' desc='- New Arrivals' bundleItems={latestBundles} /> 
+        {<Bundles hide title='Top Rated Bundles' desc='- Best Sellers' bundleItems={topRatedBundles} /> } 
+        {<Bundles hide title='Latest Bundles' desc='- New Arrivals' bundleItems={latestBundles} /> } 
       </>
   )
 }

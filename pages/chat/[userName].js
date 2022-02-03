@@ -1,5 +1,6 @@
 import {useState, useEffect, useContext, useRef, useCallback} from 'react';
 import io from 'socket.io-client'
+import Head from 'next/head';
 const socketUser = io(`${process.env.NEXT_PUBLIC_URL}`);
 import styled from 'styled-components';
 
@@ -16,7 +17,14 @@ const ChatPageStyles = styled.div`
 
     grid-column: center-start / center-end;
     display: grid;
+    @media (max-width:1090px){
+    margin-top: 7rem;
+    }
     grid-template-columns: 1fr 70%;
+    @media (max-width:1200px){
+    grid-template-columns: 1fr;
+      
+    }
     margin-top: 2rem;
     gap: 2rem;
 
@@ -258,10 +266,15 @@ const inputFieldHandler = (e) => {
 
 
   return (
+    <>
+    <Head>
+          <title> Chat with {user.userName} | FreelanceLand</title>
+      </Head>
     <ChatPageStyles>
         <ChatList  usersMessages={usersMessagesState} onlineUsers={onlineUsers} user={user}/>
        <ChatPanel messages={message} field={field} inputFieldHandler={inputFieldHandler} user={user} userTime={userTime} isTyping={isTyping} messagesHandlder={messagesHandlder} lastSeen={lastSeen} isOnline={isOnline}  />
     </ChatPageStyles>
+    </>
   )
 }
 

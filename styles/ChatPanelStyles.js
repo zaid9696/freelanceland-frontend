@@ -58,6 +58,11 @@ export const ChatPanelStyles = styled.div`
 	
     box-shadow: 0px 1px 9px 1px #0202022b;
     height: 60vh;
+    @media (max-width: 970px){
+    height: 90vh;
+
+
+    }
     background: #FEFEFE;
     border-radius: 2px;
     padding-bottom: 3rem;
@@ -69,6 +74,9 @@ export const ChatPanelStyles = styled.div`
 	    align-items: center;
 	    border-bottom: 1px solid #634cc26b;
 	    box-shadow:0px 5px 6px -3px #0202022b;
+      @media (max-width: 670px){
+        flex-direction: column;
+      }
 	    .header-user {
 
 	    	display: flex;
@@ -95,6 +103,15 @@ export const ChatPanelStyles = styled.div`
 	    	.meta-info {
 	    		margin: 0px 6px;
 	    	}
+
+        @media (max-width: 500px){
+
+          img {
+              width: 20px !important;
+              height: 16px !important;
+          }
+
+        }
     		
     		.font-bold {
 
@@ -120,6 +137,9 @@ export const ChatPanelStyles = styled.div`
 	    .header-meta {
 
 	    	font-size: 0.86rem;
+        @media (max-width: 500px){
+          font-size: 0.56rem;
+        }
 	    }
 
 
@@ -148,6 +168,14 @@ export const ChatPanelStyles = styled.div`
     	display: flex;
     	margin-bottom: 1.2rem;
 
+      .message {
+
+          @media (max-width: 500px){
+
+              font-size: 0.7rem;
+
+            }
+      }
     	
     	&.current {
 
@@ -194,6 +222,7 @@ export const ChatPanelStyles = styled.div`
     				margin-left: 0px;
     				margin-right: 8px;
     				background: #3c4858;
+          
     		}
 
 
@@ -210,6 +239,9 @@ export const ChatPanelStyles = styled.div`
     		margin-right: 10px;
 		    font-weight: 500;
 		    color: #686868;
+        @media (max-width: 500px){
+          font-size: 0.8rem;
+        }
 
     	}
 
@@ -217,7 +249,9 @@ export const ChatPanelStyles = styled.div`
 
     		font-size: 0.88rem;
     		font-weight: 100;
-
+        @media (max-width: 500px){
+          font-size: 0.7srem;
+        }
     	}
 
     	.message {
@@ -253,10 +287,19 @@ export const ChatPanelStyles = styled.div`
    	button {
    		color: #fff;
    		box-shadow: var(--shadow);
+    @media (max-width: 970px){
+      margin-top: 11px;
+    }
    	}
    	input{
 
    		  width: 80%;
+    @media (max-width: 970px){
+        width: 90%;
+        margin-right: 0px;
+
+    }
+
 		    margin-right: 1rem;
 		    padding: 14px 15px;
 		    border: 3px solid #b3b3b3;

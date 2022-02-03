@@ -2,6 +2,8 @@ import {useContext, useState, useEffect} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
+
 import axios from 'axios';
 import {useRouter} from 'next/router';
 
@@ -35,7 +37,7 @@ const OrderedPage = ({result}) => {
   const [timeStampOrderBuy, setTimeStampOrderBuy] = useState();
   const [timeStampOrderSell, setTimeStampOrderSell] = useState();
   const [deliverDesc, setDeliverDesc] = useState('');
-
+  // console.log({order: result.order});
   const [orderState, setOrderState] = useState({
     isAccepted: false,
     isNotAccepted: false,
@@ -194,6 +196,9 @@ const confirmOrderHandler = (type) => {
 
   return (
     <>
+      <Head>
+          <title> Order #{result.order.orderId} | FreelanceLand</title>
+      </Head>
     <ErrorModal error={error} onCancel={clearError} />
     {isLoading && <LoadingSpinner />}
     <Modal isVisible={openModal} hideModel={closeModalHanlder} header={`${modalType.type} The Order`} footer={
@@ -256,7 +261,7 @@ const confirmOrderHandler = (type) => {
               <div className='bundle-content'>
                   <h2><Link href={`/bundle/${bundle.id}/${bundle.slug}`}><a>{bundle.title}</a></Link></h2>
                   <div className='bundle-buyer'>
-                      <div className='img-circle'><Image src={userAvatar} width={40} height={40} alt="Buyer's  avatar " /></div>
+                      <div className='img-circle'><Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${orders.user.photo}`} width={40} height={40} alt="Buyer's  avatar " /></div>
                       <Link href={`/${orders.user.userName}`}><a>Buyer: {orders.user.userName}</a></Link>
                   </div>
                   <div className='bundle-order'>

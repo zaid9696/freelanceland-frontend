@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import Head from 'next/head';
 
 import DashboardLinks from '../../components/Dashboard/DashboardLinks';
 import DashboardUser from '../../components/Dashboard/DashboardUser';
@@ -13,6 +13,10 @@ const DashboardLinksContentStyles = styled.div`
   grid-column: center-start / center-end;
   display: grid;
   grid-template-columns: 1fr 55% 1fr;
+  @media (max-width: 1200px){
+    grid-template-columns: 1fr;
+    margin-top: 7rem;
+  }
   gap: 1rem;
   margin-top: 2rem;
 
@@ -20,6 +24,9 @@ const DashboardLinksContentStyles = styled.div`
 
   	display: grid;
     grid-template-columns: 1fr 1fr;
+  @media (max-width: 670px){
+    grid-template-columns: 1fr;
+  }
     gap: 2rem;
 
   }
@@ -45,8 +52,13 @@ const DashboardLinksContentStyles = styled.div`
 				    justify-content: space-between;
 				    width: 100%;	
 
+            .review-stars{display: flex;}
+
 				    a {
 				    	font-size: 1.1rem;
+               @media (max-width: 500px){
+                font-size: 0.8rem;
+              }
 					    margin-left: 9px;
 					    color: var(--black);
 					    transition: var(--tranhover);
@@ -70,12 +82,18 @@ const DashboardLinksContentStyles = styled.div`
 				p {
 					margin-left: 10px;
 					font-weight: 100;
+          @media (max-width: 500px){
+            font-size: 0.7rem;
+          }
 				}
 				span {
 
 				margin-left: 10px;
 			    font-weight: 100;
 			    font-size: 0.8rem;
+        @media (max-width: 500px){
+            font-size: 0.7rem;
+          
 				}
 			}
 
@@ -114,6 +132,10 @@ const DashboardLinksContent = ({bundles, result, query, offers, reviews, allOffe
 	const {user} = result;
 
   return (
+    <>
+      <Head>
+          <title> Dashboard {query} | FreelanceLand</title>
+      </Head>
     <DashboardLinksContentStyles>
     	<DashboardLinks />
     	{query == 'myBundles' && <DashboardBundles bundles={bundles.bundles} />}
@@ -125,6 +147,7 @@ const DashboardLinksContent = ({bundles, result, query, offers, reviews, allOffe
     	}
     	<DashboardUser user={user}/>
     </DashboardLinksContentStyles>
+    </>
   )
 }
 

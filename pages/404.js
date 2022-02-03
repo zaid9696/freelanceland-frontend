@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Link from 'next/link';
-// import {useRouter} from 'next/router';
+import Head from 'next/head';
 
 import cover from '../assets/404-cover.svg';
 
@@ -17,8 +17,25 @@ const FourPageStyles = styled.div`
 	.content {
 
 		position: absolute;
-	    top: 68%;
-    	left: 36%;
+	    width: 95vw;
+	    @media (max-width: 1190px){
+	    	width: 94vw;
+	    }
+	    @media (max-width: 500px){
+	    	width: 85vw;
+	    }
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    top: 63vh;
+	    @media (max-width: 1190px){
+	    top: 42vh;
+
+	    }
+	    @media (max-width: 500px){
+	    	top: 27vh
+	    }
 
 	    h1 {
 	    	background: #634cc2e0;
@@ -26,7 +43,9 @@ const FourPageStyles = styled.div`
 		    padding: 1rem;
 		    border-radius: 3px;
 		    box-shadow: var(--shadow);
-
+		    @media (max-width: 500px){
+		    	font-size: 1.5rem;
+		    }
 		}
 
 		button {
@@ -48,7 +67,10 @@ const FourPageStyles = styled.div`
 export default function Custom404() {
 
  return (
-
+ 		<>
+ 		<Head>
+          <title> 404 | FreelanceLand</title>
+      	</Head>
  		<FourPageStyles>
 	 		<div className='cover'>
 	 			<img src={cover.src} />
@@ -58,7 +80,7 @@ export default function Custom404() {
  			<Link href='/'><a><button>Go Home</button></a></Link>
  			</div>
  		</FourPageStyles>
-
+ 		</>
  	)
 
 

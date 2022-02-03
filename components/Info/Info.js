@@ -8,6 +8,10 @@ const InfoStyles = styled.div`
 	h2 {
 		text-align: center;
 	    font-size: 1.8rem;
+    	@media (max-width: 500px){
+	    font-size: 1.1rem;
+	    line-height: 1.4;
+   		 }
 	    margin-top: 3rem;
 	    margin-bottom: 3rem;
 	    

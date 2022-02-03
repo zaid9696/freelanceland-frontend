@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {useRouter} from 'next/router';
 import {Formik, Form, Field} from 'formik';
 import Select from 'react-select';
+import Head from 'next/head';
+
 
 import * as yup from 'yup';
 
@@ -20,7 +22,10 @@ import Button from '../components/UI/Button';
 const NewBundlePageStyles = styled.div` 
 
 
-  grid-column: center-start / center-end;	
+  grid-column: center-start / center-end;
+  @media (max-width: 1090px){
+  	margin-top: 7rem;
+  }
   text-align: center;
   .uploading-images {
 
@@ -34,42 +39,66 @@ const NewBundlePageStyles = styled.div`
   form {
   	text-align:center;
   	width: 70%;
+  @media (max-width: 1200px){
+  	width: 90%;
+
+  }
   	margin: auto;
   	label {
   		text-align: left;
   		margin-left: 74px;
+  		@media (max-width: 500px){
+	  		margin-left: 0;
+	    	font-size: 1rem;
+  		}
   	}
 
   	textarea {
 
     	margin-right: -33px;
+  		@media (max-width: 500px){
+
+    	margin-right: 0px;
+    	width:95%;
+
+  		}
     	height: 200px;
 
   	}
+
+  	}
+
+  	input {
+  	
+  	@media (max-width: 500px){
+	  	width: 95%;
+	  } 
+
+  	}
+
   }
 
   .numbers-inputs__footer {
 
   	display: flex;
-  	input {margin-left: 44px; width: 79%}
-
+  	justify-content: space-between;
+    margin-right: 44px;
+  @media (max-width: 1090px){
+  	display: block;
+    margin-right: 0px;
+  }
+  	input {
+  		margin-left: 44px; 
+  		width: 79%;
+  @media (max-width: 1090px){
+  		width: 86%;
+  		margin-left: 0px; 
+  	}
+  @media (max-width: 500px){
+  	width: 95%;
   }
 
-  .select-category {
 
-  	width: 88%;
-    margin: auto;
-    margin-right: 32px;
-    text-align: left;
-    label {
-
-    	margin-left: 0.1rem;
-	    font-size: 1.19rem;
-	    margin-bottom: 5px;
-	    font-weight: 500;
-	    display: block;
-
-    }
   }
 
   .new-bundle-btn {
@@ -79,9 +108,34 @@ const NewBundlePageStyles = styled.div`
   	margin-top: 3rem;
   }
 
+
  `;
 
+ const SelectStyles = styled.div`
+
+  	width: 88%;
+  	@media (max-width: 500px){
+  		width: 104%;
+  	}
+    margin: auto;
+  	margin-bottom: 2rem;
+    margin-right: 32px;
+    text-align: left;
+    label {
+
+    	margin-left: 0.1rem !important;
+	    font-size: 1.19rem;
+	    margin-bottom: 5px;
+	    font-weight: 500;
+	    display: block;
+
+    }
+
+   `
+
+
 const NewBundlePage = ({allCategories}) => {
+
 
 	const [imageFileOne, setImageFileOne] = useState()
 	const [imageFileTwo, setImageFileTwo] = useState();
@@ -163,6 +217,9 @@ const NewBundlePage = ({allCategories}) => {
 
   return (
   	<>
+    <Head>
+          <title> New Bundle | FreelanceLand</title>
+      </Head>
   	<ErrorModal error={error} onCancel={clearError} />
   	{isLoading && <LoadingSpinner />}
     <NewBundlePageStyles>
@@ -212,10 +269,10 @@ const NewBundlePage = ({allCategories}) => {
                   		
                   	</div>
                   </div>
-				  <div className='select-category'>
+				  <SelectStyles className='select-category' id='select-category'>
 				  	<label>Select Here the Category of the bundle</label>
 				   	 <Select name='category' value={defaultValues(options, formik.values.category)} onChange={value => formik.setFieldValue('category', value.value)} options={options} />
-				  </div>
+				  </SelectStyles>
 				  <Button disabled={(imageFileOne && imageFileTwo) ? !formik.isValid : true} className='new-bundle-btn' type='submit'>Create A Bundle</Button>	
 		   		</Form>
 

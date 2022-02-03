@@ -1,6 +1,7 @@
 import {useContext, useState, useMemo, useEffect } from 'react';
 import ct from 'countries-and-timezones';
 import Image from 'next/image';
+import Head from 'next/head';
 import styled from 'styled-components';
 var languages = require('language-list')();
 import countryList from 'react-select-country-list';
@@ -24,7 +25,9 @@ const EditProfileStyles = styled.div`
 
 	grid-column: center-start / center-end;
 	text-align: center;
-
+	 @media (max-width: 1200px){
+  		margin-top: 5rem;
+  	 }
 	.upload-content {
 		display: flex;
 		justify-content: center;
@@ -41,11 +44,24 @@ const EditProfileStyles = styled.div`
 
 		display: grid;
     	grid-template-columns: 1fr 1fr;
+    	@media (max-width: 600px) {
+    	grid-template-columns: 1fr;
+
+    	}
     	text-align: left;
     	margin-top: 3rem;
 	}
 
 	.editProfile-input {
+
+		input {
+			
+    	@media (max-width: 600px) {
+
+    		width:90%;
+
+			} 
+		}
 
 		&.down { 
 
@@ -54,6 +70,9 @@ const EditProfileStyles = styled.div`
 
 		label {
 		margin-left: 1.8rem;
+    	@media (max-width: 600px) {
+		margin-left: 0rem;
+		}
 	    font-size: 1.19rem;
 	    margin-bottom: 5px;
 	    font-weight: 500;
@@ -64,6 +83,13 @@ const EditProfileStyles = styled.div`
 	.css-b62m3t-container {
 		width: 90%;
     	margin-left: 1.8rem;
+    	@media (max-width: 600px) {
+
+    		width: 101%;
+    		margin-left: 0rem;
+    		margin-bottom: 1.5rem;
+
+    	}
 	}
 
 	.update-user-btn {
@@ -85,6 +111,9 @@ const EditProfileStyles = styled.div`
 			line-height: 1.7;
 		    font-size: 1.4rem;
 		    font-weight: 500;
+    		@media (max-width: 600px) {
+    			width: 90%;
+    		}
 
 		}
 	}
@@ -92,6 +121,9 @@ const EditProfileStyles = styled.div`
 	.my-skills {
 
 		width: 70%;
+    	@media (max-width: 600px) {
+    		width: auto;
+    	}
 	    margin: auto;
 	    background: #f3f3f3;
 	    padding: 1rem;
@@ -129,6 +161,9 @@ const EditProfileStyles = styled.div`
 			padding: 6px 15px;
 		    border: 1px solid var(--main);
 		    border-radius: 5px;
+		    @media (max-width:500px){
+		    	margin-bottom:1.5rem;
+		    }
 		}
 
 		button {
@@ -280,7 +315,10 @@ const editProfile = (props) => {
   return (
 
   	<>
-  		<ErrorModal error={error} onCancel={clearError} />
+  	  <Head>
+          <title> Edit Your Profile | FreelanceLand</title>
+      </Head>
+  	<ErrorModal error={error} onCancel={clearError} />
   	{isLoading && <LoadingSpinner />}
     <EditProfileStyles>
     	<h1>Edit Profile</h1>
@@ -294,7 +332,7 @@ const editProfile = (props) => {
     		
     		     		initialValues={{
     			     	 userName: userAuth.userName ,
-    			     	 aboutMe: userAuth.aboutMe,
+    			     	 aboutMe: userAuth.aboutMe ? userAuth.aboutMe : '',
     			     	 role: userAuth.role,
     			     	 email: userAuth.email,
     			     	 skill: '',
@@ -304,7 +342,7 @@ const editProfile = (props) => {
     			     	 lastName: userAuth.lastName ? userAuth.lastName : '',
     			     	 localTimeZone: `${userAuth.localTimeZone}`,
     			     	 country: userAuth.countryCode,
-    			     	 phone: userAuth.phone
+    			     	 phone: userAuth.phone ? userAuth.phone : ''
     			     	}}
     					validationSchema={validate}
     					validateOnMount={true}

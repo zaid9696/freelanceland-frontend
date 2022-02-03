@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Head from 'next/head';
+
 
 import Dashboard from '../components/Dashboard/Dashboard';
 
@@ -15,9 +17,14 @@ const dashboard = ({result}) => {
 	// console.log({result});
 
   return (
+    <>
+    <Head>
+          <title> Dashboard | FreelanceLand</title>
+      </Head>
     <DashboardStylePage>
     	<Dashboard user={user} cancelNum={cancelNum} completedNum={completedNum} activeNum={activeNum} />
     </DashboardStylePage>
+    </>
   )
 }
 

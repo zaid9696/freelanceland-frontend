@@ -9,6 +9,9 @@ const NewOfferAndBundleStyles = styled.div`
 	background-image: url(${bg.src});
 	height: 334px;
     background-size: contain;
+    @media (max-width: 1090px) {
+        margin-top: 5rem;
+    }
 
     .btns {
     	display: flex;
@@ -16,6 +19,12 @@ const NewOfferAndBundleStyles = styled.div`
     	width: 100%;
     	height:100%;
     	align-items: center;
+        @media (max-width: 650px) {
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            gap: 2rem;
+        }
     	button {
             cursor: pointer;
     		padding: 1rem 3rem;
@@ -39,6 +48,10 @@ const NewOfferAndBundleStyles = styled.div`
     		background: var(--green);
 		    border: 1px solid var(--green);
 		    margin-left: 3rem;
+        @media (max-width: 650px) {
+            margin-left: 0rem;
+
+        }
 		    &:hover {
     			box-shadow: 0px 0px 15px 6px #2196538f
     		}

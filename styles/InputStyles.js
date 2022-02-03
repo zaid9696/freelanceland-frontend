@@ -65,6 +65,12 @@ export const InputRadioWrapStyles = styled.div`
 export const FormStyles = styled.div`
 	
     width: 50%;
+    @media (max-width: 600px){
+
+      width:90%;
+      margin-top: 6rem;
+
+    }
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -85,6 +91,9 @@ export const FormStyles = styled.div`
 export const LabelStyles = styled.label`
 	
 	margin-left: 1.8rem;
+    @media (max-width: 600px){
+      margin-left: 0rem;
+    }
    	font-size: 1.19rem;
 	margin-bottom: 5px;
 	font-weight: 500;
@@ -97,6 +106,11 @@ export const LabelStyles = styled.label`
 export const InputFieldStyles = styled.div`
     
     margin-left: 1.8rem;
+    @media (max-width: 600px){
+
+    margin-left: 0rem;
+
+    }
     position: relative;
       input {
 

@@ -34,6 +34,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+        <meta name="theme-color" content="#634CC2" />
            <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
             rel="stylesheet"

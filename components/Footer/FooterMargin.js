@@ -13,6 +13,14 @@ const FooterMarginStyles = styled.div`
     font-weight: 100;
     font-size: 0.7rem;
     letter-spacing: 1px;
+     @media (max-width: 1200px) { 
+        margin-bottom: 4.8rem;
+        
+    }
+    @media (max-width: 500px) { 
+        padding-bottom: 1.4rem;
+        flex-direction: column;
+    }
     a {
     	font-size: 1rem;
 	    color: #fff;

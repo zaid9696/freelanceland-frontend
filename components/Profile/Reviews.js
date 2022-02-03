@@ -38,6 +38,9 @@ export const ReviewProfile = styled.div`
                 display: flex;
                 align-items: center;
                 margin-left: 2rem;
+                @media (max-width: 500px) {
+                    flex-wrap: wrap
+                }
 
             }
         	&-num {
@@ -45,13 +48,19 @@ export const ReviewProfile = styled.div`
         		display: flex;
 			    align-items: center;
 			    font-size: 18px;
+                @media (max-width: 500px){
+                font-size: 12px;
+                }
 			    color: var(--orange);
         	}
 
         	.reviews-num {
         		margin-left: 9px;
 			    font-weight: 100;
+                @media (max-width: 500px){
+                font-size: 12px;
 
+                }
         	}
         }
 
@@ -73,6 +82,12 @@ export const ReviewProfile = styled.div`
 
 				    a {
 				    	font-size: 1.1rem;
+                        @media (max-width: 500px) {
+
+                        font-size: 0.8rem;
+
+
+                        }
 					    margin-left: 9px;
 					    color: var(--black);
 					    transition: var(--tranhover);
@@ -82,6 +97,10 @@ export const ReviewProfile = styled.div`
         			}
         		span.num {
         			font-size: 16px;
+                    @media (max-width: 500px){
+                     font-size: 12px;
+                     margin-top:3px;
+                    }
 				    font-weight: 100;
 				    margin-left: -5px;
 				    margin-right: 14px;
@@ -96,18 +115,27 @@ export const ReviewProfile = styled.div`
 				p {
 					margin-left: 10px;
 					font-weight: 100;
+                @media (max-width: 500px){
+                    font-size: 0.8rem;
+                }
 				}
 				span {
 
 				margin-left: 10px;
 			    font-weight: 100;
 			    font-size: 0.8rem;
+                @media (max-width: 500px){
+                font-size: 0.5rem;
+                }
 				}
 			}
 
 			.review-stars {
 
 				display: flex;
+                @media (max-width: 500px){
+                    margin-top: -3px;
+                }
 
 			}
 
@@ -161,7 +189,7 @@ const Reviews = ({reviews, userName}) => {
 
     }, [aveRating])
 
-
+    console.log({reviews});
     if(!reviews) return null;
 
   return (
@@ -188,7 +216,7 @@ const Reviews = ({reviews, userName}) => {
 
     		  {
                 
-              userAuth && reviews.map(item => {
+                reviews.map(item => {
                 if(item.buyer.userName !== userName && item.creator.userName !== userName && reviewType == 'seller'){
                     aveRating.push(item.rating);
                     // calculateRates(aveRating);

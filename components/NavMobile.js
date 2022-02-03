@@ -17,11 +17,10 @@ const NavMobileStyles = styled.div`
   	top: 0;
   	left: 0;
   	background: #fff;
-  	z-index: 1;
+  	z-index: 24;
   	padding: 1.2rem 0;
   	box-shadow: 0px 1px 7px 1px #02020226;
    @media (min-width: 1200px) {
-
   		display: none !important;
     		
     }
@@ -267,6 +266,30 @@ const NavMobileStyles = styled.div`
 	    position: relative;
 	    top: -15px;
 
+	    @media (max-width: 500px){
+	    &.move-logo{
+
+	    	left: -18px;
+	    	top: 4px;
+	    	img {width: 50px}
+	    	p {
+	    		font-size: 0.8rem;
+	    	}
+	    }
+
+	    	img {width: 80px}
+
+	    }
+
+	}
+
+	.small-p {
+
+		@media (max-width: 500px) {
+
+			font-size: 0.8rem !important;
+			margin-top: 20px !important;
+		}
 	}
 
  `
@@ -278,8 +301,8 @@ const NavMobile = (props) => {
 	const [openDropDownUser, setOpenDropDownUser] = useState(false);
 	const {userAuth, isLogged, logout} = useContext(AuthContext);
 	const openDropDownHandler = () => {
-		setOpenDropDown(prev => !prev); 
-		setOpenDropDownUser(false)
+		setOpenDropDown(prev => !prev);
+		setOpenDropDownUser(false);
 	};
 	const openDropDownUserHandler = () => {
 		setOpenDropDownUser(prev => !prev);
@@ -315,7 +338,7 @@ const NavMobile = (props) => {
 	    						<Image src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/users/${userAuth.photo}`}  width={50} height={50}/>
 	    							
 	    						</div>
-	    						<p>{userAuth.userName}</p>
+	    						<p className={`${isLogged ? 'small-p' : ''}`}>{userAuth.userName}</p>
 	    				</div>
     				   }
 
@@ -324,7 +347,7 @@ const NavMobile = (props) => {
     				    				</div>
     				 }
     			</div>
-    			<div className='nav-mobile-logo'>
+    			<div className={`nav-mobile-logo ${isLogged ? 'move-logo' : ''}`}>
     				<Link href='/'>
     					<a>
     					<Image src={logoIcon} width={100} height={100} />	

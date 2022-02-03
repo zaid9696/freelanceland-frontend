@@ -2,6 +2,7 @@ import {useContext, useState} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 
 import ChatList from '../components/Chat/ChatList';
 import useSocket from '../hooks/useSocket';
@@ -11,7 +12,15 @@ import useHttpAxios from '../hooks/http-hook';
 const ChatPageStyles = styled.div` 
 
 	grid-column: center-start / center-end;
+  @media (max-width:1090px){
+    margin-top: 7rem;
+  }
+
+
     width: 81%;
+  @media (max-width:1090px){
+    width: 98%;
+  }
     margin: auto;
     margin-top: 2rem;
 
@@ -58,10 +67,15 @@ const chatPage = ({result}) => {
 
 	// console.log({result});
   return (
+    <>
+    <Head>
+          <title> All Chats | FreelanceLand</title>
+      </Head>
     <ChatPageStyles>
     	<h1>All Chats</h1>
     	<ChatList usersMessages={usersMessage} onlineUsers={onlineUsers} />
     </ChatPageStyles>
+    </>
   )
 }
 

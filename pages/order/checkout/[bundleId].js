@@ -1,5 +1,6 @@
 import {useState , useEffect, useCallback ,useContext} from 'react';
 import Image from 'next/image';
+import Head from 'next/head';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import uniqid from 'uniqid';
@@ -160,6 +161,9 @@ const createNotification = useCallback(async (newOrder) => {
 
   return (
     <>
+      <Head>
+          <title> Checkout Bundle {bundle.title} | FreelanceLand</title>
+      </Head>
       <ErrorModal error={error} onCancel={clearError} />
       {isLoading && <LoadingSpinner />}
       <Modal isVisible={showModal} header='Success'>

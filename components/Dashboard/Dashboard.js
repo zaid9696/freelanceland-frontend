@@ -11,10 +11,15 @@ const DashboardStyles = styled.div`
   grid-column: center-start / center-end;
   display: grid;
   grid-template-columns: 1fr 55% 1fr;
+  @media (max-width: 1200px){
+  grid-template-columns: 1fr;
+  margin-top: 7rem;
+  }
   gap: 1rem;
   margin-top: 2rem;
 
 `
+
 
 const Dashboard = ({user,cancelNum, completedNum, activeNum}) => {
   return (

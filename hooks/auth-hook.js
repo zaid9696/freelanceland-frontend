@@ -48,6 +48,7 @@ const useAuthHook = (props) => {
 		
 
 			console.log(res);
+
 			if(res.data.noToken){
 				setIsLogged(false);
 				setIsLoggedLoading(false);

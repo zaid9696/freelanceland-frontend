@@ -4,11 +4,17 @@ import styled from 'styled-components';
 const OrderedPageStyles = styled.div`          
   
   grid-column: center-start / center-end;
+  @media(max-width: 1090px){
 
+    margin-top: 7rem;
+  }
 
   .count-down, .bundle, .order-stl {
 
-     width: 70%;
+    width: 70%;
+  @media(max-width: 1090px){
+    width: 90%;
+  }
     margin: auto;
     background: var(--secondary);
     box-shadow: 0px 0px 5px 1px #0202021c;
@@ -24,13 +30,23 @@ const OrderedPageStyles = styled.div`
 
   .count-down {
 
-   
+  @media(max-width: 740px){
+
+    flex-wrap: wrap;
+
+   }
 
     .semi-column {
 
       font-size: 3.1rem;
       position: relative;
       right: -14px;
+      @media(max-width: 500px){
+        right: 8px;
+        &:nth-child(4){
+          display: none;
+        }
+      }
       top: 0px;
       color: var(--main);
 
@@ -49,11 +65,23 @@ const OrderedPageStyles = styled.div`
       height: 96px;
       justify-content: center;
       border-radius: 5px;
-      
+      @media(max-width: 740px){
+        margin-bottom: 1rem;
+      }
+      @media(max-width: 500px){
+          position: relative;
+          left: -23px;
+          font-size: 1rem;
+          width: 95px;
+          height: 68px;
+      }
+
       span {
 
         font-size: 2.5rem;
-
+      @media(max-width: 500px){
+        font-size: 1.5rem;
+      }
       }
 
     }
@@ -68,11 +96,23 @@ const OrderedPageStyles = styled.div`
 
         display: flex;
         width: 100%;
+      @media(max-width: 888px){
+        flex-direction: column;
+      }
+    }
+
+    &-img {
+      @media(max-width: 888px){
+        text-align: center;
+      }
     }
 
     &-content {
       width: 100%;
       margin-left: 15px;
+      @media(max-width: 888px){
+        margin-left: 0px;
+      }
     }
 
     &
@@ -93,6 +133,9 @@ const OrderedPageStyles = styled.div`
         a {
 
           font-size: 1.4rem;
+          @media(max-width: 640px){
+          font-size: 1.1rem;
+          }
           line-height: 1.4;
           color: var(--black);
           transition: all 0.3s ease-in-out;
@@ -130,6 +173,16 @@ const OrderedPageStyles = styled.div`
           display: flex;
           justify-content: space-between;
           margin-top: 10px;
+          @media(max-width: 640px){
+            flex-direction: column;
+
+            li {
+              margin-bottom: 1rem;
+              font-size: 0.8rem;
+            }
+          }
+
+
 
         }
     }
@@ -158,7 +211,12 @@ const OrderedPageStyles = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+    @media (max-width: 717px){
 
+      flex-direction: column;
+
+
+     }
     button {
       color: #fff;
       font-weight: 600;
@@ -173,6 +231,10 @@ const OrderedPageStyles = styled.div`
     button:nth-child(1){
       background: var(--green);
       margin-right: 2.5rem;
+    @media (max-width: 717px){
+      margin-right: 0rem;
+      margin-bottom: 1.5rem;
+    }
     }
 
   }
@@ -182,11 +244,18 @@ const OrderedPageStyles = styled.div`
     padding: 0;
     justify-content: start;
     width: 72%;
+    @media (max-width: 1000px) {
+
+      width: 98%;
+    }
     overflow: hidden;
     align-items: normal;
     .icon {
 
       padding: 1rem;
+      @media (max-width: 600px){
+        padding: 1.5rem
+      }
       display: flex;
       align-items: center;    
     }
@@ -212,6 +281,10 @@ const OrderedPageStyles = styled.div`
          } 
           h3 {
             margin-bottom: 1rem;
+          @media (max-width: 600px){
+            font-size: 0.9rem;
+            line-height: 1.4;
+          }
           }
       }
 
@@ -220,6 +293,11 @@ const OrderedPageStyles = styled.div`
 
         p {
           margin-top: 0;
+          @media(max-width: 500px) {
+              font-size: 0.8rem;
+              padding-right: 5px;
+              line-height: 1.4;
+          }
         }
 
         span {
@@ -266,6 +344,12 @@ const OrderedPageStyles = styled.div`
     text-align: center;
     background: var(--orange);
     width: 40%;
+    @media(max-width: 1000px){
+      width: 93%;
+      font-size: 1rem;
+      line-height: 1.4;
+      padding: 1rem;
+    }
     margin: auto;
     margin-top: 1.3rem;
     font-size: 1.2rem;
@@ -282,6 +366,10 @@ const OrderedPageStyles = styled.div`
     text-align: center;
     margin-top: 1rem;
     font-size: 1rem;
+    @media(max-width: 500px){
+      font-size: 0.7rem;
+    }
+
     font-weight: 100;
 
   }

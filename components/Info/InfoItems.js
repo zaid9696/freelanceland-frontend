@@ -11,6 +11,9 @@ const InfoItemsStyels = styled.div`
 
 	display: grid;
     grid-template-columns: 1fr 1fr;
+    @media (max-width: 880px) {
+        grid-template-columns: 1fr;
+    }
     text-align: center;
     gap: 11rem;
     row-gap: 3rem;

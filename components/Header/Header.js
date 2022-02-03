@@ -31,7 +31,7 @@ const Header = (props) => {
 
           try {
 
-              const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/categories`);
+              const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/categories`, 'GET');
               setCategories(res.data.allCategories);
           }catch(err) {console.log(err);}
 

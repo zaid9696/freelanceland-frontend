@@ -7,15 +7,27 @@ const HeroContentStyles = styled.div`
     top: 67%;
     width: 100%;
     height: 99.1%;
+    @media (max-width: 1000px){
+   		top: 28%;
+   		// width: auto;
+  	}
     text-align: center;
     z-index: 20;
 
 	h1 {
     	color: #fff;
   		font-size: 2.4rem;
+  		@media (max-width: 1000px){
+  			font-size:1.4rem;
+  			margin-bottom:26px;
+  			line-height: 1.4;
+  		}
 	    }
 	    p {
-
+	    	@media (max-width: 1000px){
+  			font-size:1rem;
+  			line-height: 1.4;
+  			}
 	    	font-size: 1.5rem;
 		    color: #fff;
 		    font-weight: 100;
@@ -38,6 +50,12 @@ const HeroContentStyles = styled.div`
 		    		background: transparent;
 		    }
 	    }
+
+
+	.text {
+
+		padding: 0 1rem;
+	}
 
 
   `
@@ -63,10 +81,10 @@ const HeroStyles = styled.div`
 	    align-items: center;
 	    text-align: center;
 	    background: #211943d9;
-	    	
 	    
-
 	}
+
+
 
 `
 

@@ -1,6 +1,7 @@
 import {useEffect, useContext, useState} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Head from 'next/head';
 import Link from 'next/link';
 import ReactTimeAgo from 'react-timeago';
 import ReactCountryFlag from 'react-country-flag';
@@ -16,6 +17,9 @@ const SocialShare = styled.div`
       text-align: center;
       width: 100%;
     span {
+
+
+
       &.twitter {color: #00acee};
       &.facebook {color:  #3b5998};
       &.email {color: #c71610};
@@ -24,6 +28,9 @@ const SocialShare = styled.div`
         text-transform: uppercase;
         font-weight: 600 !important;
         font-size: 1.5rem !important;
+        @media (max-width: 950px){
+        font-size: 1rem !important;
+        }
         letter-spacing: 1.2px;
 
       }
@@ -138,7 +145,9 @@ const BundlePage = ({result, allBundles}) => {
 
   return (
     <>
-
+      <Head>
+          <title> {bundle.title} | FreelanceLand</title>
+      </Head>
     {isLoading && <LoadingSpinner />}
     <Modal hideModel={hideModelHandler} isVisible={hideModel} header='Share This Bundle'>
       <SocialShare className='social-share'>
@@ -257,7 +266,7 @@ const BundlePage = ({result, allBundles}) => {
           <div className='bundle-images'>
           <Carousel transitionMode="fade"  renderBottomCenterControls={null} wrapAround={true}>
               {
-                bundle.images.map((item, i) => <Image key={i} tabIndex={null}  key={i} src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${item}`} layout='responsive' width={1200} height={670} alt='Bundle Image' />)
+                bundle.images.map((item, i) => <Image key={i} tabIndex={null}  key={i} src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${item}`}  width={1200} height={670} alt='Bundle Image' />)
               }
           </Carousel>
           </div>
@@ -273,10 +282,10 @@ const BundlePage = ({result, allBundles}) => {
                     Revisions {bundle.revisions}
                 </div>
             </div>  
-            { bundle.user.id !== userAuth.id ? <div className='bundle-btns'>
+             { bundle.user.id !== userAuth.id ? <div className='bundle-btns'>
             
-                         <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
-                         <Button type='button' href={`/chat/${bundle.user.userName}`}>Ask for custom offer</Button>
+{ userAuth ? (<> <Button type='button' href={`/order/checkout/${bundle.id}`}>Buy now for ${bundle.price}</Button>
+           <Button type='button' href={`/chat/${bundle.user.userName}`}>Ask for custom offer</Button> </>) : <div className='my-bundle'>You Need Login To Buy This Bundle </div>}
                         </div> :
                     <div className='my-bundle'>This is your bundle</div>
               }

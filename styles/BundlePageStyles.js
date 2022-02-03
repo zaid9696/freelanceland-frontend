@@ -7,6 +7,12 @@ const BundlePageStyles = styled.div`
     grid-column: center-start / center-end;
     display: grid;
     grid-template-columns: 26% 1fr;
+    @media (max-width: 1095px){
+    grid-template-columns: 1fr;
+    }
+    @media (max-width: 1000px){
+      margin-top: 7rem;
+    }
     gap: 2rem;
     margin-top: 2rem;
 
@@ -14,6 +20,11 @@ const BundlePageStyles = styled.div`
 
       display: grid;
       grid-template-columns: 74% 1fr;
+      @media (max-width: 950px){
+      grid-template-columns: 1fr;
+
+      }
+
       gap: 1rem;
 
       .title {
@@ -71,6 +82,13 @@ const BundlePageStyles = styled.div`
           border-radius: 3px;
           span {margin-left: 7px;}
           cursor: pointer;
+          @media (max-width: 950px){
+
+            &:last-child {justify-self: end;}
+
+          }
+
+
         }
 
       }
@@ -106,6 +124,9 @@ const BundlePageStyles = styled.div`
 
         li {
           font-size: 1.4rem;
+          @media (max-width: 500px){
+          font-size: 1rem;
+          }
         }
 
       }
@@ -134,13 +155,27 @@ const BundlePageStyles = styled.div`
 
       display: flex;
       justify-content: space-between;
+        @media (max-width: 500px) {
+
+          display: grid;
+          grid-template-columns: 1fr;
+
+        }
 
       button {
 
         font-size: 1.3rem;
+        @media (max-width: 500px) {
+        font-size: 1.1rem;
+
+        }
         text-transform: uppercase;
         letter-spacing: 1px;
         width: 47%;
+        @media (max-width: 500px) {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
         padding: 15px 1px;
         border-radius: 4px;
         border: none;
@@ -170,13 +205,17 @@ const BundlePageStyles = styled.div`
       font-weight: 700;
       text-transform: uppercase;
       cursor: not-allowed;
-
+      width: 90%;
+       @media (max-width: 500px){
+          font-size: 1rem;
+          }
     }
 
     .bundle-images {
 
+      width: 100%;
       margin-top: 40px;
-      img {border-radius: 3px;}
+      img {border-radius: 3px; width: 100vw !important}
     }
 
 `

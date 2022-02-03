@@ -22,6 +22,10 @@ const DashboardSettingsInfoStyles = styled.div`
         justify-content: center;
         align-items: center;
         gap: 2rem;
+        @media (max-width: 655px){
+          gap: 1rem;
+        }
+
         margin-bottom: 2rem;
 
       &-icon {
@@ -43,7 +47,10 @@ const DashboardSettingsInfoStyles = styled.div`
           }
 
           img {
-            // width: 100px;
+            @media (max-width: 655px){
+            width: 30px;
+
+            }
             // height: 100px;
           }
 
@@ -52,6 +59,11 @@ const DashboardSettingsInfoStyles = styled.div`
             margin-top: 9px;
             color: #fff;
             font-size: 1rem;
+            @media (max-width: 655px){
+              font-size: 0.8rem;
+              text-align: center;
+              line-height: 1.3;
+            }
             font-weight: 500;
             letter-spacing: 0.6px;
           }
@@ -64,6 +76,11 @@ const DashboardSettingsInfoStyles = styled.div`
       grid-template-columns: 1fr 1fr 1fr;
       text-align: center;
       gap: 2rem;
+      @media (max-width: 655px){
+
+        gap: 1rem;
+
+      }
       &-wrap {
           box-shadow: 0px 3px 5px 1px #0202022b;
           border-radius: 6px;
@@ -79,12 +96,25 @@ const DashboardSettingsInfoStyles = styled.div`
               margin: 0.3rem 0;
               display: block;
           }
+
+            @media (max-width: 655px){
+              img {
+                width: 30px;
+              }
+            }
+
           p {
               margin: 0;
               margin-top: 5px;
               font-weight: 500;
               color: var(--main);
               margin-bottom: 1rem;
+            @media (max-width: 655px){
+              font-size: 0.8rem;
+            }
+            @media (max-width: 500px){
+              font-size: 0.6rem;
+            }
           }
       }
   }

@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import Head from 'next/head';
 
 import PanelRequest from '../components/Panel/PanelRequest';
 
 const OffersPageStyles = styled.div`
 	
 	grid-column: center-start / center-end;
+  @media (max-width: 1090px){
+    width: 100%;
+    margin-top:7rem;
+  }
 	width: 85%;
     margin: auto;
     margin-top: 2.5rem;
@@ -17,9 +22,14 @@ const OffersPage = ({result}) => {
 	console.log({result});
 
   return (
+    <>
+     <Head>
+          <title> All Requests | FreelanceLand</title>
+      </Head>
     <OffersPageStyles>
     	<PanelRequest offers={allOffers}/>
     </OffersPageStyles>
+    </>
   )
 }
 

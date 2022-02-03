@@ -17,6 +17,10 @@ const ReviewFieldsStyles = styled.div`
       display: flex;
       flex-direction: column;
       width: 37%;
+      @media(max-width:1000px) {
+        width: 90%;
+        button {width: 100% !important;}
+      }
       margin-top: 2rem;
 
       textarea {

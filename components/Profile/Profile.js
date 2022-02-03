@@ -15,6 +15,15 @@ const ProfileStyles = styled.div`
 	grid-column: center-start / center-end;
 	display: grid;
     grid-template-columns: 26% 1fr;
+    @media (max-width: 1050px){
+    grid-template-columns: 36% 1fr;
+    margin-top: 7rem;
+    }
+    @media (max-width: 975px){
+    grid-template-columns: 1fr;
+            
+    }
+
     gap: 2rem;
     margin-top: 2rem;
 
@@ -26,6 +35,14 @@ const ProfileStyles = styled.div`
 
     		display: grid;
 		    grid-template-columns: 1fr 1fr 1fr;
+            @media (max-width: 1050px){
+            grid-template-columns: 1fr 1fr;
+
+            }
+            @media (max-width: 975px){
+            grid-template-columns: 1fr;
+
+            }
 		    gap: 2rem;
     	}
 

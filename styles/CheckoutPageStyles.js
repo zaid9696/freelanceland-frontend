@@ -4,6 +4,11 @@ const CheckoutPageStyles = styled.div`
 
   
   grid-column: center-start / center-end;
+  @media(max-width: 1090px){
+
+    margin-top: 7rem;
+     
+  }
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,6 +20,11 @@ const CheckoutPageStyles = styled.div`
     background: whitesmoke;
     box-shadow: var(--shadow);
     width: 75%;
+    @media(max-width: 1090px){
+    width: 98%;
+
+
+    }
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,6 +48,13 @@ const CheckoutPageStyles = styled.div`
           margin-left: 1.2rem;
           text-align: center;
           line-height: 1.4;
+        @media(max-width: 500px){
+
+          h2 {
+            font-size: 0.9rem;
+          }
+
+        }
 
       }
       
@@ -79,8 +96,23 @@ const CheckoutPageStyles = styled.div`
             border-bottom: 1px dashed var(--color-grey80);
             padding: 0.6rem 16px;
             margin-bottom: 1.1rem;
-            span.title {font-size: 1.3rem; font-weight: 400;}
-            span.desc {font-size: 1.2rem; font-weight: 500;}
+            span.title {
+              font-size: 1.3rem; 
+              font-weight: 400;
+             @media(max-width: 500px){
+              font-size: 0.9rem; 
+
+             }
+
+            }
+            span.desc {
+              font-size: 1.2rem; 
+              font-weight: 500;
+              @media(max-width: 500px){
+                font-size: 0.7rem; 
+
+              }
+            }
 
             &:last-child {
 
@@ -114,9 +146,22 @@ button.checkout-btn {
 
 .dummy-info {
 
+  p {
+
+    @media(max-width: 500px){
+      font-size: 0.7rem; 
+
+    }
+
+  }
+
   h4 {
 
     margin-top: 0px;
+    @media(max-width: 500px){
+      font-size: 0.8rem; 
+
+    }
 
   }
 }

@@ -1,8 +1,10 @@
+import {useContext} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import userAvatar from '../../assets/userAvatar.jpg';
 import starIcon from '../../assets/icons/star.svg';
+import {AuthContext} from '../../context/AuthContext';
 import DashboardUserStyles from '../../styles/DashboardUserStyles';
 import RatingStar from '../UI/RatingStar';
 import dateFormat from '../../utils/DateFormat';
@@ -61,10 +63,12 @@ const AdditionalInfo = ({user}) => {
 
 const DashboardUser = ({user}) => {
 
-
+  const {userAuth} = useContext(AuthContext);
   if(!user) return null;
 
   console.log({user});
+
+
 
   return (
     <DashboardUserStyles>
@@ -87,17 +91,15 @@ const DashboardUser = ({user}) => {
               </div>
           </div>
 
-          <div className='profile-link'>
-          {/*<Link href='#'>
-                        <a> View My Profile </a>
-                    </Link> */}
-            <button className='user-edit-profile'>
-                <Link href='/editProfile'>
-                    <a>Edit Profile</a>
-                </Link>
-            </button>        
-          </div>
-        </div>
+          { user.userName == userAuth.userName && <div className='profile-link'>
+                    
+                      <button className='user-edit-profile'>
+                          <Link href='/editProfile'>
+                              <a>Edit Profile</a>
+                          </Link>
+                      </button>        
+                    </div>}
+                  </div>
      {/*  <div className='user-numbers'>
                  <p>Delivered on Time</p>
                  <div className='user-progress-wrap'>

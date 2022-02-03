@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react';
 import styled from 'styled-components';
 import {useRouter} from 'next/router';
+import Head from 'next/head';
 import {Formik, Form, Field} from 'formik';
 import Select from 'react-select';
 import * as yup from 'yup';
@@ -17,11 +18,20 @@ import {AuthContext} from '../context/AuthContext';
 
 const NewRequestPageStyles = styled.div` 
 
-	grid-column: center-start / center-end;
+	 grid-column: center-start / center-end;
 
-	grid-column: center-start / center-end;
+	  @media (max-width: 1090px){
+    margin-top: 7rem;
+  }
     width: 75%;
+    @media (max-width: 1200px){
+      width: 95%;
+    }
     margin: auto;
+
+    @media (max-width: 600px){
+      h1 {font-size: 1.7rem;}
+    }
 
 	.select-category {
 
@@ -34,6 +44,10 @@ const NewRequestPageStyles = styled.div`
 
     	margin-left: 0.1rem;
 	    font-size: 1.19rem;
+    @media (max-width: 600px){
+      font-size: 1rem;
+      
+    }
 	    margin-bottom: 5px;
 	    font-weight: 500;
 	    display: block;
@@ -44,7 +58,12 @@ const NewRequestPageStyles = styled.div`
   textarea {
 
   	width: 96.8%;
+    @media (max-width: 600px){
+    width: 90%;
+
+    }
   	height: 130px;
+
   }
 
   .request-textarea {
@@ -55,9 +74,15 @@ const NewRequestPageStyles = styled.div`
 
   	display: grid;
     grid-template-columns: 1fr 1fr;
+    @media (max-width: 600px){
+    grid-template-columns: 1fr;
+    }
     column-gap: 5rem;
     input {
-    	width: 93%;
+      @media (max-width: 600px){
+    	width: 90%;
+      
+     }
     }
     label, div {
     	margin: 0;
@@ -78,6 +103,8 @@ const NewRequestPageStyles = styled.div`
  `
 
 const NewRequestPage = ({allCategories}) => {
+
+
 
 	const {userAuth} = useContext(AuthContext);
   const router = useRouter();
@@ -134,6 +161,9 @@ const NewRequestPage = ({allCategories}) => {
   return (
 
   	<>
+    <Head>
+          <title> New Request | FreelanceLand</title>
+      </Head>
   	<ErrorModal error={error} onCancel={clearError} />
   	{isLoading && <LoadingSpinner />}
     <NewRequestPageStyles>

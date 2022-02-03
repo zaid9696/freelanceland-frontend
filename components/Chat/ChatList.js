@@ -70,10 +70,16 @@ const ChatListStyles = styled.div`
               }
               span.message-user {
                 font-size: 1.08rem;
+                @media (max-width: 500px){
+                font-size: 0.8rem;
+                }
                 font-weight: 500;
               }
               span.message-date {
                 font-size: 0.89rem;
+                 @media (max-width: 500px){
+                font-size: 0.7rem;
+                }
               }
 
               .message-content {
@@ -85,7 +91,9 @@ const ChatListStyles = styled.div`
                 .message {
                     margin-top: 0.7rem;
                     font-weight: 600;
-
+                    @media (max-width: 500px){
+                        font-size: 0.7rem;
+                    }
                   }
 
                   span {

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Head from 'next/head';
+
 
 import Profile from '../components/Profile/Profile';
 
@@ -14,9 +16,15 @@ const ProfilePage = ({result, userName}) => {
 	const {bundles, reviews, user} = result;
   console.log({bundles});
 	return (
+     <>
+
+     <Head>
+          <title> {userName} | FreelanceLand</title>
+      </Head>
 	    <ProfilePageStyles>
 	    	<Profile user={user} bundles={bundles} reviews={reviews} userName={userName}/>
 	    </ProfilePageStyles>
+      </>
 	  )
 }
 

@@ -19,7 +19,7 @@ import ChatItems from './ChatItems';
 import NotificationItems from './NotificationItems';
 
 
-const LoggedIn = (props) => {
+const LoggedIn = ({setIsNotificatoinRead, setIsMessageRead}) => {
 
   const [showDrop, setShowDrop] = useState(false);
   const [showDropNoti, setShowDropNoti] = useState(false);
@@ -40,6 +40,7 @@ const LoggedIn = (props) => {
     const isAllNotificationsRead = allNotifications.map(item => item.read).includes(false);
     setIsReadNoti(isAllNotificationsRead);
 
+    setIsNotificatoinRead(isAllNotificationsRead);
   }, [auth.notification, allNotifications]);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const LoggedIn = (props) => {
     }).includes(true);
 
     setIsUnreadMessage(isAllMessagesRead);
-
+    setIsMessageRead(isAllMessagesRead);
   }, [auth.userMessages])
   const dropdownHandler = () => setShowDrop(prev => !prev);
   const dropdownNotiHandler = () => {

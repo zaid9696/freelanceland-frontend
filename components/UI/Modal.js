@@ -35,6 +35,10 @@ const ModalStyles = styled.div`
 	
     .modal {
     	width: 50vw;
+    	@media (max-width: 950px){
+    	width: 90vw;
+
+    	}
     	background: white;
 		height: fit-content;
     	pointer-events: all;

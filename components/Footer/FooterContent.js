@@ -17,11 +17,19 @@ const FooterContentStyles = styled.div`
 	grid-column: center-start / center-end;
 	display: grid;
   grid-template-columns: 62% 1fr;
+  @media (max-width: 777px){
+  grid-template-columns:1fr;
+
+  }
   margin-bottom: 1.5rem;
 
     .footer-lists {
     	display: grid;
     	grid-template-columns: repeat(3, 1fr);
+        @media (max-width: 500px){
+        grid-template-columns: repeat(1, 1fr);
+            justify-items: center;
+        }
 
     	h4 {
     		font-size: 1.2rem;
@@ -57,6 +65,12 @@ const FooterContentStyles = styled.div`
     		text-align: center;
     		a {
     			margin-left: 1rem;
+                @media (max-width: 500px) {
+
+                     img {
+                    width: 30px;
+                        }
+                }
     		}
     	}
 

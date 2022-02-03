@@ -10,6 +10,9 @@ const RatingStarStyles = styled.div`
     display: flex;
 
     margin-right: 0.5rem;
+    @media (max-width: 500px){
+    img {width:10px}
+    }
     span.inactve {
         filter: grayscale(1);
     }

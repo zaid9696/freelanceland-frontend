@@ -17,8 +17,22 @@ const BundleFiltersStyles = styled.div`
 	.filters{
 		display: grid;
 	    grid-template-columns: repeat(4, 1fr);
+	  
 	    gap: 2rem;
 	    width: 75%;
+    	@media (max-width:1120px){
+	    width: 95%;
+
+	    }
+    	@media (max-width:1000px){
+    		margin-top: 7rem;
+    	}
+    	@media (max-width:866px){
+    	grid-template-columns: repeat(2, 1fr);
+    	}
+    	@media (max-width:500px){
+    	grid-template-columns: repeat(1, 1fr);
+    	}
 	    margin: auto;
 	    box-shadow: 0px 2px 8px 0px #02020238;
 	    padding: 2rem 0rem;

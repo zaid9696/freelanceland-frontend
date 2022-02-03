@@ -15,6 +15,7 @@ const PanelRequestStyles = styled.div`
 	box-shadow: 0px 1px 6px 1px #02020224;
     .col-6 {
     	grid-template-columns: 1fr 30% 1fr 1fr 1fr 1fr;
+      
     	display: grid;
     }
 
@@ -25,6 +26,10 @@ const PanelRequestStyles = styled.div`
     	gap: 1rem;
     	.panel-col {
     		font-size: 0.8rem;
+        @media (max-width: 500px){
+            font-size: 0.5rem;
+
+        }
     		font-weight: 600;
     	}
     }
@@ -32,12 +37,18 @@ const PanelRequestStyles = styled.div`
     .panel-columns-content {
 
     	grid-template-columns: 1fr 30% 1fr 1fr 1fr 1fr;
+        @media (max-width: 500px){
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        font-size: 0.5rem;
+        }
     	font-size: 0.8rem;
     	font-weight: 400;
     	line-height: 1.4;
     	gap: 15px;
     	margin-top: 20px;
     	border-bottom: 1px solid #43434338;
+
+      
   
     	a {
     		display: block;
@@ -57,6 +68,10 @@ const PanelRequestStyles = styled.div`
 
     	button:nth-child(1) {
   			font-size: 0.7rem;
+        @media (max-width: 500px){
+            font-size: 0.5rem;
+            padding: 4px;
+        }
 		    background: var(--main);
 		    color: #fff;
 		    border: none;

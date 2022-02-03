@@ -1,5 +1,6 @@
 import {useState, useContext} from 'react';
 import styled from 'styled-components';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactTimeAgo from 'react-timeago';
@@ -17,7 +18,9 @@ import startReviewIcon from '../assets/icons/starReview.svg';
 const NotificationsPageStyles = styled.div`
 
 	grid-column: center-start / center-end;
-
+  @media (max-width: 1090px){
+    margin-top: 7rem;
+  }
 
 	h1 {
 
@@ -27,7 +30,10 @@ const NotificationsPageStyles = styled.div`
 	}
 	ul {
 
-			width: 75%;
+		width: 75%;
+  @media (max-width: 1090px){
+    width: 85%
+  }
 	    margin: auto;
 	    margin-top: 2rem;
 	    box-shadow: 0px 1px 5px 1px #02020238;
@@ -44,6 +50,10 @@ const NotificationsPageStyles = styled.div`
 	    margin-bottom: 1rem;
 	    border-bottom: 1px solid #eee;
 	    padding-bottom: 14px;
+  @media (max-width: 1090px){
+    flex-direction: column;
+  } 
+
 	}
 
 	.notification-icon {
@@ -52,6 +62,13 @@ const NotificationsPageStyles = styled.div`
 	    padding: 7px;
 	    display: flex;
 	    border-radius: 6px;
+  @media (max-width: 1090px){
+    width: 95%;
+    justify-content: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+  }
 
 	  &.Delivered {background: var(--main);}
       &.Cancelled {background: #e93232;}
@@ -141,6 +158,10 @@ const notificationsPage = ({result}) => {
 
   console.log({result});
   return (
+    <>
+      <Head>
+          <title> All Notifications | FreelanceLand</title>
+      </Head>
     <NotificationsPageStyles>
     		<h1>All Notifications</h1>
     		<ul>
@@ -172,6 +193,7 @@ const notificationsPage = ({result}) => {
     			})}
     		</ul>
     </NotificationsPageStyles>
+    </>
   )
 }
 

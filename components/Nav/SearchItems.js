@@ -114,11 +114,11 @@ const SearchItemsStyles = styled.ul`
 
  }
 
-const SearchItems = ({items, hideBar}) => {
+const SearchItems = ({items, hideBar, clsName}) => {
   return (
-    <SearchItemsStyles>
+    <SearchItemsStyles className={clsName}>
     	{
-    		items.map(item => <Item hideBar={hideBar} key={item.id} item={item} />)
+    		items.map(item => <Item hideBar={hideBar}  key={item.id} item={item} />)
     	}
     </SearchItemsStyles>
   )

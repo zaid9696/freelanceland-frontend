@@ -16,6 +16,11 @@ const BundlesStyles = styled.div`
 		h2 {
 
 			font-size: 2.2rem;
+			@media (max-width: 600px) {
+
+			font-size: 1.2rem;
+
+			}
 		  color: var(--main);
 		  letter-spacing: 1px;
 		  margin-top: 5rem;
@@ -24,6 +29,11 @@ const BundlesStyles = styled.div`
 
 		span {
 			font-size: 1.5rem;
+			@media (max-width: 600px) {
+
+			font-size: 1.2rem;
+
+			}
 		    margin-left: 5px;
 		    font-weight: 300;
     		color: #706f6f;
@@ -37,12 +47,20 @@ const BundlesStyles = styled.div`
 			h2 {
 				color: var(--black);
 				font-size: 2rem;
+			@media (max-width: 600px) {
+
+				font-size: 1.1rem;
+
+				}
 			}
 
 			span {
 
 				a {
-					  font-size: 1.7rem;
+					font-size: 1.7rem;
+					@media (max-width: 600px) {
+						font-size: 1rem;
+					}
 				    font-weight: 500;
 				    color: var(--main);
 
@@ -54,6 +72,17 @@ const BundlesStyles = styled.div`
 	.bundle-items {
 		display: grid;
     grid-template-columns: repeat(4, 1fr);
+    @media (max-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);	
+	}
+	@media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);	
+	}
+	@media (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);	
+	}
+
+
     gap: 1.5rem;
 	}
 
@@ -64,6 +93,9 @@ const BundlesStyles = styled.div`
     display: block;
     position: absolute;
     top: 8.8vw;
+    @media (max-width: 600px) {
+    	top: 13.8vw
+	}
     left: 6%;
 	}
 
@@ -100,7 +132,7 @@ const Bundles = ({title, desc, bundleItems, hide}) => {
     {
     	hide && <div className='bundles-title2'>
     						<h2>{title}</h2>
-    						<span><Link href={`/${desc}`}><a>{desc}</a></Link></span>
+    						<span><Link href={`/`}><a>{desc}</a></Link></span>
     					</div>
     }
     	{ !hide && <div className='bundles-title'>

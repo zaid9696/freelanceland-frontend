@@ -22,19 +22,19 @@ function MyApp({ Component, pageProps }) {
   const [onlineUsers, setOnlineUsers] = useState({});
 
   Router.onRouteChangeStart = () => {
-  console.log('onRouteChangeStart triggered');
+  // console.log('onRouteChangeStart triggered');
   setIsLoading(true);
 
 };
 
 Router.onRouteChangeComplete = () => {
-  console.log('onRouteChangeComplete triggered');
+  // console.log('onRouteChangeComplete triggered');
   setIsLoading(false);
   
 };
 
 Router.onRouteChangeError = () => {
-  console.log('onRouteChangeError triggered');
+  // console.log('onRouteChangeError triggered');
   setIsLoading(false);
   
 };
@@ -125,7 +125,10 @@ useSocket('notifications', (newNotification) => {
         });
      setNotification(pushNoti);
 
-})
+});
+
+
+  console.log({result});
 
 
   return (
