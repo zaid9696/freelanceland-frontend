@@ -9,7 +9,7 @@ import ReactCountryFlag from "react-country-flag"
 import dateFormat from '../../utils/DateFormat';
 import timeZoneDate from '../../utils/timeZoneDate';
 import Button from '../../components/UI/Button';
-// import tickMessage from '../../assets/icons/tickMessage.png';
+import tickMessage from '../../assets/icons/tickMessage.png';
 import userAvatar from '../../assets/userAvatar.jpg';
 import {ChatPanelStyles, TypeingIndicatorStyles} from '../../styles/ChatPanelStyles';
 
@@ -49,7 +49,8 @@ const ChatPanelMessages = ({item, user}) => {
 							{item.message}
 						</div>
 						<span className={`read-status ${item.read ? 'read' : 'unread'}`}>
-								
+								<Image src={tickMessage} alt='Tick icon' width={13} height={13} />
+								<Image src={tickMessage} alt='Tick icon' width={13} height={13} />
 						</span>
 				</div>
 			</div>
