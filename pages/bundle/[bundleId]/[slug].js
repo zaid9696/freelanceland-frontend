@@ -76,8 +76,7 @@ const BundlePage = ({result, allBundles}) => {
   const [favouriteArr, setFavouriteArr] = useState(userAuth.favourites || []);
   const [isFavourite, setIsFavourite] = useState(false);
   const {bundle, reviews} = result;
-  console.log({bundle});
-  console.log({userAuth: userAuth.favourites});
+
   let isFavouriteTrue
  
  useEffect(() => {
@@ -92,13 +91,11 @@ const BundlePage = ({result, allBundles}) => {
     
     if(userAuth){
       
-      console.log({favouriteArr});
+      
     isFavouriteTrue = favouriteArr.map(item => item.includes(bundle.id)).includes(true);
 
     }
 
-    console.log({favouriteArr});
-    console.log({isFavouriteTrue});
 
  setIsFavourite(isFavouriteTrue);
 
@@ -115,7 +112,7 @@ const BundlePage = ({result, allBundles}) => {
             if(res.status === 200){
               setIsFavourite(true)
             }
-            console.log({res});
+            
 
         }catch(err) {console.log(err);}
 
@@ -133,7 +130,7 @@ const BundlePage = ({result, allBundles}) => {
             if(res.status === 200){
               setIsFavourite(false)
             }
-            console.log({res});
+            
 
         }catch(err) {console.log(err);}
 

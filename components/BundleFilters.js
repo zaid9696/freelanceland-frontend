@@ -111,7 +111,7 @@ const BundleFilters = ({pageNum, categoryName}) => {
  useEffect(() => {
 
  	
- 	console.log({router});
+ 	
  	let filterName;
 
  	if(router.query.price){
@@ -195,7 +195,7 @@ useEffect(() => {
 	  const changeTickState = (e) => {
 	  		
 	  		const {id} = e.target;
-	  		console.log({checkRouter: router.query.price});
+	  	
 	
 	  		
 	  		 const newObj = {};

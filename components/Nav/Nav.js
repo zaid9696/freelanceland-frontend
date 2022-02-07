@@ -274,7 +274,7 @@ const Nav = (props) => {
   const [openDropDown, setOpenDropDown] = useState(false);
 
   const openDropDownHandler = () => setOpenDropDown(prev => !prev);
-  console.log({isMessageRead, isNotificationRead});
+ 
   const hideBarHandler = () => {
 
     setSearchResult([]);
@@ -284,13 +284,13 @@ const Nav = (props) => {
   const searchBundlesHandler = async (e) => {
 
       const {value} = e.target;
-      console.log({value});
+     
         try {
 
             if(value !== ''){
             const  res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/search/${value}`);
             setSearchResult(res.data.searchedBundles);
-            console.log({res});
+            
 
           }else {
             setSearchResult([]);

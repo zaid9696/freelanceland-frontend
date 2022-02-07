@@ -9,10 +9,7 @@ const useSocket = (eventName,cb) => {
 	useEffect(() => {
 
 
-		 // socket.on("connect", () => {
-   //           console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-   //           // console.log(socket);
-   // 		 });
+
 
 		socket.on(eventName, cb);
 		return () => {

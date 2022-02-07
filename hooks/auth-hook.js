@@ -47,7 +47,7 @@ const useAuthHook = (props) => {
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/isloggedin`);
 		
 
-			console.log(res);
+			// console.log(res);
 
 			if(res.data.noToken){
 				setIsLogged(false);

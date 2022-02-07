@@ -41,7 +41,7 @@ const Header = (props) => {
 
   }, []);
 
-  console.log({categories});
+  
 
   return (
     <HeaderStyles className='sub_container'>

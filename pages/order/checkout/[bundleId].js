@@ -51,7 +51,7 @@ const PaypalButton = ({orderBundleHandler, bundleId}) => {
                     })
                 }}
                 onApprove={function (data, actions) {
-                      // console.log({actions, data});
+                      
                       orderBundleHandler();
                   return actions.order.capture()
                   }
@@ -76,7 +76,7 @@ const CheckoutPage = ({result}) => {
   const {bundle} = result;
   const [showModal, setShowModal] = useState(false);
   // const [newOrder, setNewOrder] = useState([])
-  console.log({bundle})
+
   const [randomId, setRandomId] = useState('');
   const auth = useContext(AuthContext);
 
@@ -86,7 +86,7 @@ const CheckoutPage = ({result}) => {
 
   }, [])
 
-  // console.log(uniqid.process());
+ 
 
   const {isLoading, sendRequest, error ,clearError} = useHttpAxios();
 
@@ -95,7 +95,7 @@ const CheckoutPage = ({result}) => {
 
 const createNotification = useCallback(async (newOrder) => {
 
-        console.log({newOrder});
+        
          const values = {
               orderId: newOrder.orderId,
               status: 'Purchased',
@@ -139,7 +139,7 @@ const createNotification = useCallback(async (newOrder) => {
               const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/`, 'POST', values);
               // console.log(randomId);
 
-              console.log({res});
+              
               // setNewOrder(res.data.newOrder);
               createNotification(res.data.newOrder)
               if(res.status === 201){

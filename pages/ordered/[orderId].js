@@ -37,7 +37,7 @@ const OrderedPage = ({result}) => {
   const [timeStampOrderBuy, setTimeStampOrderBuy] = useState();
   const [timeStampOrderSell, setTimeStampOrderSell] = useState();
   const [deliverDesc, setDeliverDesc] = useState('');
-  // console.log({order: result.order});
+  
   const [orderState, setOrderState] = useState({
     isAccepted: false,
     isNotAccepted: false,
@@ -51,14 +51,15 @@ const OrderedPage = ({result}) => {
   const bundle = result.order.bundle;
   const {accepted, notAccepted, delivered, cancelled, deliveredDesc ,user} = result.order;
 
-  // console.log({order:orders});
+
   
   const {isUser} = result;
 
   
   const socket = useSocket('orders', (updatedOrder) => {
 
-      console.log({updatedOrder});
+      
+
     const isTrueSellerMe = updatedOrder.seller.includes(userAuth.id)
     const isTrueBuyerMe = updatedOrder.user.id.includes(userAuth.id)
     const isTrueSellerUser = updatedOrder.seller.includes(orders.user.id)
@@ -80,7 +81,7 @@ const OrderedPage = ({result}) => {
 
             const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/${result.order.id}`, 'PATCH', values);
 
-            console.log(res);
+         
          
             socket.emit('orders', res.data.order);
             // setOrders(res.data.order);
@@ -105,8 +106,7 @@ const OrderedPage = ({result}) => {
             }
             
             const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications`, 'POST', values);
-            console.log('notifications test');
-            console.log({res: res.data.newNotification});
+            
          
             socket.emit('notifications', res.data.newNotification);
             

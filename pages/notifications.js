@@ -156,7 +156,7 @@ const notificationsPage = ({result}) => {
 
 	}
 
-  console.log({result});
+  
   return (
     <>
       <Head>

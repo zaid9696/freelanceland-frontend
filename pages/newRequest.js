@@ -151,7 +151,7 @@ const NewRequestPage = ({allCategories}) => {
 		try{
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/offers`, 'POST', value);
-			console.log({res});
+			
       router.push(`/requests`);
 
 		}catch(err) {console.log(err)}
@@ -185,7 +185,7 @@ const NewRequestPage = ({allCategories}) => {
 			onSubmit={values => {
 				
 				 createRequestHandler(values);
-			     console.log({values});
+			     
 			 }}
 		  >
 		   {

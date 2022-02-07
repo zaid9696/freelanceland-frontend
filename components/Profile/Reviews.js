@@ -189,7 +189,7 @@ const Reviews = ({reviews, userName}) => {
 
     }, [aveRating])
 
-    console.log({reviews});
+    
     if(!reviews) return null;
 
   return (

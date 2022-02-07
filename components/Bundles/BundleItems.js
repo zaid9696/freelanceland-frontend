@@ -13,7 +13,7 @@ const BundlesItemsStyles = styled.div`
   box-shadow:0px 3px 5px 1px #02020238;
 	border-radius: 5px;
   overflow: hidden; 
-
+  height: fit-content;
   a{
     color: var(--black);
      transition: all 0.3s ease-in-out;
@@ -110,7 +110,7 @@ const BundlesItemsStyles = styled.div`
 
 const BundlesItems = ({item}) => {
 
-  console.log({item});
+
 
   return (
     <BundlesItemsStyles key={item.id}>

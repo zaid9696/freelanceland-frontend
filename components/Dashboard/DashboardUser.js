@@ -66,7 +66,7 @@ const DashboardUser = ({user}) => {
   const {userAuth} = useContext(AuthContext);
   if(!user) return null;
 
-  console.log({user});
+  
 
 
 

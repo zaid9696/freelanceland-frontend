@@ -65,7 +65,7 @@ const chatPage = ({result}) => {
 
 	})
 
-	// console.log({result});
+
   return (
     <>
     <Head>

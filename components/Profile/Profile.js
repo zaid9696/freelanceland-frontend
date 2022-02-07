@@ -61,7 +61,7 @@ const Profile = ({bundles, reviews,user , userName}) => {
 
     }, [userName])
 
-    console.log({userName, reviews});
+    
   return (
     <ProfileStyles>
     	<DashboardUser user={user} />

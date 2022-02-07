@@ -14,7 +14,7 @@ const ProfilePageStyles = styled.div`
 const ProfilePage = ({result, userName}) => {
 
 	const {bundles, reviews, user} = result;
-  console.log({bundles});
+  
 	return (
      <>
 

@@ -51,11 +51,10 @@ const isMessageReceived = (message, updatedMessages) => {
 
 const chatPage = ({result}) => {
  
-  console.log(result);
   const {user, messages, usersMessages} = result;
 
   const [message, setMessage] = useState(messages || []);
-  console.log({message});
+  
   const [newMessages, setNewMessages] = useState(null);
   const [usersMessagesState, setUsersMessagesState] = useState(usersMessages || {});
   const [field, setField] = useState('');
@@ -82,7 +81,6 @@ const chatPage = ({result}) => {
         setOnlineUsers(users);
         lastSeenCon = lastSeen
         
-        console.log({lastSeen, id: user.id, users});
     })
 
     const isTrue = Object.keys(onlineUsers).map(item =>  onlineUsers[item].includes(user.id)).includes(true);
@@ -120,13 +118,13 @@ useEffect(() => {
 
 }, [newMessages])
 
-// console.log({usersMessagesState});
+
 
 
 const socket = useSocket('message', (newMessage) => {
 
 
-      console.log(newMessage);
+      
       // displaying  typing indicator only to the receiver;
       newMessage.sender !== userAuth.id && newMessage.receiver == userAuth.id && newMessage.sender === user.id && setIsTyping(newMessage.isTyping);
       // setting the new messages; 
@@ -162,7 +160,7 @@ useSocket('isOnline',({users, lastSeen}) => {
      const isTrue = Object.keys(users).map(item =>  users[item].includes(user.id)).includes(true);
 
      setIsOnline(isTrue)
-     // console.log(isTrue);
+    
 });
 
 
@@ -176,12 +174,12 @@ useSocket('isOnline',({users, lastSeen}) => {
 useSocket('updatedMessage', updatedMessages => {
 
 
-  console.log({updatedMessages});
+  
     // let messAryList = []
 
     //  once the user receives message it will send received;
     const messageAry = isMessageReceived(message, updatedMessages);
-    console.log({messageAry});
+    
      setMessage(messageAry);
 
 
@@ -194,17 +192,17 @@ useEffect(() => {
 
     const results = message.filter(item => item.receiver.id === userAuth.id && item.sender.id === user.id && !item.read);
 
-    // console.log(results);
+    
 
     if(results.length !== 0){
-        console.log('updatedMessage');
+       
 
         let messIds = [];
 
         results.map( item => messIds.push(item.id));
         fetchUsersMessages();
         fetchUsersMessagesChat(true);
-       console.log(messIds);
+       
         socket.emit('updatedMessage', messIds);
 
     }
@@ -229,7 +227,7 @@ useEffect(() => {
       socket.emit('message', emittingValues);
       socket.on('connect', () => {
 
-            console.log(socket.id);
+            
 
       });
       setField('');
@@ -243,8 +241,7 @@ const inputFieldHandler = (e) => {
       if(e.target.value.length !== 0){
 
         
-        // setIsTyping(true);
-        // console.log({isTyping});
+   
         socket.emit('message', {isTyping: true, sender: userAuth.id,receiver: user.id});
         // if the user did not type for 15 seconds, Typing indicator will disappear
         setTimeout(() => {
@@ -262,7 +259,7 @@ const inputFieldHandler = (e) => {
 
 }
 
-  console.log({message});
+  
 
 
   return (

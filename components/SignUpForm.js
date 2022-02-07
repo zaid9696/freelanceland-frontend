@@ -17,13 +17,7 @@ const SignUpForm = ({signupHandler,...props}) => {
       password: yup.string().required('Password is required').min(4, 'Password must be at least 4 characters')
 	});
 
-   const handleSocialLogin = (user) => {
-        console.log(user);
-    };
 
-  const handleSocialLoginFailure = (err) => {
-        console.error(err);
-    }; 
 
 
   return (

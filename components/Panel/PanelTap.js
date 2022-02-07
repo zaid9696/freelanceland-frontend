@@ -51,7 +51,7 @@ const PanelTap = (props) => {
 					[id]: !prev[id]
 				}));
 
-		console.log(listActive);
+		
 
 	}
 

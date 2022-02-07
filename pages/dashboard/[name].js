@@ -128,7 +128,7 @@ const DashboardBundles = ({bundles}) => {
 
 
 const DashboardLinksContent = ({bundles, result, query, offers, reviews, allOffers, favBundles}) => {
-	console.log({bundles, result, query, reviews, allOffers, favBundles});
+	
 	const {user} = result;
 
   return (

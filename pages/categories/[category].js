@@ -133,11 +133,11 @@ const CategoryPage = ({result, pageNum}) => {
 
 	const router =  useRouter();
 	let pageFilter;
-	// console.log({router: router.query.price});
+
 	router.query.price ? pageFilter = router.query.price : '';
 	router.query.review ? pageFilter = router.query.review : ''
 
-	console.log({bundles, pageNum, pageFilter});
+	
 	const categoryName = category.categorySlug;
 
 

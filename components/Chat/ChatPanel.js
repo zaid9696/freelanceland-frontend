@@ -31,7 +31,7 @@ const ChatPanelMessages = ({item, user}) => {
 
 		const {id} = item.sender;
 
-        console.log({item});
+      
 
 	return (
 
@@ -72,12 +72,12 @@ const ChatPanel = ({messages, user,userTime,inputFieldHandler, field, messagesHa
 		// making sure that the one who disconnected is not the user
 	 	lastSeen && lastSeen.userId && lastSeen.userId == user.id ? lastSeenDate = lastSeen.date : null;
 		 // const lastSeenTime = dateFormat(lastSeenDate);
-
+      
 		 const timeZoneFunc = () => {
 
 		 	setTimeZoneLocal(null);
 		 	const timezoneLocalDate = timeZoneDate(userTime);
-		 	console.log({timezoneLocalDate});
+		 	
 			setTimeZoneLocal(timezoneLocalDate)
 
 
@@ -96,13 +96,13 @@ const ChatPanel = ({messages, user,userTime,inputFieldHandler, field, messagesHa
 
 		 }, [timezoneLocal] )
 
-			console.log({timezoneLocal: timezoneLocal, userTime});
+			
 		
 		useEffect(() => {
 
 			
 			timeZoneFunc();
-			console.log('useEffect');
+			
 			chatContainer.current?.scrollIntoView({ behavior: "smooth", block:'nearest', inline: "nearest"});
 
 			

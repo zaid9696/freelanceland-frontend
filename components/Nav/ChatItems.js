@@ -10,7 +10,7 @@ const ChatItems = ({item, userMessages, onlineUsers, userId,dropdownChatCloseHan
   	  const data = userMessages[item].item;
       const unreadCount = userMessages[item].countUnread;
       let userOnlineIdsMatched = [];
-      console.log({data, item});
+      
       Object.values(onlineUsers).map(elem => {
 
           if(elem !== userId){

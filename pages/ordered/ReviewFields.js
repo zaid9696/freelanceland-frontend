@@ -97,12 +97,12 @@ const ReviewFields = ({orders,updateOrderState, updateNotificationState,text, se
     try {
 
         if(sellerRev){
-          // console.log("from Inside");
+          
           const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/reviews`, 'POST', values);
           const body = {
             reply: res.data.newReview.id
           }
-          console.log({res});
+    
           const addToBuyerReview = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/reviews/${sellerRev}`, 'PATCH', body);
            updateOrderState({sellerReview: res.data.newReview.id});
            updateNotificationState('Reviewed');
@@ -113,7 +113,7 @@ const ReviewFields = ({orders,updateOrderState, updateNotificationState,text, se
         updateOrderState({buyerReview: res.data.newReview.id});
         updateNotificationState('Reviewed');
 
-        console.log({test:res.data.newReview.id});
+        
     }catch(err) {console.log(err);}
 
 

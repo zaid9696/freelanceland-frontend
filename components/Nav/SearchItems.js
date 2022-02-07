@@ -98,7 +98,7 @@ const SearchItemsStyles = styled.ul`
  						<a>
  							<div className='search-wrap'> 
  								<div className='search-image'>
- 									<Image alt='bundle image' src={bundleImage} width={500} height={500} />
+ 									<Image alt='bundle image' src={`${process.env.NEXT_PUBLIC_URL_PATH_IMAGES}/bundles/${item.images[0]}`} width={500} height={500} />
  								</div>
  								<div className='search-content'>
  									<h3>{item.title}</h3>

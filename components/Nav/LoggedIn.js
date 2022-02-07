@@ -30,7 +30,7 @@ const LoggedIn = ({setIsNotificatoinRead, setIsMessageRead}) => {
   const {sendRequest} = useHttpAxios()
   const auth = useContext(AuthContext);
   const userAuth = auth.userAuth;
-  console.log({usersMessages: auth.userMessages});
+
   const [allNotifications, setAllNotifications] = useState(auth.notification || []);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const LoggedIn = ({setIsNotificatoinRead, setIsMessageRead}) => {
           const newNotifications = [...allNotifications];
           setAllNotifications(newNotifications);
 
-        console.log({res});
+        
 
     }catch(err) {console.log(err);}
 

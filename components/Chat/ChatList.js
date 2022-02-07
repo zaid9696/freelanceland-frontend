@@ -129,7 +129,7 @@ const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
       // const userLoaded = item === user.userName;
       const unreadCount = usersMessages[item].countUnread;
       const isOnline = Object.values(onlineUsers).map(elem =>  {
-      // console.log({item});
+     
       let notCurrentUser;
 
       usersMessages[item].item.sender.id === userAuth.id ? notCurrentUser = usersMessages[item].item.receiver.id : notCurrentUser = usersMessages[item].item.sender.id;
@@ -137,7 +137,7 @@ const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
           return elem.includes(notCurrentUser);
 
       }).includes(true)
-      console.log({isOnline});
+      
       return (
 
             <li>
@@ -170,7 +170,7 @@ const ItemList = ({item, usersMessages, onlineUsers, userAuth, user}) => {
 
 const ChatList = ({usersMessages, onlineUsers, user}) => {
   const {userAuth} = useContext(AuthContext);
-  console.log({usersMessages}, ' From ChatList');
+  
   return (
     <ChatListStyles>
       <ul>

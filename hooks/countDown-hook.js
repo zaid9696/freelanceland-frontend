@@ -24,7 +24,7 @@ const useCountDown = ({deliverDate, updateOrderState, accepted, delivered, cance
         const minuteDi = secondDi * 60;
         const hourDi = minuteDi * 60;
         const dayDi = hourDi * 24;
-        // console.log({accepted, cancelled, delivered});
+       
         if(accepted || cancelled || notAccepted){
 
             console.log('The Order Ended');

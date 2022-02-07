@@ -19,8 +19,7 @@ const OffersPageStyles = styled.div`
 const OffersPage = ({result}) => {
 
 	const {allOffers} = result;
-	console.log({result});
-
+	
   return (
     <>
      <Head>

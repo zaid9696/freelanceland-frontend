@@ -132,7 +132,7 @@ const Bundles = ({title, desc, bundleItems, hide}) => {
     {
     	hide && <div className='bundles-title2'>
     						<h2>{title}</h2>
-    						<span><Link href={`/`}><a>{desc}</a></Link></span>
+    						<span><Link href={`/${desc}`}><a>{desc}</a></Link></span>
     					</div>
     }
     	{ !hide && <div className='bundles-title'>

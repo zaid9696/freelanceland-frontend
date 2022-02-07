@@ -217,7 +217,7 @@ const editProfile = (props) => {
   			label: item.language
   		}
   	})
-  	console.log({languagesOptions});
+  	
 
   	useEffect(() => {
 
@@ -225,13 +225,13 @@ const editProfile = (props) => {
   	 timeZone.length > 0 ? country = ct.getCountry(countryCode) : ''
   	 userAuth.skills && setMySkills(userAuth.skills);
   	country && setTimeZone(country.timezones[0]);
-  	console.log({country});
+  	
 
   	}, [timeZone,userAuth,countryCode])
 
 	
 
-	console.log({userAuth});
+	
 
 	const validate = yup.object({
 		userName: yup.string(),
@@ -277,7 +277,7 @@ const editProfile = (props) => {
 
 	const isTouchedByOneHandler = (dirty, isTouched)  => {
 
-		console.log({dirty, isTouched});
+		
 		if(dirty == false || isTouched == false || imageFile) {
 
 			return true
@@ -305,7 +305,7 @@ const editProfile = (props) => {
 
 				let res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/updateMe`, 'PATCH', form);
 
-				console.log({res});
+			
 
 			 	window.location.href = '/editProfile';
 
@@ -355,7 +355,6 @@ const editProfile = (props) => {
     						 
     						 updateUserInformation(value);
 
-    					     console.log({value});
     					 }}
     				  >
     				   {
@@ -413,12 +412,7 @@ const editProfile = (props) => {
     		                 		<button onClick={addSkillHandler} type='button'>Add Skill</button>
     		                 	</div>
     		                 </div>
-    		                 {
-    		                 	
-    		                 	console.log({from: formik})
-
-    		                 	
-    		                 }
+    		                 
     						 <Button disabled={!isTouchedByOneHandler(!formik.dirty, !isTouched)}  className='update-user-btn' type='submit'>Save Changes</Button>	
     				   		</Form>
     		

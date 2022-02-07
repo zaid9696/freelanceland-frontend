@@ -14,7 +14,7 @@ const DashboardStylePage = styled.div`
 const dashboard = ({result}) => {
 
 	const {user, cancelNum, completedNum, activeNum} = result;
-	// console.log({result});
+	
 
   return (
     <>

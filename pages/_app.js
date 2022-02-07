@@ -45,7 +45,7 @@ const socket = useSocket('connect', () => {});
 
 useSocket('isOnline', ({users, lastSeen}) => {
 
-        console.log({users, lastSeen});
+        
         setOnlineUsers(users);
 
 });
@@ -60,7 +60,7 @@ const fetchUsersMessages = async () => {
         const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/messages/usersMessages/?limit=5`);
         const {usersMessages} = res.data;
         setUserMessages(usersMessages)
-        console.log({usersMessages});
+        
     }
 
 }
@@ -68,7 +68,7 @@ const fetchUsersMessages = async () => {
  useSocket('message', (newMessage) => {
 
     
-    // console.log({newMessage});    
+       
 
     if(!newMessage.isTyping && newMessage.message){
         const isTrueSendCurrent = [newMessage].some(item => item.sender.id.includes(result.id)); 
@@ -128,7 +128,7 @@ useSocket('notifications', (newNotification) => {
 });
 
 
-  console.log({result});
+  
 
 
   return (

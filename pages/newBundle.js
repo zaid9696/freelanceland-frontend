@@ -186,7 +186,7 @@ const NewBundlePage = ({allCategories}) => {
 
 	const submitNewBundleHandler = async (values) => {
 
-		console.log({values});
+	
 
 		const form = new FormData();
 
@@ -200,7 +200,6 @@ const NewBundlePage = ({allCategories}) => {
 		form.append('revisions', values.revisions);
 		form.append('category', values.category);
 
-		// console.log({test:values.imageFileOne});
 
 		try{
 
@@ -208,7 +207,7 @@ const NewBundlePage = ({allCategories}) => {
 
 			const {bundle} = res.data;
 			router.push(`/bundle/${bundle.id}/${bundle.slug}`);
-			console.log({res});
+		
 
 		}catch(err) {console.log(err);}
 
@@ -248,7 +247,7 @@ const NewBundlePage = ({allCategories}) => {
 				 	imageFileTwo
 				 }
 				 submitNewBundleHandler(value);
-			     console.log({values, imageFileOne, imageFileTwo});
+			     
 			 }}
 		  >
 		   {
