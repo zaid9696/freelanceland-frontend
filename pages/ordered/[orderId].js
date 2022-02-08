@@ -24,7 +24,7 @@ import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import ErrorModal from '../../components/UI/ErrorModal';
 import {AuthContext} from '../../context/AuthContext';
 import useSocket from '../../hooks/useSocket';
-import ReviewFields from './../components/ReviewFields';
+import ReviewFields from '../../components/ReviewFields';
 import RatingStar from '../../components/UI/RatingStar';
 
 
