@@ -286,7 +286,7 @@ const BundlePage = ({result, allBundles}) => {
                         </div> :
                     <div className='my-bundle'>This is your bundle</div>
               }
-            <BundleReviews reviews={reviews} totalCount={bundle.ratingsQuantity} avgRating={bundle.ratingsAverage} />
+            {reviews && <BundleReviews reviews={reviews} totalCount={bundle.ratingsQuantity} avgRating={bundle.ratingsAverage} />}
       </div>
     </BundlePageStyles>
     {!hideBundles && <Bundles title='Other Bundles By' desc={bundle.user.userName} hide bundleItems={allBundles.bundles}/> }
