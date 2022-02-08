@@ -56,7 +56,7 @@ const ReviewItems = ({item}) => {
 
 const BundleReviews = ({reviews, avgRating, totalCount}) => {
 
-    if(!reviews) return ;
+    if(!reviews) return null ;
 
   return (
    <ReviewProfile className='user-review-bundle'>
