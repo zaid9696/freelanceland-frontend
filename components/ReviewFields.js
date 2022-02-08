@@ -2,10 +2,10 @@ import {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 
-import Button from '../../components/UI/Button';
-import starIcon from '../../assets/icons/star.svg';
-import useHttpAxios from '../../hooks/http-hook';
-import {AuthContext} from '../../context/AuthContext';
+import Button from './UI/Button';
+import starIcon from '../assets/icons/star.svg';
+import useHttpAxios from '../hooks/http-hook';
+import {AuthContext} from '../context/AuthContext';
 
 const ReviewFieldsStyles = styled.div`
 
