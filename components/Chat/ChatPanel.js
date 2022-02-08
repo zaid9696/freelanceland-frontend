@@ -9,7 +9,7 @@ import ReactCountryFlag from "react-country-flag"
 import dateFormat from '../../utils/DateFormat';
 import timeZoneDate from '../../utils/timeZoneDate';
 import Button from '../../components/UI/Button';
-import tickMessage from '../../assets/icons/tickMessage.png';
+import tickMessage from '../../assets/icons/tickMessage.svg';
 import userAvatar from '../../assets/userAvatar.jpg';
 import {ChatPanelStyles, TypeingIndicatorStyles} from '../../styles/ChatPanelStyles';
 
