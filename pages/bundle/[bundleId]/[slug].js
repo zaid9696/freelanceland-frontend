@@ -48,7 +48,7 @@ import share from '../../../assets/icons/share.svg';
 import RatingStar from '../../../components/UI/RatingStar';
 import userAvatar from '../../../assets/userAvatar.jpg';
 import Reviews from '../../../components/Profile/Reviews';
-import BundleReviews from '../../../componentsBundleReviews';
+import BundleReviews from '../../../components/BundleReviews';
 import DashboardUserStyles from '../../../styles/DashboardUserStyles';
 import useHttpAxios from '../../../hooks/http-hook';
 import LoadingSpinner from '../../../components/UI/LoadingSpinner';
