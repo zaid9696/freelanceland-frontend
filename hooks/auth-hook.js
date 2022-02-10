@@ -24,6 +24,8 @@ const useAuthHook = (props) => {
 
 			if(isLogged){
 
+				setUserToken('');
+				setIsLogged(false);
 				window.location.href = '/';
 
 			}
