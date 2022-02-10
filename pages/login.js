@@ -31,7 +31,8 @@ const login = (props) => {
 
           const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/login`, 'POST', values);
           auth.login();
-          // console.log({res});
+          console.log({res});
+          
          router.push(`/`)
       }catch(e){
 

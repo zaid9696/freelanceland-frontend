@@ -9,12 +9,13 @@ import useHttpAxios from '../hooks/http-hook';
 import {AuthContext} from '../context/AuthContext';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 
+import cookie from 'js-cookie';
 
 
 
 function MyApp({ Component, pageProps }) {
 
-  const {result, logout, login ,isLogged, isLoggedLoading} = useAuthHook();
+  const {result, userToken,logout, login ,isLogged, isLoggedLoading} = useAuthHook();
   const {sendRequest} = useHttpAxios();
   const [isLoading, setIsLoading] = useState(false);
   const [notification, setNotification] = useState([]);
@@ -128,7 +129,15 @@ useSocket('notifications', (newNotification) => {
 });
 
 
-  
+  // console.log({result});
+  if(userToken){
+  cookie.set('token', userToken, {expires: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000)});
+  }else{
+
+    cookie.set('token', 'logged out', {expires: 1 / 20});
+
+  }
+
 
 
   return (

@@ -8,6 +8,7 @@ const useHttpAxios = () => {
 	const [error, setError] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 
+
 	const sendRequest = useCallback(async (url, method = 'GET', data = null) => {
 
 			setIsLoading(true);

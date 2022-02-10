@@ -4,10 +4,13 @@ import {useRouter} from 'next/router';
 import useHttpAxios from '../hooks/http-hook';
 import useSocket from '../hooks/useSocket';
 
+
+
 const useAuthHook = (props) => {
  
 	const {isLoading, error, sendRequest, clearError} = useHttpAxios();
 	const [result, setResult] = useState('');
+	const [userToken, setUserToken] = useState();
 	const [isLogged, setIsLogged] = useState(false);
 	const [isLoggedLoading, setIsLoggedLoading] = useState(false);
 	const router = useRouter();
@@ -26,7 +29,8 @@ const useAuthHook = (props) => {
 			}
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
-
+  			
+				
 			setIsLogged(false);
 			setResult(null);
 		}catch(e) {
@@ -45,15 +49,16 @@ const useAuthHook = (props) => {
 
 			setIsLoggedLoading(true);
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/isloggedin`);
-		
+			
+			// console.log({res});
 
-			// console.log(res);
 
 			if(res.data.noToken){
 				setIsLogged(false);
 				setIsLoggedLoading(false);
 			}else {
 				setResult(res.data.user);
+				setUserToken(res.data.token);
 				setIsLogged(true);
 				setIsLoggedLoading(false);
 			}
@@ -80,7 +85,7 @@ const useAuthHook = (props) => {
 	}, [login]);
 
 
-	return {result, logout, login ,isLogged, isLoggedLoading};
+	return {result, userToken ,logout, login ,isLogged, isLoggedLoading};
 }
 
 export default useAuthHook;

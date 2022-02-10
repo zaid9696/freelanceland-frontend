@@ -1,6 +1,10 @@
 import {useContext} from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import axios from 'axios';
+import { getCookies, getCookie, setCookies, removeCookies } from 'cookies-next';
+
+
 
 import Hero from '../components/Hero';
 import NewOfferAndBundle from '../components/NewOfferAndBundle';
@@ -45,16 +49,19 @@ export default function Home({topRated, bunldesLatest}) {
 export async function getServerSideProps(context){
 
       // const {userName} = context.query;
+      
       const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
-
+      
       const myHeaders = new Headers();
 
       myHeaders.append('Content-Type', 'application/json');
-      myHeaders.append('Authorization', `Bearer ${token}`);
+      myHeaders.append('Authorization', `Bearer ${'token'}`);
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/topRated`,{
           method: 'GET',
           headers: myHeaders
         });
+
+
       const resLatest = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/bundles/latestBundles`,{
           method: 'GET',
           headers: myHeaders

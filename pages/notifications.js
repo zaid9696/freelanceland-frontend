@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactTimeAgo from 'react-timeago';
+import axios from 'axios';
+import cookie from 'js-cookie';
 
 import {AuthContext} from '../context/AuthContext';
 import useHttpAxios from '../hooks/http-hook';
@@ -132,10 +134,11 @@ const notificationIcons = (iconName) => {
 
 }
 
+let testToken = 'to';
 
 const notificationsPage = ({result}) => {
 	const {notifications} = result;
-
+  
 	const {userAuth, fetchNotifications} = useContext(AuthContext);
 	const {sendRequest} = useHttpAxios();
 
@@ -149,12 +152,14 @@ const notificationsPage = ({result}) => {
 
   		const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications/${notificationId}`, 'PATCH');
   		fetchNotifications()
-    	// console.log({fromNoti: res});
+  
 
   	}catch(err) {console.log(err);}
 
 
 	}
+
+  
 
   
   return (
@@ -202,14 +207,16 @@ export async function getServerSideProps(context){
 
   // const {userName} = context.query;
   const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
-
+    
     const myHeaders = new Headers();
 
       myHeaders.append('Content-Type', 'application/json');
       myHeaders.append('Authorization', `Bearer ${token}`);
-       
+
+ 
       const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/notifications`,{
         method: 'GET',
+        credentials: 'include',
         headers: myHeaders
       });
 
