@@ -30,7 +30,7 @@ const useAuthHook = (props) => {
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
   			
-				
+			setUserToken('Logged Out');
 			setIsLogged(false);
 			setResult(null);
 		}catch(e) {
