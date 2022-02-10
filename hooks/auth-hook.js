@@ -24,8 +24,10 @@ const useAuthHook = (props) => {
 
 			if(isLogged){
 
-				
+				setTimeout(() => {
+
 				window.location.href = '/';
+				}, 2000)
 
 			}
 

@@ -132,7 +132,7 @@ useSocket('notifications', (newNotification) => {
 
   // console.log({result});
   if(userToken && isLogged){
-  // cookie.set('token', userToken, {expires: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000)});
+  cookie.set('token', userToken, {expires: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000)});
   }else{
 
     cookie.set('token', 'logged out', {expires: 1 / 20});
