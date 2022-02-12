@@ -9,4 +9,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Creating bundle with uploading images
 - Creating Requests 
 - Categories for bundles
+- Filtering system that can filter bundles by price and reviews
 
