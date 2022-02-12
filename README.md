@@ -13,4 +13,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Pagination feature in filtering system
 - Reviewing and rating users after completing an order 
 - Editing profile and uploading avatar
+- Dashboard page so users could see thier informations
 
