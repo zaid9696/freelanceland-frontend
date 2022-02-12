@@ -8,4 +8,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Sign up and login feature
 - Creating bundle with uploading images
 - Creating Requests 
+- Categories 
 
