@@ -15,4 +15,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Editing profile and uploading avatar
 - Dashboard page so users could see thier informations
 - Saving bundles to favourites and sharing it to social media
+- The app is responsive
 
