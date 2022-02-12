@@ -1,4 +1,4 @@
-This is a MERN Stack [Freelancland](https://freelanceland.netlify.app/) project with separate [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a MERN Stack [Freelancland](https://freelanceland.netlify.app/) project with separate [Backend](https://github.com/zaid9696/freelanceland-backend).
 
 ## Getting Started
 
