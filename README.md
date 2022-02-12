@@ -2,5 +2,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 
 ## App Features
 
-- Chat 
+- instant messaging between users 
 
