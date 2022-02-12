@@ -11,4 +11,6 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Categories for bundles
 - Filtering system that can filter bundles by price and reviews
 - Pagination feature in filtering system
+- Reviewing and rating users after completing an order 
+- Editing profile and uploaing avatar
 
