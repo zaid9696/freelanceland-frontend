@@ -5,5 +5,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Instant messaging between users using Socket.io
 - Instant notifications if there is message or order using Socket.io
 - Sign up and login feature
-- Creating bundle with uploading images feature
+- Creating bundle with uploading images
 
