@@ -3,5 +3,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 ## App Features
 
 - Instant messaging between users using Socket.io
-- Instant Notifications if there is Message or Order
+- Instant notifications if there is message or order
 
