@@ -2,5 +2,5 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 
 ## App Features
 
-- instant messaging between users 
+- Instant messaging between users using Socket.io
 
