@@ -16,6 +16,6 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 - Dashboard page so users could see thier informations
 - Saving bundles to favourites and sharing it to social media
 - The app is responsive
-- Search bunldes with search bar 
+- Search bundles with search bar 
 - Auto detect of your country and timezone using [ipgeolocation](https://ipgeolocation.io/)
 
