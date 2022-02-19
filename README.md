@@ -3,8 +3,8 @@ This is a MERN Stack [Freelanceland](https://freelanceland.netlify.app/) project
 ## App Features
 
 - Instant messaging between users using Socket.io
-- Instant notifications if there is message or order using Socket.io
-- Orders can be payed with PayPal payment gateway
+- Instant notifications if there is a message or order using Socket.io
+- Orders can be paid with PayPal payment gateway
 - Sign up and login feature
 - Creating bundle with uploading images
 - Creating Requests 
