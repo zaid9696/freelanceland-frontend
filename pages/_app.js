@@ -131,14 +131,14 @@ useSocket('notifications', (newNotification) => {
 });
 
 
-<<<<<<< HEAD
+
   if(userToken && isLogged){
   console.log({result, userToken});
   console.log('Token Login');
-=======
+
   // console.log({result});
   if(userToken && isLogged){
->>>>>>> 558dfef893ed10c253a7728bd8a901777f12f62e
+
   cookie.set('token', userToken, {expires: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000)});
   }else{
 
