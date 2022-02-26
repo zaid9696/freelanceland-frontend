@@ -229,11 +229,14 @@ const BundlePage = ({result, allBundles}) => {
             </div>
         </div>
 
-        <button className='user-edit-profile contact'>
+        {
+          userAuth ? <button className='user-edit-profile contact'>
                 <Link href={`/chat/${bundle.user.userName}`}>
                     <a>Contact</a>
                 </Link>
-            </button> 
+            </button>  :
+            <div className='my-bundle'> Log in to contact</div>
+        }
       </DashboardUserStyles>   	
 
       <div className='content'>

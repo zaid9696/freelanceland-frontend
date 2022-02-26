@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 
 import useHttpAxios from '../hooks/http-hook';
 import useSocket from '../hooks/useSocket';
+import cookie from 'js-cookie';
 
 
 
@@ -12,6 +13,7 @@ const useAuthHook = (props) => {
 	const [result, setResult] = useState('');
 	const [userToken, setUserToken] = useState();
 	const [isLogged, setIsLogged] = useState(false);
+	const [tokenOut, setTokenOut] = useState(false);
 	const [isLoggedLoading, setIsLoggedLoading] = useState(false);
 	const router = useRouter();
 	const logout = useCallback(async () => {
@@ -24,13 +26,18 @@ const useAuthHook = (props) => {
 
 			if(isLogged){
 
+    			
+				setTimeout(() => {
+
 				window.location.href = '/';
+				}, 2000)
+
+				
 
 			}
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
   			
-				
 			setIsLogged(false);
 			setResult(null);
 		}catch(e) {
@@ -85,7 +92,7 @@ const useAuthHook = (props) => {
 	}, [login]);
 
 
-	return {result, userToken ,logout, login ,isLogged, isLoggedLoading};
+	return {result,setTokenOut ,userToken ,logout, login ,isLogged, isLoggedLoading};
 }
 
 export default useAuthHook;

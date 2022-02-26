@@ -15,9 +15,10 @@ import cookie from 'js-cookie';
 
 function MyApp({ Component, pageProps }) {
 
-  const {result, userToken,logout, login ,isLogged, isLoggedLoading} = useAuthHook();
+  const {result, setTokenOut ,userToken,logout, login ,isLogged, isLoggedLoading} = useAuthHook();
   const {sendRequest} = useHttpAxios();
   const [isLoading, setIsLoading] = useState(false);
+
   const [notification, setNotification] = useState([]);
   const [userMessages, setUserMessages] = useState({});
   const [onlineUsers, setOnlineUsers] = useState({});
@@ -129,11 +130,14 @@ useSocket('notifications', (newNotification) => {
 });
 
 
-  // console.log({result});
   if(userToken && isLogged){
+  console.log({result, userToken});
+  console.log('Token Login');
   cookie.set('token', userToken, {expires: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000)});
   }else{
 
+  console.log('Token Logouot');
+  
     cookie.set('token', 'logged out', {expires: 1 / 20});
 
   }
