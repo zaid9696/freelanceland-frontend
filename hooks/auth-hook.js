@@ -26,18 +26,28 @@ const useAuthHook = (props) => {
 
 			if(isLogged){
 
+<<<<<<< HEAD
     			
+=======
+>>>>>>> 558dfef893ed10c253a7728bd8a901777f12f62e
 				setTimeout(() => {
 
 				window.location.href = '/';
 				}, 2000)
+<<<<<<< HEAD
 
 				
+=======
+>>>>>>> 558dfef893ed10c253a7728bd8a901777f12f62e
 
 			}
 
 			const res = await sendRequest(`${process.env.NEXT_PUBLIC_URL_PATH}/users/logout`, 'POST');
   			
+<<<<<<< HEAD
+=======
+			setUserToken('Logged Out');
+>>>>>>> 558dfef893ed10c253a7728bd8a901777f12f62e
 			setIsLogged(false);
 			setResult(null);
 		}catch(e) {

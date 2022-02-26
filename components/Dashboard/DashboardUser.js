@@ -100,17 +100,6 @@ const DashboardUser = ({user}) => {
                       </button>        
                     </div>}
                   </div>
-     {/*  <div className='user-numbers'>
-                 <p>Delivered on Time</p>
-                 <div className='user-progress-wrap'>
-     
-                   <div className='user-progress'>
-                       <div role='progressbar' aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" className='progress-bar' style={{width: '100%'}}></div>
-                   </div>
-                   <span>100%</span>
-     
-                 </div>
-             </div>  */}
 
           <div className='user-numbers'>
           <p>Completed Orders</p>
