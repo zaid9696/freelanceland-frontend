@@ -34,14 +34,24 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRW2T0KXTB"></script>
-      <script>
-        window.dataLayer = window.dataLayer || []
-        function gtag(){dataLayer.push(arguments)}
-        gtag('js', new Date());
 
-        gtag('config', 'G-PRW2T0KXTB')
-      </script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-PRW2T0KXTB"
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-PRW2T0KXTB', { page_path: window.location.pathname });
+            `,
+          }}
+        />
+
+      
         <meta name="theme-color" content="#634CC2" />
            <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
