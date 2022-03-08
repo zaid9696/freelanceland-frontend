@@ -34,6 +34,15 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRW2T0KXTB"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PRW2T0KXTB');
+      </script>
         <meta name="theme-color" content="#634CC2" />
            <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
