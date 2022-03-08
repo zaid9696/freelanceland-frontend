@@ -36,11 +36,11 @@ export default class MyDocument extends Document {
         <Head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRW2T0KXTB"></script>
       <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        window.dataLayer = window.dataLayer || []
+        function gtag(){dataLayer.push(arguments)}
         gtag('js', new Date());
 
-        gtag('config', 'G-PRW2T0KXTB');
+        gtag('config', 'G-PRW2T0KXTB')
       </script>
         <meta name="theme-color" content="#634CC2" />
            <link
