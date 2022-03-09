@@ -340,12 +340,12 @@ const confirmOrderHandler = (type) => {
 export async function getServerSideProps(context){
 
       const {orderId} = context.query;
-      const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
-
+      const token = context.req.headers.cookie ? context.req.headers.cookie.split('token=')[1] : null;
+      const tokenPure = token.split(';')[0];
       const myHeaders = new Headers();
 
       myHeaders.append('Content-Type', 'application/json');
-      myHeaders.append('Authorization', `Bearer ${token}`);
+      myHeaders.append('Authorization', `Bearer ${tokenPure}`);
        
         const res = await fetch(`${process.env.NEXT_PUBLIC_URL_PATH}/orders/${orderId}`,{
           method: 'GET',
