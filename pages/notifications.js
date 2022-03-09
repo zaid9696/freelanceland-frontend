@@ -206,7 +206,7 @@ const notificationsPage = ({result}) => {
 export async function getServerSideProps(context){
 
   // const {userName} = context.query;
-  const token = context.req.headers.cookie ? context.req.headers.cookie.split('=')[1] : null;
+  const token = context.req.headers.cookie ? context.req.headers.cookie.split('token=')[1] : null;
     
     const myHeaders = new Headers();
 
