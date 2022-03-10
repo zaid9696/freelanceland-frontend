@@ -19,6 +19,18 @@ const InfoStyles = styled.div`
 
 	.main-color {color: var(--main)}
 
+	a.view-video {
+
+		z-index: 21;
+	    position: relative;
+	    width: 100%;
+	    display: block;
+	    text-align: center;
+	    margin-top: 7px;
+	    font-weight: 900;
+	    color: var(--main);
+	}
+
 
 
 `;
@@ -26,6 +38,7 @@ const InfoStyles = styled.div`
 const Info = (props) => {
   return (
     <InfoStyles>
+    	<a className='view-video' href="/FreelancelandVideo.m4v" target="_blank">View video of features of the website</a>
     	<h2>Bring Your Ideas to Life with Perfect Freelancers from <span className='main-color'>FreelanceLand</span></h2>
     	<InfoItems />
     </InfoStyles>
